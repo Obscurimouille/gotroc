@@ -1,4 +1,4 @@
-export enum EnumItemCondition {
+export enum EnumCondition {
   NEW = 'NEW',
   EXCELLENT = 'EXCELLENT',
   GOOD = 'GOOD',

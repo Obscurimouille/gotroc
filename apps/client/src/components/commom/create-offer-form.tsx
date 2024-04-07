@@ -28,7 +28,7 @@ import {
 import { CaretSortIcon, CheckIcon, PlusIcon } from '@radix-ui/react-icons';
 import { cn } from '@lib/utils';
 import React, { useState } from 'react';
-import { EnumItemCondition } from '@gotroc/types';
+import { EnumCondition } from '@gotroc/types';
 import {
   Select,
   SelectContent,
@@ -68,7 +68,7 @@ const formSchema = z.object({
     .min(1, {
       message: 'Veuillez choisir une catégorie',
     }),
-  condition: z.nativeEnum(EnumItemCondition, {
+  condition: z.nativeEnum(EnumCondition, {
     required_error: 'Veillez renseigner un état',
     invalid_type_error: 'État invalide',
   }),
@@ -101,16 +101,15 @@ const CreateOfferForm = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-    },
+    defaultValues: {},
   });
 
   const conditionTranslations = {
-    [EnumItemCondition.NEW]: 'Neuf',
-    [EnumItemCondition.EXCELLENT]: 'Excellent',
-    [EnumItemCondition.GOOD]: 'Bon',
-    [EnumItemCondition.FAIR]: 'Moyen',
-    [EnumItemCondition.DAMAGED]: 'Endommagé',
+    [EnumCondition.NEW]: 'Neuf',
+    [EnumCondition.EXCELLENT]: 'Excellent',
+    [EnumCondition.GOOD]: 'Bon',
+    [EnumCondition.FAIR]: 'Moyen',
+    [EnumCondition.DAMAGED]: 'Endommagé',
   };
 
   const addImages = (images: FileList) => {
@@ -119,11 +118,8 @@ const CreateOfferForm = () => {
       nbSuccess += +addImage(images[i]);
     }
     if (images.length && nbSuccess === images.length) {
-      if (images.length === 1) {
-        toast.success('1 fichier ajouté');
-      } else {
-        toast.success(images.length + ' fichiers ajoutés');
-      }
+      if (images.length === 1) toast.success('1 fichier ajouté');
+      else toast.success(images.length + ' fichiers ajoutés');
     }
   };
 
@@ -186,7 +182,7 @@ const CreateOfferForm = () => {
             name="price"
             render={({ field }) => (
               <FormItem className="shrink-1 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-                <FormLabel className="text-lg">Prix</FormLabel>
+                <FormLabel className="text-lg">Prix (€)</FormLabel>
                 <FormControl>
                   <Input {...field} type="number" className="max-w-32" step="any" />
                 </FormControl>
@@ -283,7 +279,7 @@ const CreateOfferForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {Object.values(EnumItemCondition).map((condition) => (
+                    {Object.values(EnumCondition).map((condition) => (
                       <SelectItem key={condition} value={condition}>
                         {conditionTranslations[condition]}
                       </SelectItem>

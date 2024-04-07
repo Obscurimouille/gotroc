@@ -9,7 +9,7 @@ export const Categories: MainCategory[] = [
       { name: 'Caravanes', value: 'caravans' },
       { name: 'Utilitaires', value: 'utilities' },
       { name: 'Equipement Auto', value: 'auto-equipment' },
-      { name: 'Equipement Moto', value: 'moto-equipment' },
+      { name: 'Equipement Moto', value: 'motorbike-equipment' },
     ],
   },
   {
