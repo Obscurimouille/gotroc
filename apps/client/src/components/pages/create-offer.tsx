@@ -1,14 +1,15 @@
-import CreateOfferForm from "@components/commom/create-offer-form";
-import Header from "@components/commom/header";
+import CreateOfferForm from "@components/common/create-offer-form";
+import Header from "@components/common/header";
+import { Page, PageContent } from "../common/layout";
 
 function CreateOfferPage() {
   return (
-    <div className="flex flex-col items-center min-h-dvh bg-neutral-100">
+    <Page>
       <Header />
-      <div className="w-full lg:w-[1000px] h-full ">
+      <PageContent>
         <CreateOfferForm />
-      </div>
-    </div>
+      </PageContent>
+    </Page>
   );
 }
 

@@ -1,4 +1,4 @@
-import Header from "@components/commom/header";
+import Header from "@components/common/header";
 
 function LoginPage() {
   return (

@@ -46,10 +46,6 @@ oneHourAgo.setHours(now.getHours() - 1);
 let fiveMinutesAgo = new Date();
 fiveMinutesAgo.setMinutes(now.getMinutes() - 5);
 
-console.log(now.getHours());
-console.log(oneHourAgo.getHours());
-console.log(fiveMinutesAgo);
-
 export const Offers: Offer[] = [
   {
     id: 0,
@@ -64,7 +60,7 @@ export const Offers: Offer[] = [
   {
     id: 1,
     title: 'Vélo femme',
-    price: 110,
+    price: 110.00,
     category: 'bikes',
     condition: EnumCondition.FAIR,
     description: 'Vélo en très bon état. Vendu avec casque et gourde.',
@@ -74,7 +70,7 @@ export const Offers: Offer[] = [
   {
     id: 2,
     title: 'Lot de jeux de société dans un état certin lol',
-    price: 20,
+    price: 20.499,
     category: 'toys-and-games',
     condition: EnumCondition.GOOD,
     description: '8 jeux de société en bon état.',

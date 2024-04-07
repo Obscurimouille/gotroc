@@ -1,8 +1,9 @@
-import Header from '@components/commom/header';
+import Header from '@components/common/header';
 import { useLocation } from 'react-router-dom';
-import OfferSection from '@components/commom/offer-section';
+import OfferSection from '@components/common/offer-section';
 import { Offers } from '@data/offers';
-import OfferCreatedCard from '@components/commom/offer-created-card';
+import OfferCreatedCard from '@components/common/offer-created-card';
+import { Page, PageContent } from '../common/layout';
 
 const HomePage = () => {
   const location = useLocation();
@@ -10,15 +11,13 @@ const HomePage = () => {
   const offerCreated = !!Number(queryParams.get('offer_created'));
 
   return (
-    <div className="flex flex-col items-center min-h-dvh bg-neutral-50">
+    <Page>
       <Header />
-      <div className="w-full flex justify-center px-4">
-        <div className="w-full lg:w-[1000px] h-full">
-          {offerCreated && <OfferCreatedCard />}
-          <OfferSection title={"À la une aujourd'hui"} offers={Offers} />
-        </div>
-      </div>
-    </div>
+      <PageContent className="pt-8 gap-8">
+        {offerCreated && <OfferCreatedCard />}
+        <OfferSection title={"À la une aujourd'hui"} offers={Offers} />
+      </PageContent>
+    </Page>
   );
 };
 

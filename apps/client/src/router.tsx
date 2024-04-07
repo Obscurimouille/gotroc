@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import HomePage from '@components/pages/home';
 import CreateOfferPage from '@components/pages/create-offer';
 import LoginPage from '@components/pages/login';
+import OfferPage from '@components/pages/offer';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/create',
     element: <CreateOfferPage />,
+  },
+  {
+    path: '/offer/:id',
+    element: <OfferPage />,
   },
 ]);
 
