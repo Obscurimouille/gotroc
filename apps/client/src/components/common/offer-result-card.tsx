@@ -1,22 +1,44 @@
+import { Categories } from '@data/categories';
 import { Offer } from '@gotroc/types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { OfferService } from 'src/services/offer.service';
+import ButtonFavorite from './button-favorite';
 
-const OfferResultCard = ({ offer, ...props }: { offer: Offer }) => {
+const OfferResultCard = ({
+  offer,
+  hideSubCategory,
+  ...props
+}: {
+  offer: Offer;
+  hideSubCategory?: boolean;
+}) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const categoryName = Categories.flatMap((c) => c.subCategories).find(
+    (c) => c.value === offer.category,
+  )!.name;
+  if (!categoryName) throw new Error(`Category ${offer.category} not found`);
+  const formattedPrice = OfferService.formatPrice(offer.price);
+  const formattedDate = OfferService.formatDate(offer.date);
+
   return (
     <Link
-      to={`/offers/${offer.id}`}
-      className="w-full bg-background mt-8 py-10 px-12 flex justify-between rounded-xl gap-12"
+      to={`/offer/${offer.id}`}
+      className="group w-full h-40 bg-background flex rounded-xl overflow-hidden shadow-md"
     >
-      <div className="flex gap-8">
-        <img src={offer.images[0]} alt="Offer" className="w-48 h-48 object-cover rounded-lg" />
-        <div className="flex flex-col gap-2">
-          <h1 className="font-semibold text-3xl leading-[1.2]">{offer.title}</h1>
-          <p className="text-lg">{offer.description}</p>
+      <img src={offer.images[0]} alt="Offer" className="h-full aspect-[4/3] object-cover" />
+      <div className="flex-1 p-4 flex justify-between">
+        <div className="flex flex-col gap-1">
+          <h2 className="font-semibold text-xl leading-[1.2] mb-1 group-hover:text-primary transition-colors">
+            {offer.title}
+          </h2>
+          <p className="flex-1 text-sm font-semibold">{formattedPrice}</p>
+          {!hideSubCategory && <p className="text-xs">{categoryName}</p>}
+          <p className="text-xs">{formattedDate}</p>
         </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <p className="text-2xl font-semibold">{offer.price} €</p>
-        <p className="text-lg">{offer.category}</p>
+        <div className="flex flex-col gap-2">
+          <ButtonFavorite isFavorite={isFavorite} onClick={() => setIsFavorite(!isFavorite)} />
+        </div>
       </div>
     </Link>
   );

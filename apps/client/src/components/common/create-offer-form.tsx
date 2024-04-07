@@ -36,6 +36,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@components/ui/select';
+import { OfferService } from 'src/services/offer.service';
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2; // 2MB
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -103,14 +104,6 @@ const CreateOfferForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {},
   });
-
-  const conditionTranslations = {
-    [EnumCondition.NEW]: 'Neuf',
-    [EnumCondition.EXCELLENT]: 'Excellent',
-    [EnumCondition.GOOD]: 'Bon',
-    [EnumCondition.FAIR]: 'Moyen',
-    [EnumCondition.DAMAGED]: 'Endommagé',
-  };
 
   const addImages = (images: FileList) => {
     let nbSuccess = 0;
@@ -281,7 +274,7 @@ const CreateOfferForm = () => {
                   <SelectContent>
                     {Object.values(EnumCondition).map((condition) => (
                       <SelectItem key={condition} value={condition}>
-                        {conditionTranslations[condition]}
+                        {OfferService.formatCondition(condition)}
                       </SelectItem>
                     ))}
                   </SelectContent>

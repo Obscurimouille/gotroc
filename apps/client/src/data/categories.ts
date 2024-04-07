@@ -3,6 +3,7 @@ import { MainCategory } from "@gotroc/types";
 export const Categories: MainCategory[] = [
   {
     name: 'Véhicules',
+    value: 'vehicles',
     subCategories: [
       { name: 'Voitures', value: 'cars' },
       { name: 'Motos', value: 'motorcycles' },
@@ -14,6 +15,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Immobilier',
+    value: 'real-estate',
     subCategories: [
       { name: 'Ventes immobilières', value: 'real-estate-sales' },
       { name: 'Locations', value: 'rentals' },
@@ -23,6 +25,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Electronique',
+    value: 'electronics',
     subCategories: [
       { name: 'Ordinateurs', value: 'computers' },
       { name: 'Accessoires informatique', value: 'computer-accessories' },
@@ -35,6 +38,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Maison & Jardin',
+    value: 'home-and-garden',
     subCategories: [
       { name: 'Ameublement', value: 'furnishing' },
       { name: 'Décoration', value: 'decoration' },
@@ -46,6 +50,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Mode',
+    value: 'fashion',
     subCategories: [
       { name: 'Vêtements', value: 'clothing' }, // Ajout de la valeur pour Vêtements
       { name: 'Chaussures', value: 'shoes' }, // Ajout de la valeur pour Chaussures
@@ -55,6 +60,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Loisirs',
+    value: 'leisure',
     subCategories: [
       { name: 'DVD & Films', value: 'movies' }, // Ajout de la valeur pour DVD & Films
       { name: 'CD & Musique', value: 'music' }, // Ajout de la valeur pour CD & Musique
@@ -70,6 +76,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Animaux',
+    value: 'animals',
     subCategories: [
       { name: 'Animaux', value: 'pets' }, // Ajout de la valeur pour Animaux
       { name: 'Accessoires', value: 'accessories' }, // Ajout de la valeur pour Accessoires
@@ -78,6 +85,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Services',
+    value: 'services',
     subCategories: [
       { name: 'Artistes et Musiciens', value: 'artists-and-musicians' },
       { name: 'Baby-sitting', value: 'babysitting' }, // Ajout de la valeur pour Baby-sitting
@@ -96,6 +104,7 @@ export const Categories: MainCategory[] = [
   },
   {
     name: 'Materiel professionnel',
+    value: 'professional-equipment',
     subCategories: [
       { name: 'Matériel agricole', value: 'agricultural-equipment' }, // Ajout de la valeur pour Matériel agricole
       { name: 'Tracteurs', value: 'tractors' }, // Ajout de la valeur pour Tracteurs

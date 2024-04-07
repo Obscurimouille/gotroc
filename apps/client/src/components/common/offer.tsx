@@ -1,9 +1,7 @@
 import { Button } from '@components/ui/button';
-import { Offers } from '@data/offers';
 import { Offer as OfferType } from '@gotroc/types';
 import { cn } from '@lib/utils';
 import { OfferService } from 'src/services/offer.service';
-import OfferSection from './offer-section';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,18 +9,14 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@components/ui/breadcrumb';
-import { CopyIcon, Share1Icon, StarFilledIcon, StarIcon } from '@radix-ui/react-icons';
+import { CopyIcon, Share1Icon } from '@radix-ui/react-icons';
 import { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@components/ui/dialog';
 import { Input } from '@components/ui/input';
 import { Label } from '@components/ui/label';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'sonner';
+import ButtonFavorite from './button-favorite';
 
 const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: string }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -43,10 +37,10 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
   const shareDialog = (
     <Dialog open={isShareDialogOpen} onOpenChange={() => setIsShareDialogOpen(false)}>
       <DialogContent>
-        <DialogHeader className='mb-1'>
+        <DialogHeader className="mb-1">
           <DialogTitle>Partager l'annonce</DialogTitle>
         </DialogHeader>
-        <div className='grid w-full items-center gap-1.5'>
+        <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="url">Lien</Label>
           <div className="w-full items-center flex gap-2">
             <Input id="url" type="text" className="flex-1" value={url} readOnly />
@@ -74,13 +68,13 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="underline">
-                {mainCategory?.name}
+              <BreadcrumbLink href={'/query?category=' + mainCategory.value} className="underline">
+                {mainCategory.name}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="underline">
+              <BreadcrumbLink href={'/query?subcategory=' + category.value} className="underline">
                 {category.name}
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -93,9 +87,7 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <Button variant="ghost" size="icon" onClick={() => setIsShareDialogOpen(true)}>
             <Share1Icon />
           </Button>
-          <Button variant="ghost" size="icon" onClick={() => setIsFavorite(!isFavorite)}>
-            {isFavorite ? <StarFilledIcon /> : <StarIcon />}
-          </Button>
+          <ButtonFavorite isFavorite={isFavorite} onClick={() => setIsFavorite(!isFavorite)} />
         </div>
       </div>
 

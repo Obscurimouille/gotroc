@@ -81,7 +81,7 @@ export const Offers: Offer[] = [
     id: 3,
     title: 'Jeux DS',
     price: 10,
-    category: 'toys-and-games',
+    category: 'video-games',
     condition: EnumCondition.GOOD,
     description: 'Jeux DS en bon état.',
     images: [IMG_JEUX_DS_1],

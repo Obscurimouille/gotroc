@@ -7,16 +7,16 @@ import { OfferService } from 'src/services/offer.service';
 
 const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const formattedDate = OfferService.formatDate(offer.date);
+  const formattedDate = OfferService.formatDate(offer.date, { displayTime: true });
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
-    if (isFavorite) toast.error('Article supprimé des favoris');
+    if (isFavorite) toast('Article supprimé des favoris');
     else toast.success('Article ajouté aux favoris');
   };
 
   return (
-    <Link to={`/offer/${offer.id}`} className="h-full flex flex-col overflow-hidden max-w-40">
+    <Link to={`/offer/${offer.id}`} className="group h-full flex flex-col overflow-hidden max-w-40">
       <img
         src={offer.images[0]}
         alt="Offer"
@@ -24,7 +24,7 @@ const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
       />
 
       <div className="flex gap-2 md:gap-8 mt-2 mb-1 items-start justify-between">
-        <p className="font-normal leading-[1.2] line-clamp-2">{offer.title}</p>
+        <h3 className="font-normal leading-[1.2] line-clamp-2 group-hover:text-primary transition-colors">{offer.title}</h3>
         <button
           className="mt-[.1rem]"
           onClick={(e) => {

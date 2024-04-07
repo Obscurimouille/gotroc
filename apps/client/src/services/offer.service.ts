@@ -1,9 +1,17 @@
 import { Categories } from '@data/categories';
-import { Category, MainCategory } from '@gotroc/types';
+import { Category, EnumCondition, MainCategory } from '@gotroc/types';
 import { isYesterday, isToday } from '@lib/utils';
 
 export class OfferService {
-  public static formatDate(date: Date): string {
+  private static conditionTranslations = {
+    [EnumCondition.NEW]: 'Neuf',
+    [EnumCondition.EXCELLENT]: 'Excellent',
+    [EnumCondition.GOOD]: 'Bon',
+    [EnumCondition.FAIR]: 'Moyen',
+    [EnumCondition.DAMAGED]: 'Endommagé',
+  };
+
+  public static formatDate(date: Date, options?: { displayTime?: boolean }): string {
     // return new Intl.DateTimeFormat('fr-FR', {
     //   year: 'numeric',
     //   month: 'long',
@@ -11,9 +19,9 @@ export class OfferService {
     // }).format(date);
     // DD/MM/YYYY
     const formattedHours = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-    if (isYesterday(date)) return 'Hier à ' + formattedHours;
-    if (isToday(date)) return "Aujourd'hui à " + formattedHours;
-    return date.toLocaleDateString('fr-FR') + ' à ' + formattedHours;
+    if (isYesterday(date)) return 'Hier' + (options?.displayTime ? ' à ' + formattedHours : '');
+    if (isToday(date)) return "Aujourd'hui" + (options?.displayTime ? ' à ' + formattedHours : '');
+    return date.toLocaleDateString('fr-FR') + (options?.displayTime ? ' à ' + formattedHours : '');
   }
 
   public static formatPrice(price: number, options?: Intl.NumberFormatOptions): string {
@@ -34,5 +42,9 @@ export class OfferService {
 
   public static getSubCategory(categoryValue: string): Category | undefined {
     return Categories.flatMap((c) => c.subCategories).find((c) => c.value === categoryValue);
+  }
+
+  public static formatCondition(condition: EnumCondition): string {
+    return this.conditionTranslations[condition] || '';
   }
 }

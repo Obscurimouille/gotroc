@@ -1,5 +1,6 @@
 export type MainCategory = {
   name: string;
+  value: string;
   icon?: string;
   subCategories: Category[];
 };
