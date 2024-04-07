@@ -4,6 +4,7 @@ import CreateOfferPage from '@components/pages/create-offer';
 import LoginPage from '@components/pages/login';
 import OfferPage from '@components/pages/offer';
 import OfferResultsPage from '@components/pages/offer-results';
+import NotFoundPage from '@components/pages/not-found';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/query',
     element: <OfferResultsPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 
