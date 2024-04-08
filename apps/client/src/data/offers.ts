@@ -1,4 +1,8 @@
 import { EnumCondition, Offer } from '@gotroc/types';
+import IMG_205_GTI_1 from '../assets/offers/205_gti_1.jpg';
+import IMG_205_GTI_2 from '../assets/offers/205_gti_2.jpg';
+import IMG_A110_1 from '../assets/offers/a110_1.jpg';
+import IMG_A110_2 from '../assets/offers/a110_2.jpg';
 import IMG_A3_1 from '../assets/offers/a3_1.jpg';
 import IMG_A3_2 from '../assets/offers/a3_2.jpg';
 import IMG_A3_3 from '../assets/offers/a3_3.jpg';
@@ -6,6 +10,8 @@ import IMG_A3_4 from '../assets/offers/a3_4.jpg';
 import IMG_A3_5 from '../assets/offers/a3_5.jpg';
 import IMG_CASQUE_MOTO_1 from '../assets/offers/casque_moto_1.jpg';
 import IMG_CASQUE_MOTO_2 from '../assets/offers/casque_moto_2.jpg';
+import IMG_CAYENNE_1 from '../assets/offers/cayenne_1.jpg';
+import IMG_CAYENNE_2 from '../assets/offers/cayenne_2.jpg';
 import IMG_CB650R_1 from '../assets/offers/cb650r_1.jpg';
 import IMG_CB650R_2 from '../assets/offers/cb650r_2.jpg';
 import IMG_CB650R_3 from '../assets/offers/cb650r_3.jpg';
@@ -18,6 +24,8 @@ import IMG_DS_1 from '../assets/offers/ds_1.jpg';
 import IMG_DS_2 from '../assets/offers/ds_2.jpg';
 import IMG_DUPLEX_1 from '../assets/offers/duplex_1.jpg';
 import IMG_DUPLEX_2 from '../assets/offers/duplex_2.jpg';
+import IMG_E46_1 from '../assets/offers/e46_1.jpg';
+import IMG_E46_2 from '../assets/offers/e46_2.jpg';
 import IMG_GT3RS_1 from '../assets/offers/gt3rs_1.jpg';
 import IMG_GT3RS_2 from '../assets/offers/gt3rs_2.jpg';
 import IMG_GT3RS_3 from '../assets/offers/gt3rs_3.jpg';
@@ -31,7 +39,22 @@ import IMG_MT07_3 from '../assets/offers/mt07_3.jpg';
 import IMG_MT07_4 from '../assets/offers/mt07_4.jpg';
 import IMG_PS5_1 from '../assets/offers/ps5_1.jpg';
 import IMG_PS5_2 from '../assets/offers/ps5_2.jpeg';
-import IMG_velo_1 from '../assets/offers/velo_1.jpg';
+import IMG_R8_1 from '../assets/offers/r8_1.jpg';
+import IMG_R8_2 from '../assets/offers/r8_2.jpg';
+import IMG_R8_3 from '../assets/offers/r8_3.jpg';
+import IMG_TRIDENT_660_1 from '../assets/offers/trident_660_1.jpg';
+import IMG_TRIDENT_660_2 from '../assets/offers/trident_660_2.jpg';
+import IMG_TRIDENT_660_3 from '../assets/offers/trident_660_3.jpg';
+import IMG_VELO_1 from '../assets/offers/velo_1.jpg';
+import IMG_VTECH_1 from '../assets/offers/vtech_1.jpg';
+import IMG_VTECH_2 from '../assets/offers/vtech_2.jpg';
+import IMG_VTECH_3 from '../assets/offers/vtech_3.jpg';
+import IMG_VTECH_4 from '../assets/offers/vtech_4.jpg';
+import IMG_VTECH_5 from '../assets/offers/vtech_5.jpg';
+import IMG_MEUBLE_CUISINE_1 from '../assets/offers/meuble_cuisine_1.jpg';
+import IMG_GRILLE_PAIN_1 from '../assets/offers/grille_pain_1.jpg';
+import IMG_SHREK_1 from '../assets/offers/shrek_1.jpeg';
+import IMG_SHREK_2 from '../assets/offers/shrek_2.jpeg';
 
 const now = new Date();
 let yesterday = new Date();
@@ -64,7 +87,7 @@ export const Offers: Offer[] = [
     category: 'bikes',
     condition: EnumCondition.FAIR,
     description: 'Vélo en très bon état. Vendu avec casque et gourde.',
-    images: [IMG_velo_1],
+    images: [IMG_VELO_1],
     date: new Date('2024-03-22T18:47:10'),
   },
   {
@@ -168,4 +191,104 @@ export const Offers: Offer[] = [
     images: [IMG_DUPLEX_1, IMG_DUPLEX_2],
     date: new Date(fiveMinutesAgo),
   },
+  {
+    id: 12,
+    title: 'Triumph Trident 660',
+    price: 8000,
+    category: 'motorcycles',
+    condition: EnumCondition.GOOD,
+    description: 'Triumph Trident 660 en bon état.',
+    images: [IMG_TRIDENT_660_1, IMG_TRIDENT_660_2, IMG_TRIDENT_660_3],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 13,
+    title: 'Audi R8',
+    price: 200000,
+    category: 'cars',
+    condition: EnumCondition.EXCELLENT,
+    description: 'Audi R8 en excellent état. Entretien chez Audi.',
+    images: [IMG_R8_1, IMG_R8_2, IMG_R8_3],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 14,
+    title: 'Porsche Cayenne',
+    price: 62000,
+    category: 'cars',
+    condition: EnumCondition.EXCELLENT,
+    description: 'Porsche Cayenne en excellent état. Entretien chez Porsche.',
+    images: [IMG_CAYENNE_1, IMG_CAYENNE_2],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 15,
+    title: 'BMW E46',
+    price: 1,
+    category: 'cars',
+    condition: EnumCondition.DAMAGED,
+    description: 'BMW E46 vente pour pièces.',
+    images: [IMG_E46_1, IMG_E46_2],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 16,
+    title: 'Peugeot 205 GTI',
+    price: 29850,
+    category: 'cars',
+    condition: EnumCondition.GOOD,
+    description: 'Peugeot 205 GTI en excellent état. Entretien chez Peugeot.',
+    images: [IMG_205_GTI_1, IMG_205_GTI_2],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 17,
+    title: 'Alpine A110',
+    price: 64100,
+    category: 'cars',
+    condition: EnumCondition.EXCELLENT,
+    description: 'Alpine A110 en excellent état. Entretien chez Alpine.',
+    images: [IMG_A110_1, IMG_A110_2],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 18,
+    title: 'Vtech',
+    price: 20,
+    category: 'consoles',
+    condition: EnumCondition.FAIR,
+    description: 'Vtech en bon état.',
+    images: [IMG_VTECH_1, IMG_VTECH_2, IMG_VTECH_3, IMG_VTECH_4, IMG_VTECH_5],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 19,
+    title: 'Meuble de cuisine',
+    price: 450,
+    category: 'furnishing',
+    condition: EnumCondition.FAIR,
+    description: 'Meuble de cuisine en bon état.',
+    images: [IMG_MEUBLE_CUISINE_1],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 20,
+    title: 'Grille pain',
+    price: 20,
+    category: 'appliances',
+    condition: EnumCondition.GOOD,
+    description: 'Grille pain en bon état.',
+    images: [IMG_GRILLE_PAIN_1],
+    date: new Date('2024-03-30T15:12:00'),
+  },
+  {
+    id: 21,
+    title: 'Ménage à domicile',
+    price: 20,
+    category: 'cleaning',
+    condition: EnumCondition.GOOD,
+    description: 'Ménage à domicile.',
+    images: [IMG_SHREK_1, IMG_SHREK_2],
+    date: new Date('2024-03-30T15:12:00'),
+  }
 ];
