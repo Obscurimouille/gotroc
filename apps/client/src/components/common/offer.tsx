@@ -120,13 +120,13 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={'/query?category=' + mainCategory.value} className="underline">
+          <BreadcrumbLink href={'/search?category=' + mainCategory.value} className="underline">
             {mainCategory.name}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={'/query?subcategory=' + category.value} className="underline">
+          <BreadcrumbLink href={'/search?subcategory=' + category.value} className="underline">
             {category.name}
           </BreadcrumbLink>
         </BreadcrumbItem>

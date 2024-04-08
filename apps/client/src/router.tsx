@@ -3,7 +3,7 @@ import HomePage from '@components/pages/home';
 import CreateOfferPage from '@components/pages/create-offer';
 import LoginPage from '@components/pages/login';
 import OfferPage from '@components/pages/offer';
-import OfferResultsPage from '@components/pages/offer-results';
+import SearchResultsPage from '@components/pages/search-results';
 import NotFoundPage from '@components/pages/not-found';
 
 const router = createBrowserRouter([
@@ -24,8 +24,8 @@ const router = createBrowserRouter([
     element: <OfferPage />,
   },
   {
-    path: '/query',
-    element: <OfferResultsPage />,
+    path: '/search',
+    element: <SearchResultsPage />,
   },
   {
     path: '*',

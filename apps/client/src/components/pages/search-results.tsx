@@ -10,22 +10,43 @@ import notResultIllustration from '@assets/illustration_notify.svg';
 type OfferFilter = (offer: Offer) => boolean;
 
 const getFilter = (searchParams: URLSearchParams): OfferFilter => {
-  if (searchParams.has('category')) {
-    const category = searchParams.get('category');
-    return (offer: Offer) => OfferService.getMainCategory(offer.category)?.value === category;
-  }
-  if (searchParams.has('subcategory')) {
-    const subcategory = searchParams.get('subcategory');
-    return (offer: Offer) => offer.category === subcategory;
-  }
-  // ...
+  let category = searchParams.get('category');
+  let subcategory = searchParams.get('subcategory');
+  let text = searchParams.get('text');
+
+  if (category != null) category = category.trim() || null;
+  if (subcategory != null) subcategory = subcategory.trim() || null;
+  if (text != null) text = text.trim() || null;
+
+  if (!text && !category && !subcategory) return () => true;
+
+  if (subcategory)
+    return (offer: Offer) =>
+      offer.category === subcategory &&
+      (text ? offer.title.toLowerCase().includes(text.toLowerCase()) : true);
+
+  if (category)
+    return (offer: Offer) =>
+      OfferService.getMainCategory(offer.category)?.value === category &&
+      (text ? textFilter(offer, text) : true);
+
+  if (text) return (offer: Offer) => textFilter(offer, text!);
   return () => true;
 };
 
-const OfferResultsPage = () => {
+const textFilter = (offer: Offer, text: string): boolean => {
+  const subcategory = OfferService.getSubCategory(offer.category);
+  if (!subcategory) return false;
+  return (
+    offer.title.toLowerCase().includes(text.toLowerCase()) ||
+    subcategory.name.toLowerCase().includes(text.toLowerCase())
+  )
+}
+
+const SearchResultsPage = () => {
   const [searchParams] = useSearchParams();
   const filter: OfferFilter = getFilter(searchParams);
-  const results = Offers.filter(filter);
+  const results = Offers.filter(filter).sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return (
     <Page>
@@ -56,4 +77,4 @@ const OfferResultsPage = () => {
   );
 };
 
-export default OfferResultsPage;
+export default SearchResultsPage;

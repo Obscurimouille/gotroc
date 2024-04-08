@@ -195,7 +195,7 @@ export const Offers: Offer[] = [
     id: 12,
     title: 'Triumph Trident 660',
     price: 8000,
-    category: 'motorcycles',
+    category: 'motorbikes',
     condition: EnumCondition.GOOD,
     description: 'Triumph Trident 660 en bon état.',
     images: [IMG_TRIDENT_660_1, IMG_TRIDENT_660_2, IMG_TRIDENT_660_3],

@@ -16,7 +16,7 @@ const OfferResultCard = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const categoryName = Categories.flatMap((c) => c.subCategories).find(
     (c) => c.value === offer.category,
-  )!.name;
+  )?.name;
   if (!categoryName) throw new Error(`Category ${offer.category} not found`);
   const formattedPrice = OfferService.formatPrice(offer.price);
   const formattedDate = OfferService.formatDate(offer.date);

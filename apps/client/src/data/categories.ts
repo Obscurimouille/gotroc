@@ -6,7 +6,7 @@ export const Categories: MainCategory[] = [
     value: 'vehicles',
     subCategories: [
       { name: 'Voitures', value: 'cars' },
-      { name: 'Motos', value: 'motorcycles' },
+      { name: 'Motos', value: 'motorbikes' },
       { name: 'Caravanes', value: 'caravans' },
       { name: 'Utilitaires', value: 'utilities' },
       { name: 'Equipement Auto', value: 'auto-equipment' },

@@ -1,16 +1,7 @@
 import { cn } from '@lib/utils';
 import { Button } from '@components/ui/button';
-import { Search, SearchEmpty, SearchItem, SearchList } from '@components/ui/search';
 import { Link } from 'react-router-dom';
-
-const items = [
-  { name: '123 ca fait beaucoup' },
-  { name: '88 95 411' },
-  { name: 'mou' },
-  { name: 'crousti' },
-  { name: 'tel aviv' },
-  { name: 'bonsoir tous les gens du monde !!' },
-];
+import SearchBar from './searchbar';
 
 function Header({ className, ...props }: { className?: string }) {
   return (
@@ -21,16 +12,7 @@ function Header({ className, ...props }: { className?: string }) {
         <div className="flex-1 flex items-center gap-8">
           <Link to="/" className="text-xl font-bold text-foreground">GoTroc</Link>
 
-          <Search id="picture" type="file" className="flex-1 lg:max-w-[400px]">
-            <SearchList className="p-2">
-              {items.map((item, index) => (
-                <SearchItem key={index} {...item} className="">
-                  <span>{item.name}</span>
-                </SearchItem>
-              ))}
-              <SearchEmpty className="p-2">Aucun résultat :\</SearchEmpty>
-            </SearchList>
-          </Search>
+          <SearchBar className="flex-1 lg:max-w-[400px]" />
         </div>
 
         <div className="flex items-center gap-3">
