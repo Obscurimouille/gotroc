@@ -16,11 +16,11 @@ const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
   };
 
   return (
-    <Link to={`/offer/${offer.id}`} className="group h-full flex flex-col overflow-hidden max-w-40">
+    <Link to={`/offer/${offer.id}`} className="group h-full flex flex-col overflow-hidden max-w-44">
       <img
         src={offer.images[0]}
         alt="Offer"
-        className="aspect-[3/4] w-full object-cover rounded-lg"
+        className="aspect-[5/6] w-full object-cover rounded-lg"
       />
 
       <div className="flex gap-2 md:gap-8 mt-2 mb-1 items-start justify-between">

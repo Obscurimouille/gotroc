@@ -20,8 +20,8 @@ const OfferPage = () => {
   return (
     <Page>
       <Header />
-      <PageContent>
-        <Offer offer={offer!} className="my-8" />
+      <PageContent className='py-8 pb-16 gap-8'>
+        <Offer offer={offer!} />
         {!!recommendedOffers.length && (
           <OfferSection title={'Dans la même catégorie'} offers={recommendedOffers} />
         )}

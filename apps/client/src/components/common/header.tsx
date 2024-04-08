@@ -17,7 +17,7 @@ function Header({ className, ...props }: { className?: string }) {
     <header
       className={cn(className, 'w-full border-b-1 border-foreground/25 bg-background flex justify-center px-4')}
     >
-      <div className="w-full lg:w-[1000px] py-3 flex justify-between items-center gap-6">
+      <div className="w-full lg:w-[1100px] py-3 flex justify-between items-center gap-6">
         <div className="flex-1 flex items-center gap-8">
           <Link to="/" className="text-xl font-bold text-foreground">GoTroc</Link>
 
