@@ -51,7 +51,7 @@ const SearchResultsPage = () => {
   return (
     <Page>
       <Header />
-      <PageContent className="pt-8">
+      <PageContent className="py-8 pb-16">
         {!!results.length ? (
           <div className="">
             <h2 className="mb-4">{results.length} annonces</h2>

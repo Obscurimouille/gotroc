@@ -11,8 +11,8 @@ const Page = ({ children, className }: { children: ReactNode; className?: string
 
 const PageContent = ({ children, className }: { children: ReactNode; className?: string }) => {
   return (
-    <div className={cn('w-full flex justify-center px-4')}>
-      <div className={cn(className, "w-full lg:w-[1100px] h-full flex flex-col")}>{children}</div>
+    <div className={cn('flex-1 w-full flex flex-col items-center px-4')}>
+      <div className={cn("w-full lg:max-w-[1050px] h-full flex flex-col", className)}>{children}</div>
     </div>
   );
 };
