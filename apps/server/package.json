@@ -9,10 +9,15 @@
     "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "prisma": {
+    "seed": "ts-node ./prisma/seeds/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@gotroc/types": "workspace:^1.0.0",
+    "@prisma/client": "5.12.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
   },

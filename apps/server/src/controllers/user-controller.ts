@@ -1,13 +1,13 @@
-import OfferService from '../services/offer-service';
+import UserService from '../services/user-service';
 import { ControllerResponse } from '../types/controller-response';
 import { INTERNAL_ERROR } from './utils';
 
-class OfferController {
+class UserController {
   public static async getAll(): Promise<ControllerResponse> {
     try {
       return {
         success: true,
-        data: await OfferService.getAll(),
+        data: await UserService.getAll(),
       };
     } catch (error) {
       console.error(error);
@@ -16,4 +16,4 @@ class OfferController {
   }
 }
 
-export default OfferController;
+export default UserController;
