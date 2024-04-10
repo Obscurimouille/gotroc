@@ -72,6 +72,7 @@ fiveMinutesAgo.setMinutes(now.getMinutes() - 5);
 export const Offers: Offer[] = [
   {
     id: 0,
+    userId: 1,
     title: 'Console PS5',
     price: 500,
     category: 'consoles',
@@ -82,6 +83,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 1,
+    userId: 2,
     title: 'Vélo femme',
     price: 110.00,
     category: 'bikes',
@@ -92,6 +94,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 2,
+    userId: 1,
     title: 'Lot de jeux de société dans un état certin lol',
     price: 20.499,
     category: 'toys-and-games',
@@ -102,6 +105,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 3,
+    userId: 3,
     title: 'Jeux DS',
     price: 10,
     category: 'video-games',
@@ -112,6 +116,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 4,
+    userId: 2,
     title: 'Clio 4',
     price: 8890,
     category: 'cars',
@@ -122,6 +127,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 5,
+    userId: 1,
     title: 'Yamaha MT-07',
     price: 6000,
     category: 'motorbikes',
@@ -132,6 +138,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 6,
+    userId: 3,
     title: 'Honda CB650R',
     price: 7100,
     category: 'motorbikes',
@@ -142,6 +149,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 7,
+    userId: 2,
     title: 'Audi A3',
     price: 15300,
     category: 'cars',
@@ -152,6 +160,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 8,
+    userId: 3,
     title: 'Porsche 911 GT3 RS',
     price: 218000,
     category: 'cars',
@@ -162,6 +171,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 9,
+    userId: 1,
     title: 'Nintendo DS Lite',
     price: 50,
     category: 'consoles',
@@ -172,6 +182,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 10,
+    userId: 2,
     title: 'Casque moto',
     price: 50,
     category: 'motorbike-equipment',
@@ -182,6 +193,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 11,
+    userId: 3,
     title: 'Duplex 2 pièces 31 m²',
     price: 770,
     category: 'rentals',
@@ -193,6 +205,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 12,
+    userId: 1,
     title: 'Triumph Trident 660',
     price: 8000,
     category: 'motorbikes',
@@ -203,6 +216,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 13,
+    userId: 4,
     title: 'Audi R8',
     price: 200000,
     category: 'cars',
@@ -213,6 +227,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 14,
+    userId: 3,
     title: 'Porsche Cayenne',
     price: 62000,
     category: 'cars',
@@ -223,6 +238,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 15,
+    userId: 2,
     title: 'BMW E46',
     price: 1,
     category: 'cars',
@@ -233,6 +249,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 16,
+    userId: 4,
     title: 'Peugeot 205 GTI',
     price: 29850,
     category: 'cars',
@@ -243,6 +260,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 17,
+    userId: 1,
     title: 'Alpine A110',
     price: 64100,
     category: 'cars',
@@ -253,6 +271,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 18,
+    userId: 2,
     title: 'Vtech',
     price: 20,
     category: 'consoles',
@@ -263,6 +282,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 19,
+    userId: 3,
     title: 'Meuble de cuisine',
     price: 450,
     category: 'furnishing',
@@ -273,6 +293,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 20,
+    userId: 4,
     title: 'Grille pain',
     price: 20,
     category: 'appliances',
@@ -283,6 +304,7 @@ export const Offers: Offer[] = [
   },
   {
     id: 21,
+    userId: 1,
     title: 'Ménage à domicile',
     price: 20,
     category: 'cleaning',

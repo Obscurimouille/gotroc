@@ -11,7 +11,7 @@ const HomePage = () => {
   const offerCreated = !!Number(queryParams.get('offer_created'));
 
   return (
-    <Page>
+    <Page className='bg-background'>
       <Header />
       <PageContent className="pt-8 gap-8">
         {offerCreated && <OfferCreatedCard />}

@@ -48,19 +48,19 @@ const AccountDropdown = () => {
   const items: { title: string; url: string }[] = [
     {
       title: 'Profil',
-      url: '/profile',
+      url: '/dashboard/profile',
     },
     {
       title: 'Mes annonces',
-      url: '/my-offers',
+      url: '/dashboard/offers',
     },
     {
       title: 'Favoris',
-      url: '/favourites',
+      url: '/dashboard/favourites',
     },
     {
       title: 'Paramètres',
-      url: '/settings',
+      url: '/dashboard/settings',
     }
   ];
 
@@ -69,7 +69,7 @@ const AccountDropdown = () => {
       <DropdownMenuTrigger asChild>
         <Avatar className="w-8 h-8 cursor-pointer">
           <AvatarImage src="https://github.com/shadcnaa.png" />
-          <AvatarFallback className="bg-neutral-800">
+          <AvatarFallback className="bg-neutral-700">
             <PersonIcon color="white" />
           </AvatarFallback>
         </Avatar>

@@ -12,12 +12,6 @@ export class OfferService {
   };
 
   public static formatDate(date: Date, options?: { displayTime?: boolean }): string {
-    // return new Intl.DateTimeFormat('fr-FR', {
-    //   year: 'numeric',
-    //   month: 'long',
-    //   day: '2-digit',
-    // }).format(date);
-    // DD/MM/YYYY
     const formattedHours = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
     if (isYesterday(date)) return 'Hier' + (options?.displayTime ? ' à ' + formattedHours : '');
     if (isToday(date)) return "Aujourd'hui" + (options?.displayTime ? ' à ' + formattedHours : '');

@@ -5,7 +5,7 @@ import { Offers } from '@data/offers';
 import { Offer } from '@gotroc/types';
 import { useSearchParams } from 'react-router-dom';
 import { OfferService } from 'src/services/offer.service';
-import notResultIllustration from '@assets/illustration_notify.svg';
+import noResultIllustration from '@assets/illustration_notify.svg';
 
 type OfferFilter = (offer: Offer) => boolean;
 
@@ -67,7 +67,7 @@ const SearchResultsPage = () => {
           </div>
         ) : (
           <div className="w-full mt-8 flex flex-col items-center">
-            <img src={notResultIllustration} className="w-64 mb-8" alt=""></img>
+            <img src={noResultIllustration} className="w-64 mb-8" alt=""></img>
             <p className="text-xl font-semibold">Désolé, nous n'avons rien trouvé</p>
             <p className="mt-2">Nous vous invitons à modifier vos critères de recherche</p>
           </div>

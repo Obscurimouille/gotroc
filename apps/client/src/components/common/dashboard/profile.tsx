@@ -1,5 +1,3 @@
-import Header from '@components/common/header';
-import { Page, PageContent } from '@components/common/layout';
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
 import { Button } from '@components/ui/button';
 import {
@@ -12,13 +10,14 @@ import {
 } from '@components/ui/form';
 import { Input } from '@components/ui/input';
 import { Separator } from '@components/ui/separator';
+import { Users } from '@data/users';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@lib/utils';
-import { BookmarkIcon, Pencil1Icon, PersonIcon } from '@radix-ui/react-icons';
+import { BookmarkIcon, Pencil1Icon, PersonIcon, ReloadIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
+import { UserService } from 'src/services/user.service';
 import { z } from 'zod';
 
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
@@ -48,16 +47,20 @@ const FormSchema = z.object({
   avatar: z.any(),
 });
 
-const ProfilePage = () => {
+const DashboardProfile = ({ userId }: { userId: number }) => {
+  const user = Users.find((user) => user.id === userId);
+  if (!user) throw new Error('User not found');
+  const [submitting, setSubmitting] = useState(false);
+
   const [, setImageFile] = useState<File | null>(null);
   const [image, setImage] = useState<string>('');
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: '',
-      firstname: '',
-      lastname: '',
-      email: '',
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
       avatar: null,
     },
   });
@@ -81,70 +84,69 @@ const ProfilePage = () => {
   };
 
   const handleSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log(data);
+    setSubmitting(true);
+    setTimeout(() => {
+      user.username = data.username;
+      user.firstname = data.firstname;
+      user.lastname = data.lastname;
+      user.email = data.email;
+      setSubmitting(false);
+      toast.success('Profil mis à jour');
+    }, 2000);
   };
 
   return (
-    <Page>
-      <Header />
-      <PageContent className="flex-1 flex-row pt-4 pb-4 lg:pt-8 lg:pb-8 gap-4 lg:gap-6">
-        <div className="w-[180px] lg:w-[200px] shrink-0 bg-background rounded-xl shadow">
-          <Link to="/profile" className="block p-4 text-foreground hover:bg-neutral/100">
-            Profil
-          </Link>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="flex-1 flex flex-col gap-7 lg:gap-10 bg-background w-full rounded-xl px-8 py-7 lg:px-10 lg:py-9 shadow"
+      >
+        <div className="flex flex-col gap-5 lg:gap-8">
+          <div className="flex items-center gap-3">
+            <Separator className="flex-1 bg-neutral-300 md:hidden" />
+            <h3 className="font-medium md:text-md">Informations publiques</h3>
+            <Separator className="flex-1 bg-neutral-300" />
+          </div>
+          <div className="flex flex-col gap-4 pt-2 items-center md:pt-0 md:flex-row md:gap-12 flex-wrap md:items-stretch justify-between">
+            <AvatarInput form={form} image={image} onChanged={imageChanged} />
+            <div className="w-full flex-1 flex flex-col justify-between gap-5">
+              <UsernameInput form={form} className="w-full md:w-[300px]" />
+              <div className="flex items-center gap-x-0.5">
+                <BookmarkIcon className="text-foreground/50" />
+                <p className="ml-1 text-sm text-foreground/50">
+                  {UserService.formatRegisterDate(user.registerDate)}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="flex-1 flex flex-col gap-7 lg:gap-10 bg-background w-full rounded-xl px-8 py-7 lg:px-10 lg:py-9 shadow"
-          >
-            <div className="flex flex-col gap-5 lg:gap-8">
-              <div className="flex items-center gap-3">
-                <Separator className="flex-1 bg-neutral-300 md:hidden" />
-                <h3 className="font-medium md:text-md">Informations publiques</h3>
-                <Separator className="flex-1 bg-neutral-300" />
-              </div>
-              <div className="flex flex-col gap-4 pt-2 items-center md:pt-0 md:flex-row md:gap-12 flex-wrap md:items-stretch justify-between">
-                <AvatarInput form={form} image={image} onChanged={imageChanged} />
-                <div className="w-full flex-1 flex flex-col justify-between gap-5">
-                  <UsernameInput form={form} className="w-full md:w-[300px]" />
-                  <div className="flex items-center gap-x-0.5">
-                    <BookmarkIcon className="text-foreground/50" />
-                    <p className="ml-1 text-sm text-foreground/50">Membre depuis 20xx</p>
-                  </div>
-                </div>
-              </div>
+        <div className="flex-1 flex flex-col gap-3 md:gap-4 lg:gap-6">
+          <div className="flex items-center gap-3">
+            <Separator className="flex-1 bg-neutral-300 md:hidden" />
+            <h3 className="font-medium">Informations personnelles</h3>
+            <Separator className="flex-1 bg-neutral-300" />
+          </div>
+          <div className="flex flex-1 flex-col gap-4 lg:gap-6">
+            <div className="flex flex-col md:flex-row md:flex-wrap gap-x-10 gap-y-4">
+              <LastnameInput form={form} className="md:w-[260px]" />
+              <FirstnameInput form={form} className="md:w-[260px]" />
             </div>
-
-            <div className="flex-1 flex flex-col gap-3 md:gap-4 lg:gap-6">
-              <div className="flex items-center gap-3">
-                <Separator className="flex-1 bg-neutral-300 md:hidden" />
-                <h3 className="font-medium">Informations personnelles</h3>
-                <Separator className="flex-1 bg-neutral-300" />
-              </div>
-              <div className="flex flex-1 flex-col gap-4 lg:gap-6">
-                <div className="flex flex-col md:flex-row md:flex-wrap gap-x-10 gap-y-4">
-                  <LastnameInput form={form} className="md:w-[260px]" />
-                  <FirstnameInput form={form} className="md:w-[260px]" />
-                </div>
-                <div className="flex flex-col md:flex-row md:flex-wrap gap-x-10 gap-y-4">
-                  <EmailInput form={form} className="md:w-[360px]" />
-                </div>
-                <div className="flex-1 flex gap-10 justify-between items-end">
-                  <p className="text-xs text-foreground/50 italic">
-                    Les informations personnelles ne seront pas visibles par les autres utilisateurs
-                  </p>
-                  <Button type="submit" className="self-end">
-                    Valider
-                  </Button>
-                </div>
-              </div>
+            <div className="flex flex-col md:flex-row md:flex-wrap gap-x-10 gap-y-4">
+              <EmailInput form={form} className="md:w-[360px]" />
             </div>
-          </form>
-        </Form>
-      </PageContent>
-    </Page>
+            <div className="flex-1 flex gap-10 justify-between items-end">
+              <p className="text-xs text-foreground/50 italic">
+                Les informations personnelles ne seront pas visibles par les autres utilisateurs
+              </p>
+              <Button type="submit" className="self-end" disabled={!form.formState.isValid || submitting}>
+                {submitting ? <ReloadIcon className="h-4 w-4 animate-spin" /> : 'Enregistrer'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </Form>
   );
 };
 
@@ -165,7 +167,10 @@ const AvatarInput = (
         <FormItem className={cn(props.className, 'flex items-center')}>
           <FormControl>
             <div className="relative">
-              <Avatar className="w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 cursor-pointer" onClick={openInput}>
+              <Avatar
+                className="w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 cursor-pointer border-1 border-neutral-200"
+                onClick={openInput}
+              >
                 <AvatarImage src={props.image} className="object-cover" />
                 <AvatarFallback className="bg-neutral-700">
                   <PersonIcon color="white" className="w-[60%] h-[60%]" />
@@ -275,4 +280,4 @@ const EmailInput = (props: FormInputParams) => {
   );
 };
 
-export default ProfilePage;
+export default DashboardProfile;

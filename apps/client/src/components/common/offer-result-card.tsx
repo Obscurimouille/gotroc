@@ -4,14 +4,19 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { OfferService } from 'src/services/offer.service';
 import ButtonFavorite from './button-favorite';
+import { cn } from '@lib/utils';
 
 const OfferResultCard = ({
   offer,
   hideSubCategory,
+  disableFavourite,
+  className,
   ...props
 }: {
   offer: Offer;
+  className?: string;
   hideSubCategory?: boolean;
+  disableFavourite?: boolean;
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const categoryName = Categories.flatMap((c) => c.subCategories).find(
@@ -24,7 +29,7 @@ const OfferResultCard = ({
   return (
     <Link
       to={`/offer/${offer.id}`}
-      className="group w-full h-40 bg-background flex rounded-xl overflow-hidden shadow-md"
+      className={cn("group w-full h-40 bg-background flex rounded-xl overflow-hidden shadow-md", className)}
     >
       <img src={offer.images[0]} alt="Offer" className="h-full aspect-[4/3] object-cover" />
       <div className="flex-1 p-4 flex justify-between">
@@ -36,9 +41,11 @@ const OfferResultCard = ({
           {!hideSubCategory && <p className="text-xs">{categoryName}</p>}
           <p className="text-xs">{formattedDate}</p>
         </div>
-        <div className="flex flex-col gap-2">
-          <ButtonFavorite isFavorite={isFavorite} onClick={() => setIsFavorite(!isFavorite)} />
-        </div>
+        {!disableFavourite && (
+          <div className="flex flex-col gap-2">
+            <ButtonFavorite isFavorite={isFavorite} onClick={() => setIsFavorite(!isFavorite)} />
+          </div>
+        )}
       </div>
     </Link>
   );

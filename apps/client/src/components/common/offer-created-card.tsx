@@ -15,7 +15,7 @@ const OfferCreatedCard = () => {
           Elle sera visible sur la plateforme dès qu'elle aura été validée par notre équipe. Vous
           pouvez consulter l'état de votre annonce dans la section "
           <Link
-            to="/offers"
+            to="/dashboard/offers"
             className="font-medium underline hover:text-primary transition-colors duration-150"
           >
             Mes annonces
