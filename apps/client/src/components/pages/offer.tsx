@@ -11,6 +11,7 @@ const OfferPage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  const [loading, setLoading] = useState<boolean>(true);
   const [offer, setOffer] = useState<Offer | null>(null);
   const [recommendedOffers, setRecommendedOffers] = useState<Offer[]>([]);
 
@@ -20,13 +21,16 @@ const OfferPage = () => {
   useEffect(() => {
     OfferService.get(id).then((response) => {
       if (!response.success) return;
-      setOffer(response.data);
-      setRecommendedOffers(response.data.recommendations);
+      setTimeout(() => {
+        setOffer(response.data);
+        setRecommendedOffers(response.data.recommendations);
+        setLoading(false);
+      }, 1000);
     });
   }, [id]);
 
   return (
-    <Page>
+    <Page loading={loading}>
       <Header />
       <PageContent className="py-8 pb-16 gap-8">
         {!!offer && <OfferComponent offer={offer!} />}
