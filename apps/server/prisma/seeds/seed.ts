@@ -34,7 +34,18 @@ async function main() {
           create: Array.from({ length: seedUser.nbDefaultOffers }).map(() => {
             if (offerIndex >= SeedOffers.length) offerIndex = 0;
             const offer = SeedOffers[offerIndex++];
-            return offer;
+            return {
+              ...offer,
+              ...{
+                images: {
+                  create: offer.images.map((image, index) => ({
+                    uuid: image.uuid,
+                    extension: image.extension,
+                    position: index + 1,
+                  })),
+                },
+              },
+            };
           }),
         },
       },

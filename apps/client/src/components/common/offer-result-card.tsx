@@ -20,18 +20,18 @@ const OfferResultCard = ({
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const categoryName = Categories.flatMap((c) => c.subCategories).find(
-    (c) => c.value === offer.category,
+    (c) => c.value === offer.subCategoryName,
   )?.name;
-  if (!categoryName) throw new Error(`Category ${offer.category} not found`);
+  if (!categoryName) throw new Error(`Category ${offer.subCategoryName} not found`);
   const formattedPrice = OfferService.formatPrice(offer.price);
-  const formattedDate = OfferService.formatDate(offer.date);
+  const formattedDate = OfferService.formatDate(offer.createdAt);
 
   return (
     <Link
       to={`/offer/${offer.id}`}
       className={cn("group w-full h-40 bg-background flex rounded-xl overflow-hidden shadow-md", className)}
     >
-      <img src={offer.images[0]} alt="Offer" className="h-full aspect-[4/3] object-cover" />
+      <img src={OfferService.getImageUrl(offer.images[0])} alt="Offer" className="h-full aspect-[4/3] object-cover" />
       <div className="flex-1 p-4 flex justify-between">
         <div className="flex flex-col gap-1">
           <h2 className="font-semibold text-xl leading-[1.2] mb-1 group-hover:text-primary transition-colors">

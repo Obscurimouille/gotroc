@@ -32,11 +32,11 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
   const [isFavorite, setIsFavorite] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [isImagesDialogOpen, setIsImagesDialogOpen] = useState(false);
-  const formattedDate = OfferService.formatDate(offer.date);
+  const formattedDate = OfferService.formatDate(offer.createdAt);
 
-  const mainCategory = OfferService.getMainCategory(offer.category);
+  const mainCategory = OfferService.getMainCategory(offer.subCategoryName);
   if (!mainCategory) throw new Error('Main category not found for offer ' + offer.id);
-  const category = OfferService.getSubCategory(offer.category);
+  const category = OfferService.getSubCategory(offer.subCategoryName);
   if (!category) throw new Error('Category not found for offer ' + offer.id);
 
   const url = window.location.href;
@@ -57,11 +57,6 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
 
   const openImagesDialog = (index?: number) => {
     setIsImagesDialogOpen(true);
-    console.log(index);
-    setTimeout(() => {
-      console.log(carouselApi);
-      carouselApi?.scrollTo(index || 0, true);
-    }, 1000);
   };
 
   const shareDialog = (
@@ -99,7 +94,7 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <CarouselContent className="h-[75dvh] w-full ml-0">
             {offer.images.map((image, index) => (
               <CarouselItem key={index} className="w-full h-full px-0 flex flex-col">
-                <img src={image} alt="Offer" className="h-full w-full object-contain" />
+                <img src={OfferService.getImageUrl(image)} alt="Offer" className="h-full w-full object-contain" />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -159,12 +154,12 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           >
             Voir les images
           </button>
-          <InteractiveImage image={offer.images[0]} onClick={() => openImagesDialog()} />
+          <InteractiveImage image={OfferService.getImageUrl(offer.images[0])} onClick={() => openImagesDialog()} />
           {offer.images.length > 1 && (
             <div className="flex-1 flex flex-col gap-2">
-              {<InteractiveImage image={offer.images[1]} onClick={() => openImagesDialog()} />}
+              {<InteractiveImage image={OfferService.getImageUrl(offer.images[1])} onClick={() => openImagesDialog()} />}
               {offer.images.length > 2 && (
-                <InteractiveImage image={offer.images[2]} onClick={() => openImagesDialog()} />
+                <InteractiveImage image={OfferService.getImageUrl(offer.images[2])} onClick={() => openImagesDialog()} />
               )}
             </div>
           )}

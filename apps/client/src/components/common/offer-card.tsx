@@ -7,7 +7,9 @@ import { OfferService } from 'src/services/offer.service';
 
 const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const formattedDate = OfferService.formatDate(offer.date, { displayTime: true });
+  const formattedDate = OfferService.formatDate(offer.createdAt, { displayTime: true });
+  const mainImage = offer.images.find((image) => image.position === 1);
+  const mainImageSrc = mainImage ? (OfferService.getImageUrl(mainImage)) : '/images/placeholder.png';
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -18,7 +20,7 @@ const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
   return (
     <Link to={`/offer/${offer.id}`} className="group h-full flex flex-col overflow-hidden max-w-44">
       <img
-        src={offer.images[0]}
+        src={mainImageSrc}
         alt="Offer"
         className="aspect-[5/6] w-full object-cover rounded-lg"
       />

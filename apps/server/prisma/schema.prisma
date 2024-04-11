@@ -31,6 +31,15 @@ model Offer {
   description     String      @db.Text
   author          User        @relation(fields: [authorId], references: [id])
   authorId        Int
+  images          OfferImage[]
+}
+
+model OfferImage {
+  uuid            String    @id @default(uuid())
+  position        Int
+  extension       String
+  offer           Offer     @relation(fields: [offerId], references: [id])
+  offerId         Int
 }
 
 model User {

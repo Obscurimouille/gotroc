@@ -1,13 +1,20 @@
 import { EnumCondition } from "../enums/enum-condition";
 
+export type OfferImage = {
+  uuid: string;
+  extension: string;
+  position: number;
+}
+
 export type Offer = {
   id: number;
-  userId: number;
+  authorId: number;
   title: string;
   price: number;
-  category: string;
-  condition: EnumCondition;
+  subCategoryName: string;
+  // condition: EnumCondition;
   description: string;
-  images: string[];
-  date: Date;
+  images: OfferImage[];
+  createdAt: Date;
+  updatedAt: Date;
 }

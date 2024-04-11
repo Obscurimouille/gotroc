@@ -7,7 +7,8 @@ const SearchBar = ({ className, ...props }: { className?: string }) => {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
 
-  const rawSearch = (text: string = className!) => {
+  const rawSearch = (text: string = searchText) => {
+    if (!text ||!text.trim()) return;
     navigate('/search?text=' + text);
   };
 

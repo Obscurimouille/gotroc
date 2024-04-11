@@ -143,7 +143,6 @@ const CreateOfferForm = () => {
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     toast.success('Annonce créée avec succès');
     setTimeout(() => {
       navigate('/?offer_created=1');

@@ -1,6 +1,6 @@
 import UserService from '../services/user-service';
 import { ControllerResponse } from '../types/controller-response';
-import { INTERNAL_ERROR } from './utils';
+import { handleInternalError } from './utils';
 
 class UserController {
   public static async getAll(): Promise<ControllerResponse> {
@@ -10,8 +10,7 @@ class UserController {
         data: await UserService.getAll(),
       };
     } catch (error) {
-      console.error(error);
-      return INTERNAL_ERROR;
+      return handleInternalError(error);
     }
   }
 }
