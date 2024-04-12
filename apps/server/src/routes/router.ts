@@ -1,6 +1,6 @@
 import express from 'express';
-import OffersRouter from './offer';
-import UserRouter from './user';
+import OffersRouter from './offer.js';
+import UserRouter from './user.js';
 const router = express.Router();
 
 router.use('/offer', OffersRouter);

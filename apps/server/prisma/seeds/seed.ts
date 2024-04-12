@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { SeedCategories } from './categories';
-import { SeedUsers } from './users';
-import { SeedOffers } from './offers';
+import { SeedCategories } from './categories.js';
+import { SeedUsers } from './users.js';
+import { SeedOffers } from './offers.js';
 const prisma = new PrismaClient();
 
 async function main() {

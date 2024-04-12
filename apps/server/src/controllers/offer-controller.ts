@@ -1,6 +1,6 @@
-import OfferService from '../services/offer-service';
-import { ControllerResponse } from '../types/controller-response';
-import { INVALID_PARAMS, NOT_FOUND, handleInternalError } from './utils';
+import OfferService from '../services/offer-service.js';
+import { ControllerResponse } from '../types/controller-response.js';
+import { INVALID_PARAMS, NOT_FOUND, handleInternalError } from './utils.js';
 
 class OfferController {
   public static async getAll(): Promise<ControllerResponse> {

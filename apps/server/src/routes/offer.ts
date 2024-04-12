@@ -1,5 +1,5 @@
 import express from 'express';
-import OfferController from '../controllers/offer-controller';
+import OfferController from '../controllers/offer-controller.js';
 const router = express.Router();
 
 router.get('/', async (req, res) => {

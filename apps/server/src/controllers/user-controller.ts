@@ -1,6 +1,6 @@
-import UserService from '../services/user-service';
-import { ControllerResponse } from '../types/controller-response';
-import { handleInternalError } from './utils';
+import UserService from '../services/user-service.js';
+import { ControllerResponse } from '../types/controller-response.js';
+import { handleInternalError } from './utils.js';
 
 class UserController {
   public static async getAll(): Promise<ControllerResponse> {

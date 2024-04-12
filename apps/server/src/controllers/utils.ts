@@ -1,4 +1,4 @@
-import { ControllerResponse } from "../types/controller-response";
+import { ControllerResponse } from "../types/controller-response.js";
 
 export const INTERNAL_ERROR: ControllerResponse = {
   success: false,
