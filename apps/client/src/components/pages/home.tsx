@@ -4,7 +4,7 @@ import OfferSection from '@components/common/offer-section';
 import OfferCreatedCard from '@components/common/offer-created-card';
 import { Page, PageContent } from '../common/layout';
 import { useState } from 'react';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 
 const HomePage = () => {
   const location = useLocation();

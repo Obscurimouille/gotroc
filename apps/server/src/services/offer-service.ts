@@ -115,7 +115,7 @@ class OfferService {
       },
       orderBy: {
         createdAt: 'desc',
-      }
+      },
     });
   }
 }

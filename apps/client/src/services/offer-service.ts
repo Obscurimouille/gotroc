@@ -1,7 +1,7 @@
 import { Categories } from '@data/categories';
 import { Category, EnumCondition, MainCategory } from '@gotroc/types';
 import { isYesterday, isToday } from '@lib/utils';
-import { APIService } from './api.service';
+import { APIService } from './api-service';
 import { OfferImage } from '@gotroc/types/dist/types/offer';
 
 export class OfferService {

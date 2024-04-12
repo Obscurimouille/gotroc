@@ -12,8 +12,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu';
+import { useEffect, useState } from 'react';
+import { User } from '@gotroc/types';
+import { AuthService } from 'src/services/auth-service';
 
 function Header({ className, ...props }: { className?: string }) {
+  const [user, setUser] = useState<User | null | undefined>(undefined);
+
+  useEffect(() => {
+    AuthService.me().then((user) => {
+      setUser(user);
+    });
+  }, []);
+
   return (
     <header
       className={cn(
@@ -31,13 +42,16 @@ function Header({ className, ...props }: { className?: string }) {
         </div>
 
         <div className="flex items-center gap-6">
-          {/* <Button variant="link" size="sm" asChild>
-            <Link to="/login">Se connecter</Link>
-          </Button> */}
           <Button variant="default" size="sm" className="hidden md:block">
             <Link to="/create">Déposer une annonce</Link>
           </Button>
-          <AccountDropdown />
+          {user ? (
+            <AccountDropdown />
+          ) : (
+            <Button variant="link" size="sm" asChild>
+              <Link to="/login">Se connecter</Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>
@@ -61,14 +75,14 @@ const AccountDropdown = () => {
     {
       title: 'Paramètres',
       url: '/dashboard/settings',
-    }
+    },
   ];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="w-8 h-8 cursor-pointer">
-          <AvatarImage src="https://github.com/shadcnaa.png" />
+          {/* <AvatarImage src="https://github.com/shadcnaa.png" /> */}
           <AvatarFallback className="bg-neutral-700">
             <PersonIcon color="white" />
           </AvatarFallback>
@@ -86,10 +100,10 @@ const AccountDropdown = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
-          <Link to="/logout" className="flex items-center gap-2">
+          <button className="flex items-center gap-2" onClick={() => AuthService.logout()}>
             <ExitIcon />
             Déconnexion
-          </Link>
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,3 +1,6 @@
+export const DEFAULT_PASSWORD = 'Password123!';
+export const DEFAULT_HASH_SALT = 10;
+
 export const SeedUsers: {
   username: string;
   firstname?: string;

@@ -1,7 +1,7 @@
 import { Button } from '@components/ui/button';
 import { Offer as OfferType } from '@gotroc/types';
 import { cn } from '@lib/utils';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 import {
   Breadcrumb,
   BreadcrumbItem,

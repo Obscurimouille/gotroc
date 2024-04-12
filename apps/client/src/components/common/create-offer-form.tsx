@@ -36,7 +36,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@components/ui/select';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2; // 2MB
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];

@@ -2,7 +2,7 @@ import Header from '@components/common/header';
 import { Page, PageContent } from '@components/common/layout';
 import OfferResultCard from '@components/common/offer-result-card';
 import { useSearchParams } from 'react-router-dom';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 import noResultIllustration from '@assets/illustration_notify.svg';
 import { useEffect, useState } from 'react';
 import { Offer } from '@gotroc/types';
@@ -23,7 +23,7 @@ const SearchResultsPage = () => {
       if (!response.success) return;
       setResults(response.data);
     });
-  });
+  }, [category, subcategory, text]);
 
   return (
     <Page>

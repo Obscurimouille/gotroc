@@ -4,7 +4,7 @@ import Header from '@components/common/header';
 import OfferComponent from '@components/common/offer';
 import OfferSection from '@components/common/offer-section';
 import { useEffect, useState } from 'react';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 import { Offer } from '@gotroc/types';
 
 const OfferPage = () => {

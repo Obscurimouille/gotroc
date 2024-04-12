@@ -2,7 +2,7 @@ import express from 'express';
 import OfferController from '../controllers/offer-controller.js';
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (_, res) => {
   const result = await OfferController.getAll();
   res.status(result.code || 200).json(result);
 });

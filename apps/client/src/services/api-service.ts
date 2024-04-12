@@ -17,6 +17,7 @@ export class APIService {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: "include",
       body: body ? JSON.stringify(body) : undefined,
     });
 

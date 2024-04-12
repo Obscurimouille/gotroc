@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { StarIcon, StarFilledIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 
 const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
   const [isFavorite, setIsFavorite] = useState(false);

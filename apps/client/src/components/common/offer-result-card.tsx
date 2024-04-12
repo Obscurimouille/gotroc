@@ -2,7 +2,7 @@ import { Categories } from '@data/categories';
 import { Offer } from '@gotroc/types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 import ButtonFavorite from './button-favorite';
 import { cn } from '@lib/utils';
 

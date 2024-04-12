@@ -45,9 +45,10 @@ model OfferImage {
 model User {
   id              Int       @id @default(autoincrement())
   username        String    @unique
-  firstname        String?
+  firstname       String?
   lastname        String?
   email           String    @unique
+  password        String
   registerDate    DateTime  @default(now())
   offers          Offer[]
 }

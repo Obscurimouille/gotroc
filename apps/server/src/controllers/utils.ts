@@ -1,3 +1,4 @@
+import { Response } from "express";
 import { ControllerResponse } from "../types/controller-response.js";
 
 export const INTERNAL_ERROR: ControllerResponse = {
@@ -17,6 +18,22 @@ export const INVALID_PARAMS: ControllerResponse = {
   message: "Invalid parameters",
   code: 400,
 };
+
+export const INVALID_CREDENTIALS: ControllerResponse = {
+  success: false,
+  message: "Invalid credentials",
+  code: 401,
+};
+
+export const UNAUTHORIZED: ControllerResponse = {
+  success: false,
+  message: "Unauthorized",
+  code: 401,
+};
+
+export const reply = (res: Response, controllerResponse: ControllerResponse) => {
+  res.status(controllerResponse.code || 200).json(controllerResponse);
+}
 
 export const handleInternalError = (error: any) => {
   console.error(error);

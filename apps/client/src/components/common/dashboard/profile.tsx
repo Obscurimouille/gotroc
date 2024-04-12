@@ -10,7 +10,7 @@ import {
 } from '@components/ui/form';
 import { Input } from '@components/ui/input';
 import { Separator } from '@components/ui/separator';
-import { Users } from '@data/users';
+import { User } from '@gotroc/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@lib/utils';
 import { BookmarkIcon, Pencil1Icon, PersonIcon, ReloadIcon } from '@radix-ui/react-icons';
@@ -47,19 +47,17 @@ const FormSchema = z.object({
   avatar: z.any(),
 });
 
-const DashboardProfile = ({ userId }: { userId: number }) => {
-  const user = Users.find((user) => user.id === userId);
-  if (!user) throw new Error('User not found');
+const DashboardProfile = ({ user }: { user: User }) => {
   const [submitting, setSubmitting] = useState(false);
-
   const [, setImageFile] = useState<File | null>(null);
   const [image, setImage] = useState<string>('');
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: user.username,
-      firstname: user.firstname,
-      lastname: user.lastname,
+      firstname: user.firstname || '',
+      lastname: user.lastname || '',
       email: user.email,
       avatar: null,
     },

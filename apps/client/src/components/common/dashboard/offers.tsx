@@ -3,7 +3,7 @@ import { Separator } from '@components/ui/separator';
 import noResultIllustration from '@assets/illustration_notify.svg';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { OfferService } from 'src/services/offer.service';
+import { OfferService } from 'src/services/offer-service';
 import { Offer } from '@gotroc/types';
 
 const DashboardOffers = ({ userId }: { userId: number }) => {
@@ -14,7 +14,7 @@ const DashboardOffers = ({ userId }: { userId: number }) => {
       if (!response.success) return;
       setUserOffers(response.data);
     });
-  });
+  }, [userId]);
 
   return (
     <div className="flex-1 flex flex-col gap-6 bg-background w-full rounded-xl px-8 py-7 lg:px-10 lg:py-9 shadow">
