@@ -33,12 +33,6 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [isImagesDialogOpen, setIsImagesDialogOpen] = useState(false);
   const formattedDate = OfferService.formatDate(offer.createdAt);
-
-  const mainCategory = OfferService.getMainCategory(offer.subCategoryName);
-  if (!mainCategory) throw new Error('Main category not found for offer ' + offer.id);
-  const category = OfferService.getSubCategory(offer.subCategoryName);
-  if (!category) throw new Error('Category not found for offer ' + offer.id);
-
   const url = window.location.href;
 
   useEffect(() => {
@@ -115,14 +109,14 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={'/search?category=' + mainCategory.value} className="underline">
-            {mainCategory.name}
+          <BreadcrumbLink href={'/search?category=' + offer.subCategory!.mainCategoryName} className="underline">
+            {offer.subCategory!.mainCategoryName}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={'/search?subcategory=' + category.value} className="underline">
-            {category.name}
+          <BreadcrumbLink href={'/search?subcategory=' + offer.subCategoryName} className="underline">
+            {offer.subCategoryName}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />

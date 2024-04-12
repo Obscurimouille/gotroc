@@ -1,4 +1,3 @@
-import { Categories } from '@data/categories';
 import { Offer } from '@gotroc/types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,10 +18,6 @@ const OfferResultCard = ({
   disableFavourite?: boolean;
 }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const categoryName = Categories.flatMap((c) => c.subCategories).find(
-    (c) => c.value === offer.subCategoryName,
-  )?.name;
-  if (!categoryName) throw new Error(`Category ${offer.subCategoryName} not found`);
   const formattedPrice = OfferService.formatPrice(offer.price);
   const formattedDate = OfferService.formatDate(offer.createdAt);
 
@@ -38,7 +33,7 @@ const OfferResultCard = ({
             {offer.title}
           </h2>
           <p className="flex-1 text-sm font-semibold">{formattedPrice}</p>
-          {!hideSubCategory && <p className="text-xs">{categoryName}</p>}
+          {!hideSubCategory && <p className="text-xs">{offer.subCategoryName}</p>}
           <p className="text-xs">{formattedDate}</p>
         </div>
         {!disableFavourite && (

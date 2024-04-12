@@ -3,7 +3,6 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/ui/button';
-import { Categories } from 'src/data/categories';
 import { toast } from 'sonner';
 import {
   Form,
@@ -28,7 +27,7 @@ import {
 import { CaretSortIcon, CheckIcon, PlusIcon } from '@radix-ui/react-icons';
 import { cn } from '@lib/utils';
 import React, { useState } from 'react';
-import { EnumCondition } from '@gotroc/types';
+import { EnumCondition, MainCategory } from '@gotroc/types';
 import {
   Select,
   SelectContent,
@@ -37,6 +36,7 @@ import {
   SelectValue,
 } from '@components/ui/select';
 import { OfferService } from 'src/services/offer-service';
+import { CategoryService } from 'src/services/category-service';
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2; // 2MB
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -99,6 +99,14 @@ const CreateOfferForm = () => {
   const navigate = useNavigate();
   const [openCategory, setOpenCategory] = React.useState(false);
   const [images, setImages] = useState<File[]>([]);
+  const [categories, setCategories] = useState<(MainCategory & { subCategories: string[] })[]>([]);
+
+  useState(() => {
+    CategoryService.getAll().then((result) => {
+      if (!result.success) return;
+      setCategories(result.data);
+    });
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -201,11 +209,7 @@ const CreateOfferForm = () => {
                           !field.value && 'text-muted-foreground',
                         )}
                       >
-                        {field.value
-                          ? Categories[0].subCategories.find(
-                              (category) => category.value === field.value,
-                            )?.name
-                          : 'Choisir une catégorie'}
+                        {field.value || 'Choisir une catégorie'}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
@@ -215,27 +219,27 @@ const CreateOfferForm = () => {
                       <CommandInput placeholder="Rechercher..." className="h-9" />
                       <CommandEmpty>Aucun résultat.</CommandEmpty>
                       <CommandList>
-                        {Categories.map((mainCategory, index) => (
+                        {categories.map((mainCategory, index) => (
                           <div key={index}>
                             <CommandGroup heading={mainCategory.name}>
-                              {mainCategory.subCategories.map((category) => (
+                              {mainCategory.subCategories!.map((subCategoryName, subIndex) => (
                                 <CommandItem
-                                  value={category.name}
-                                  key={category.value}
+                                  value={subCategoryName}
+                                  key={subIndex}
                                   onSelect={() => {
-                                    form.setValue('category', category.value);
+                                    form.setValue('category', subCategoryName);
                                     setOpenCategory(false);
                                   }}
                                   className={cn(
-                                    category.value === field.value ? 'font-semibold' : '',
+                                    subCategoryName === field.name ? 'font-semibold' : '',
                                   )}
                                   disabled={false}
                                 >
-                                  {category.name}
+                                  {subCategoryName}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',
-                                      category.value === field.value ? 'opacity-100' : 'opacity-0',
+                                      subCategoryName === field.value ? 'opacity-100' : 'opacity-0',
                                     )}
                                   />
                                 </CommandItem>
@@ -243,7 +247,7 @@ const CreateOfferForm = () => {
                             </CommandGroup>
                             {
                               // Add a separator between each group
-                              index < Categories.length - 1 && <CommandSeparator />
+                              index < categories.length - 1 && <CommandSeparator />
                             }
                           </div>
                         ))}

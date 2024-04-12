@@ -5,6 +5,7 @@ class OfferService {
   public static async getAll() {
     return prisma.offer.findMany({
       include: {
+        subCategory: true,
         images: {
           orderBy: {
             position: 'asc',
@@ -30,6 +31,7 @@ class OfferService {
         ],
       },
       include: {
+        subCategory: true,
         images: {
           orderBy: {
             position: 'asc',
@@ -45,6 +47,7 @@ class OfferService {
         id: id,
       },
       include: {
+        subCategory: true,
         images: {
           orderBy: {
             position: 'asc',
@@ -60,6 +63,7 @@ class OfferService {
         authorId: authorId,
       },
       include: {
+        subCategory: true,
         images: {
           orderBy: {
             position: 'asc',
@@ -107,6 +111,7 @@ class OfferService {
         ],
       },
       include: {
+        subCategory: true,
         images: {
           orderBy: {
             position: 'asc',

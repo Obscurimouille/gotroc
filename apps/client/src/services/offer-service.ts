@@ -1,5 +1,4 @@
-import { Categories } from '@data/categories';
-import { Category, EnumCondition, MainCategory } from '@gotroc/types';
+import { EnumCondition } from '@gotroc/types';
 import { isYesterday, isToday } from '@lib/utils';
 import { APIService } from './api-service';
 import { OfferImage } from '@gotroc/types/dist/types/offer';
@@ -68,16 +67,6 @@ export class OfferService {
       maximumFractionDigits: 2,
       ...options,
     });
-  }
-
-  public static getMainCategory(categoryValue: string): MainCategory | undefined {
-    return Categories.find((c) => {
-      return c.subCategories.some((subCategorie) => subCategorie.value === categoryValue);
-    });
-  }
-
-  public static getSubCategory(categoryValue: string): Category | undefined {
-    return Categories.flatMap((c) => c.subCategories).find((c) => c.value === categoryValue);
   }
 
   public static formatCondition(condition: EnumCondition): string {

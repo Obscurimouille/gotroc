@@ -1,11 +1,12 @@
-export type MainCategory = {
+type MainCategory = {
   name: string;
-  value: string;
-  icon?: string;
-  subCategories: Category[];
+  subCategories?: SubCategory[] | string[];
 };
 
-export type Category = {
+type SubCategory = {
   name: string;
-  value: string;
+  mainCategoryName: string;
+  mainCategory?: MainCategory;
 };
+
+export { MainCategory, SubCategory };

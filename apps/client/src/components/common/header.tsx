@@ -94,11 +94,11 @@ const AccountDropdown = () => {
           ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">
-          <button className="flex items-center gap-2" onClick={() => userContext.logout()}>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => userContext.logout()}>
+          <div className="flex items-center gap-2">
             <ExitIcon />
             Déconnexion
-          </button>
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,10 +1,10 @@
-import { EnumCondition } from "../enums/enum-condition";
+import { EnumCondition } from '../enums/enum-condition';
 
 export type OfferImage = {
   uuid: string;
   extension: string;
   position: number;
-}
+};
 
 export type Offer = {
   id: number;
@@ -12,9 +12,13 @@ export type Offer = {
   title: string;
   price: number;
   subCategoryName: string;
+  subCategory?: {
+    name: string;
+    mainCategoryName: string;
+  };
   // condition: EnumCondition;
   description: string;
   images: OfferImage[];
   createdAt: Date;
   updatedAt: Date;
-}
+};

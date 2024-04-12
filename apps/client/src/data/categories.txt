@@ -1,6 +1,6 @@
 import { MainCategory } from "@gotroc/types";
 
-export const Categories: MainCategory[] = [
+export const CategoriesX: MainCategory[] = [
   {
     name: 'Véhicules',
     value: 'vehicles',
