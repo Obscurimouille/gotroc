@@ -137,7 +137,11 @@ const DashboardProfile = ({ user }: { user: User }) => {
               <p className="text-xs text-foreground/50 italic">
                 Les informations personnelles ne seront pas visibles par les autres utilisateurs
               </p>
-              <Button type="submit" className="self-end" disabled={!form.formState.isValid || submitting}>
+              <Button
+                type="submit"
+                className="self-end"
+                disabled={!form.formState.isValid || submitting}
+              >
                 {submitting ? <ReloadIcon className="h-4 w-4 animate-spin" /> : 'Enregistrer'}
               </Button>
             </div>

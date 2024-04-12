@@ -2,9 +2,9 @@ import OfferResultCard from '../offer-result-card';
 import { Separator } from '@components/ui/separator';
 import noResultIllustration from '@assets/illustration_notify.svg';
 import { Link } from 'react-router-dom';
-import { Offer } from '@gotroc/types';
+import { Offer, User } from '@gotroc/types';
 
-const DashboardFavourites = ({ userId }: { userId: number }) => {
+const DashboardFavourites = ({ user }: { user: User }) => {
   const favouriteOffers: Offer[] = [];
 
   return (

@@ -2,7 +2,7 @@ import { cn } from '@lib/utils';
 import { Button } from '@components/ui/button';
 import { Link } from 'react-router-dom';
 import SearchBar from './searchbar';
-import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
+import { Avatar, AvatarFallback } from '@components/ui/avatar';
 import { ExitIcon, PersonIcon } from '@radix-ui/react-icons';
 import {
   DropdownMenu,
@@ -12,18 +12,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu';
-import { useEffect, useState } from 'react';
-import { User } from '@gotroc/types';
-import { AuthService } from 'src/services/auth-service';
+import { useContext } from 'react';
+import { UserContext } from 'src/providers/user-context';
 
 function Header({ className, ...props }: { className?: string }) {
-  const [user, setUser] = useState<User | null | undefined>(undefined);
-
-  useEffect(() => {
-    AuthService.me().then((user) => {
-      setUser(user);
-    });
-  }, []);
+  const userContext = useContext(UserContext);
 
   return (
     <header
@@ -45,7 +38,7 @@ function Header({ className, ...props }: { className?: string }) {
           <Button variant="default" size="sm" className="hidden md:block">
             <Link to="/create">Déposer une annonce</Link>
           </Button>
-          {user ? (
+          {userContext.user ? (
             <AccountDropdown />
           ) : (
             <Button variant="link" size="sm" asChild>
@@ -59,6 +52,8 @@ function Header({ className, ...props }: { className?: string }) {
 }
 
 const AccountDropdown = () => {
+  const userContext = useContext(UserContext);
+
   const items: { title: string; url: string }[] = [
     {
       title: 'Profil',
@@ -100,7 +95,7 @@ const AccountDropdown = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
-          <button className="flex items-center gap-2" onClick={() => AuthService.logout()}>
+          <button className="flex items-center gap-2" onClick={() => userContext.logout()}>
             <ExitIcon />
             Déconnexion
           </button>

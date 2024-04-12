@@ -1,6 +1,7 @@
 import { Separator } from '@components/ui/separator';
+import { User } from '@gotroc/types';
 
-const DashboardSettings = ({ userId }: { userId: number }) => {
+const DashboardSettings = ({ user }: { user: User }) => {
 
   return (
     <div className="flex-1 flex flex-col gap-6 bg-background w-full rounded-xl px-8 py-7 lg:px-10 lg:py-9 shadow">

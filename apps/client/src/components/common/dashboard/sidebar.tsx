@@ -2,9 +2,13 @@ import { EnumDashboardSection } from '@components/pages/dashboard';
 import { Separator } from '@components/ui/separator';
 import { cn } from '@lib/utils';
 import { ExitIcon } from '@radix-ui/react-icons';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from 'src/providers/user-context';
 
 const UserPagesSidebar = ({ activeSection }: { activeSection?: EnumDashboardSection }) => {
+  const userContext = useContext(UserContext);
+
   const navItems: { title: string; value: EnumDashboardSection; url: string }[] = [
     {
       title: 'Profil',
@@ -50,13 +54,13 @@ const UserPagesSidebar = ({ activeSection }: { activeSection?: EnumDashboardSect
       <div className="px-4">
         <Separator className="bg-neutral-300" />
       </div>
-      <Link
-        to="/logout"
+      <button
+        onClick={() => userContext.logout()}
         className="py-2 px-4 flex items-center gap-2 text-foreground hover:bg-neutral-200 rounded-md transition-colors"
       >
         <ExitIcon />
         Déconnexion
-      </Link>
+      </button>
     </div>
   );
 };

@@ -12,9 +12,11 @@ import {
 import { Input } from '@components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@lib/utils';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { UserContext } from 'src/providers/user-context';
 import { AuthService } from 'src/services/auth-service';
 import { z } from 'zod';
 
@@ -33,6 +35,7 @@ const FormSchema = z.object({
 });
 
 function LoginPage() {
+  const userContext = useContext(UserContext);
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -46,6 +49,7 @@ function LoginPage() {
   const handleSubmit = (data: z.infer<typeof FormSchema>) => {
     AuthService.login(data.identifier, data.password).then((result) => {
       if (!result.success) return toast.error("Nom d'utilisateur ou mot de passe incorrect.");
+      userContext.user = result.data;
       navigate('/');
     });
   };

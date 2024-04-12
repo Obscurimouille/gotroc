@@ -1,4 +1,4 @@
-import { APIService } from "./api-service";
+import { APIService } from './api-service';
 
 export class UserService {
   public static getAll() {
@@ -10,6 +10,7 @@ export class UserService {
   }
 
   public static formatRegisterDate(date: Date): string {
+    date = new Date(date);
     const month = date.toLocaleString('fr-FR', { month: 'long' });
     return 'Membre depuis ' + month + ' ' + date.getFullYear();
   }
