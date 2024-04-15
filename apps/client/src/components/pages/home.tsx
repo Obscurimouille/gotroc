@@ -8,6 +8,7 @@ import { OfferService } from 'src/services/offer-service';
 
 const HomePage = () => {
   const location = useLocation();
+  const [loading, setLoading] = useState<boolean>(true);
   const queryParams = new URLSearchParams(location.search);
   const offerCreated = !!Number(queryParams.get('offer_created'));
 
@@ -17,11 +18,12 @@ const HomePage = () => {
     OfferService.getAll().then((response) => {
       if (!response.success) return;
       setRecommendedOffers(response.data);
+      setLoading(false);
     });
   });
 
   return (
-    <Page className='bg-background'>
+    <Page className='bg-background' loading={loading}>
       <Header />
       <PageContent className="pt-8 gap-8">
         {offerCreated && <OfferCreatedCard />}

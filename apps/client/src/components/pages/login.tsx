@@ -12,9 +12,9 @@ import {
 import { Input } from '@components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@lib/utils';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { UserContext } from 'src/providers/user-context';
 import { AuthService } from 'src/services/auth-service';
@@ -35,8 +35,22 @@ const FormSchema = z.object({
 });
 
 function LoginPage() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const fromParam = (queryParams.get('from') || '').toLowerCase();
+  const [fromParamToastState, setFromParamToastState] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Display a toast message if the user is redirected from the create-offer page
+    if (fromParam === 'create-offer' && !fromParamToastState) {
+      toast.error('Vous devez être connecté pour pouvoir déposer une annonce.');
+      setFromParamToastState(true);
+    }
+  }, [fromParam, fromParamToastState]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -47,7 +61,9 @@ function LoginPage() {
   });
 
   const handleSubmit = (data: z.infer<typeof FormSchema>) => {
+    setLoading(true);
     AuthService.login(data.identifier, data.password).then((result) => {
+      setLoading(false);
       if (!result.success) return toast.error("Nom d'utilisateur ou mot de passe incorrect.");
       userContext.user = result.data;
       navigate('/');
@@ -55,7 +71,7 @@ function LoginPage() {
   };
 
   return (
-    <Page>
+    <Page loading={loading}>
       <Header />
       <PageContent className="items-center py-24">
         <div>

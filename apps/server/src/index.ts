@@ -6,9 +6,10 @@ import cors, { CorsOptions } from 'cors';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { ReqContext } from './providers/req-context.js';
+import { delayMiddleware } from './middlewares/delay.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = env.get.PORT;
 
 const corsOptions: CorsOptions = {
   origin: env.get.CLIENT_URL,
@@ -24,8 +25,8 @@ app.use((req, _, next) => {
   next();
 });
 
-app.use(router);
-app.use(express.static('public'));
+app.use(delayMiddleware(400, { devOnly: true }), router);
+app.use(delayMiddleware(200, { devOnly: true }), express.static('public'));
 
 app.listen(port, () => {
   console.log(`[*] Server is running at http://localhost:${port}`);

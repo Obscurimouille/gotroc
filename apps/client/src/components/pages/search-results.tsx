@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Offer } from '@gotroc/types';
 
 const SearchResultsPage = () => {
+  const [loading, setLoading] = useState<boolean>(true);
   const [results, setResults] = useState<Offer[]>([]);
   const [searchParams] = useSearchParams();
   let category = searchParams.get('category');
@@ -22,14 +23,17 @@ const SearchResultsPage = () => {
     }).then((response) => {
       if (!response.success) return;
       setResults(response.data);
+      setLoading(false);
     });
   }, [category, subcategory, text]);
 
   return (
-    <Page>
+    <Page loading={loading}>
       <Header />
       <PageContent className="py-8 pb-16">
-        {!!results.length ? (
+        {!!loading ? (
+          <></>
+        ) : !!results.length ? (
           <div className="">
             <h2 className="mb-4">{results.length} annonces</h2>
             <div className="flex flex-col gap-6">

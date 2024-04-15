@@ -20,14 +20,15 @@ const Page = ({
         setMontLoader(false);
       }, animationDuration);
     }
-  });
+    else setMontLoader(true);
+  }, [loading]);
 
   return (
     <>
       <div
         className={cn(
           `relative flex flex-col items-center min-h-dvh bg-neutral-100 transition-[filter] duration-[${animationDuration}ms]`,
-          loading ? 'blur-sm' : '',
+          loading ? 'blur-sm brightness-95' : '',
           className,
         )}
       >

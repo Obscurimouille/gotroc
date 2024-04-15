@@ -21,11 +21,9 @@ const OfferPage = () => {
   useEffect(() => {
     OfferService.get(id).then((response) => {
       if (!response.success) return;
-      setTimeout(() => {
-        setOffer(response.data);
-        setRecommendedOffers(response.data.recommendations);
-        setLoading(false);
-      }, 1000);
+      setOffer(response.data);
+      setRecommendedOffers(response.data.recommendations);
+      setLoading(false);
     });
   }, [id]);
 
