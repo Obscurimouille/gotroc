@@ -4,3 +4,8 @@ node_modules
 
 # Build files
 dist
+
+# Offer images
+public/images/offers/*
+# Don't ignore seed images
+!public/images/offers/seed_*

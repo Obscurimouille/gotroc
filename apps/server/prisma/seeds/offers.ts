@@ -28,11 +28,11 @@ export const SeedOffers: {
     createdAt: new Date('2023-09-20T10:15:00'),
     images: [
       {
-        uuid: 'ps5_1',
+        uuid: 'seed_ps5_1',
         extension: 'jpg',
       },
       {
-        uuid: 'ps5_2',
+        uuid: 'seed_ps5_2',
         extension: 'jpeg',
       },
     ],
@@ -45,7 +45,7 @@ export const SeedOffers: {
     createdAt: new Date('2023-09-20T10:15:00'),
     images: [
       {
-        uuid: 'velo_1',
+        uuid: 'seed_velo_1',
         extension: 'jpg',
       },
     ],
@@ -58,7 +58,7 @@ export const SeedOffers: {
     createdAt: new Date('2023-09-20T10:15:00'),
     images: [
       {
-        uuid: 'jeux_societe_1',
+        uuid: 'seed_jeux_societe_1',
         extension: 'jpg',
       },
     ],
@@ -71,7 +71,7 @@ export const SeedOffers: {
     createdAt: new Date('2023-09-20T10:15:00'),
     images: [
       {
-        uuid: 'jeux_ds_1',
+        uuid: 'seed_jeux_ds_1',
         extension: 'jpg',
       },
     ],
@@ -84,23 +84,23 @@ export const SeedOffers: {
     createdAt: new Date('2023-09-20T10:15:00'),
     images: [
       {
-        uuid: 'clio_1',
+        uuid: 'seed_clio_1',
         extension: 'jpg',
       },
       {
-        uuid: 'clio_2',
+        uuid: 'seed_clio_2',
         extension: 'jpg',
       },
       {
-        uuid: 'clio_3',
+        uuid: 'seed_clio_3',
         extension: 'jpg',
       },
       {
-        uuid: 'clio_4',
+        uuid: 'seed_clio_4',
         extension: 'jpg',
       },
       {
-        uuid: 'clio_5',
+        uuid: 'seed_clio_5',
         extension: 'jpg',
       },
     ],
@@ -113,19 +113,19 @@ export const SeedOffers: {
     createdAt: new Date('2024-04-01T14:21:00'),
     images: [
       {
-        uuid: 'mt07_1',
+        uuid: 'seed_mt07_1',
         extension: 'jpg',
       },
       {
-        uuid: 'mt07_2',
+        uuid: 'seed_mt07_2',
         extension: 'jpg',
       },
       {
-        uuid: 'mt07_3',
+        uuid: 'seed_mt07_3',
         extension: 'jpg',
       },
       {
-        uuid: 'mt07_4',
+        uuid: 'seed_mt07_4',
         extension: 'jpg',
       },
     ],
@@ -138,15 +138,15 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-31T11:45:00'),
     images: [
       {
-        uuid: 'cb650r_1',
+        uuid: 'seed_cb650r_1',
         extension: 'jpg',
       },
       {
-        uuid: 'cb650r_2',
+        uuid: 'seed_cb650r_2',
         extension: 'jpg',
       },
       {
-        uuid: 'cb650r_3',
+        uuid: 'seed_cb650r_3',
         extension: 'jpg',
       },
     ],
@@ -159,23 +159,23 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-15T09:33:00'),
     images: [
       {
-        uuid: 'a3_1',
+        uuid: 'seed_a3_1',
         extension: 'jpg',
       },
       {
-        uuid: 'a3_2',
+        uuid: 'seed_a3_2',
         extension: 'jpg',
       },
       {
-        uuid: 'a3_3',
+        uuid: 'seed_a3_3',
         extension: 'jpg',
       },
       {
-        uuid: 'a3_4',
+        uuid: 'seed_a3_4',
         extension: 'jpg',
       },
       {
-        uuid: 'a3_5',
+        uuid: 'seed_a3_5',
         extension: 'jpg',
       },
     ],
@@ -188,23 +188,23 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'gt3rs_1',
+        uuid: 'seed_gt3rs_1',
         extension: 'jpg',
       },
       {
-        uuid: 'gt3rs_2',
+        uuid: 'seed_gt3rs_2',
         extension: 'jpg',
       },
       {
-        uuid: 'gt3rs_3',
+        uuid: 'seed_gt3rs_3',
         extension: 'jpg',
       },
       {
-        uuid: 'gt3rs_4',
+        uuid: 'seed_gt3rs_4',
         extension: 'jpg',
       },
       {
-        uuid: 'gt3rs_5',
+        uuid: 'seed_gt3rs_5',
         extension: 'jpg',
       },
     ],
@@ -217,11 +217,11 @@ export const SeedOffers: {
     createdAt: new Date(oneHourAgo),
     images: [
       {
-        uuid: 'ds_1',
+        uuid: 'seed_ds_1',
         extension: 'jpg',
       },
       {
-        uuid: 'ds_2',
+        uuid: 'seed_ds_2',
         extension: 'jpg',
       },
     ],
@@ -234,11 +234,11 @@ export const SeedOffers: {
     createdAt: new Date(fiveMinutesAgo),
     images: [
       {
-        uuid: 'casque_moto_1',
+        uuid: 'seed_casque_moto_1',
         extension: 'jpg',
       },
       {
-        uuid: 'casque_moto_2',
+        uuid: 'seed_casque_moto_2',
         extension: 'jpg',
       },
     ],
@@ -252,19 +252,19 @@ export const SeedOffers: {
     createdAt: new Date(fiveMinutesAgo),
     images: [
       {
-        uuid: 'duplex_1',
+        uuid: 'seed_duplex_1',
         extension: 'jpg',
       },
       {
-        uuid: 'duplex_2',
+        uuid: 'seed_duplex_2',
         extension: 'jpg',
       },
       {
-        uuid: 'duplex_3',
+        uuid: 'seed_duplex_3',
         extension: 'jpg',
       },
       {
-        uuid: 'duplex_4',
+        uuid: 'seed_duplex_4',
         extension: 'jpg',
       },
     ],
@@ -277,15 +277,15 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'trident_660_1',
+        uuid: 'seed_trident_660_1',
         extension: 'jpg',
       },
       {
-        uuid: 'trident_660_2',
+        uuid: 'seed_trident_660_2',
         extension: 'jpg',
       },
       {
-        uuid: 'trident_660_3',
+        uuid: 'seed_trident_660_3',
         extension: 'jpg',
       },
     ],
@@ -298,15 +298,15 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'r8_1',
+        uuid: 'seed_r8_1',
         extension: 'jpg',
       },
       {
-        uuid: 'r8_2',
+        uuid: 'seed_r8_2',
         extension: 'jpg',
       },
       {
-        uuid: 'r8_3',
+        uuid: 'seed_r8_3',
         extension: 'jpg',
       },
     ],
@@ -319,11 +319,11 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'cayenne_1',
+        uuid: 'seed_cayenne_1',
         extension: 'jpg',
       },
       {
-        uuid: 'cayenne_2',
+        uuid: 'seed_cayenne_2',
         extension: 'jpg',
       },
     ],
@@ -336,11 +336,11 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'e46_1',
+        uuid: 'seed_e46_1',
         extension: 'jpg',
       },
       {
-        uuid: 'e46_2',
+        uuid: 'seed_e46_2',
         extension: 'jpg',
       },
     ],
@@ -353,11 +353,11 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: '205_gti_1',
+        uuid: 'seed_205_gti_1',
         extension: 'jpg',
       },
       {
-        uuid: '205_gti_2',
+        uuid: 'seed_205_gti_2',
         extension: 'jpg',
       },
     ],
@@ -370,19 +370,19 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'a110_1',
+        uuid: 'seed_a110_1',
         extension: 'jpg',
       },
       {
-        uuid: 'a110_2',
+        uuid: 'seed_a110_2',
         extension: 'jpg',
       },
       {
-        uuid: 'a110_3',
+        uuid: 'seed_a110_3',
         extension: 'jpg',
       },
       {
-        uuid: 'a110_4',
+        uuid: 'seed_a110_4',
         extension: 'jpg',
       },
     ],
@@ -395,23 +395,23 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'vtech_1',
+        uuid: 'seed_vtech_1',
         extension: 'jpg',
       },
       {
-        uuid: 'vtech_2',
+        uuid: 'seed_vtech_2',
         extension: 'jpg',
       },
       {
-        uuid: 'vtech_3',
+        uuid: 'seed_vtech_3',
         extension: 'jpg',
       },
       {
-        uuid: 'vtech_4',
+        uuid: 'seed_vtech_4',
         extension: 'jpg',
       },
       {
-        uuid: 'vtech_5',
+        uuid: 'seed_vtech_5',
         extension: 'jpg',
       },
     ],
@@ -424,7 +424,7 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'meuble_cuisine_1',
+        uuid: 'seed_meuble_cuisine_1',
         extension: 'jpg',
       },
     ],
@@ -437,7 +437,7 @@ export const SeedOffers: {
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
       {
-        uuid: 'grille_pain_1',
+        uuid: 'seed_grille_pain_1',
         extension: 'jpg',
       },
     ],
