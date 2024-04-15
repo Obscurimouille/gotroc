@@ -3,6 +3,26 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class UserService {
+  public static update(
+    id: number,
+    data: {
+      firstname: string;
+      lastname: string;
+      email: string;
+    },
+  ) {
+    return prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+      },
+    });
+  }
+
   public static getByUsername(username: string): Promise<UserWithPassword | null> {
     return prisma.user.findUnique({
       where: {
@@ -11,10 +31,19 @@ class UserService {
     });
   }
 
-  public static getByEmail(email: string): Promise<UserWithPassword | null> {
-    return prisma.user.findUnique({
+  /**
+   * Get a user by email
+   * @param email The email of the user
+   * @param not An array of emails to exclude
+   * @returns The user or null
+   */
+  public static getByEmail(email: string, not?: string[]): Promise<UserWithPassword | null> {
+    return prisma.user.findFirst({
       where: {
-        email: email,
+        email: {
+          equals: email,
+          notIn: not || [],
+        },
       },
     });
   }
@@ -30,7 +59,7 @@ class UserService {
             email: identifier,
           },
         ],
-      }
+      },
     });
   }
 

@@ -8,6 +8,10 @@ export const UsernameSchema = vine.string().trim().toLowerCase().minLength(3).ma
   allowUnderscores: false,
 });
 
+export const FirstNameSchema = vine.string().trim().minLength(2).maxLength(32);
+
+export const LastNameSchema = vine.string().trim().minLength(2).maxLength(32);
+
 export const EmailSchema = vine.string().toLowerCase().trim().email();
 
 export const PasswordSchema = vine.string().trim().minLength(8).maxLength(32);

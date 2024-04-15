@@ -18,6 +18,13 @@ export class APIService {
     });
   }
 
+  public static put(endpoint: string, body?: any) {
+    return this.request(endpoint, 'PUT', {
+      body,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   public static async formData(endpoint: string, body: FormData): Promise<APIResponse> {
     return this.request(endpoint, 'POST', {
       body,

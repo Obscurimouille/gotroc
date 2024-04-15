@@ -81,16 +81,33 @@ const DashboardProfile = ({ user }: { user: User }) => {
     form.setValue('avatar', imageFile);
   };
 
-  const handleSubmit = (data: z.infer<typeof FormSchema>) => {
+  const handleSubmit = async (data: z.infer<typeof FormSchema>) => {
     setSubmitting(true);
-    setTimeout(() => {
-      user.username = data.username;
-      user.firstname = data.firstname;
-      user.lastname = data.lastname;
-      user.email = data.email;
-      setSubmitting(false);
-      toast.success('Profil mis à jour');
-    }, 2000);
+    const { username, ...rest } = data;
+    const result = await UserService.updateProfile(rest);
+    setSubmitting(false);
+    if (!result.success) {
+      toast.error("Erreur lors de la mise à jour du profil. Veuillez réessayer plus tard.");
+      form.reset({
+        username: user.username,
+        firstname: user.firstname || '',
+        lastname: user.lastname || '',
+        email: user.email,
+        avatar: null,
+      });
+      return;
+    }
+    // Mettre a jour les nouvelles infos
+    const newInfos = result.data;
+    form.reset({
+      username: newInfos.username,
+      firstname: newInfos.firstname || '',
+      lastname: newInfos.lastname || '',
+      email: newInfos.email,
+      avatar: null,
+    });
+
+    toast.success('Profil mis à jour');
   };
 
   return (
@@ -219,7 +236,7 @@ const UsernameInput = (props: FormInputParams) => {
         <FormItem className={cn(props.className, '')}>
           <FormLabel>Nom d'utilisateur</FormLabel>
           <FormControl>
-            <Input placeholder="Nom d'utilisateur" {...field} />
+            <Input placeholder="Nom d'utilisateur" {...field} disabled />
           </FormControl>
           <FormMessage />
         </FormItem>

@@ -5,7 +5,10 @@ import vine from '@vinejs/vine';
 /**
  * Options accepted by the unique rule
  */
-type Options = undefined;
+type Options = {
+  // Exclude some emails from the validation
+  exclude?: string[]
+} | undefined;
 
 /**
  * Implementation
@@ -18,7 +21,7 @@ async function uniqueEmail(value: unknown, options: Options, field: FieldContext
    */
   if (typeof value !== 'string') return;
 
-  const user = await UserService.getByEmail(value);
+  const user = await UserService.getByEmail(value, options?.exclude);
   if (user) {
     field.report('The {{ field }} is already used', 'uniqueEmail', field);
   }
