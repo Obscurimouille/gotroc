@@ -88,7 +88,7 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <CarouselContent className="h-[75dvh] w-full ml-0">
             {offer.images.map((image, index) => (
               <CarouselItem key={index} className="w-full h-full px-0 flex flex-col">
-                <img src={OfferService.getImageUrl(image)} alt="Offer" className="h-full w-full object-contain" />
+                <img src={OfferService.getImageUrl(image.imageUUID)} alt="Offer" className="h-full w-full object-contain" />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -148,12 +148,12 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           >
             Voir les images
           </button>
-          <InteractiveImage image={OfferService.getImageUrl(offer.images[0])} onClick={() => openImagesDialog()} />
+          <InteractiveImage image={OfferService.getImageUrl(offer.images[0].imageUUID)} onClick={() => openImagesDialog()} />
           {offer.images.length > 1 && (
             <div className="flex-1 flex flex-col gap-2">
-              {<InteractiveImage image={OfferService.getImageUrl(offer.images[1])} onClick={() => openImagesDialog()} />}
+              {<InteractiveImage image={OfferService.getImageUrl(offer.images[1].imageUUID)} onClick={() => openImagesDialog()} />}
               {offer.images.length > 2 && (
-                <InteractiveImage image={OfferService.getImageUrl(offer.images[2])} onClick={() => openImagesDialog()} />
+                <InteractiveImage image={OfferService.getImageUrl(offer.images[2].imageUUID)} onClick={() => openImagesDialog()} />
               )}
             </div>
           )}

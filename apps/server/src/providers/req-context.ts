@@ -1,9 +1,10 @@
-import { User } from "@gotroc/types";
+import { User } from '@gotroc/types';
 
-type ReqContextVariables = { [key: string]: any } & { user?: User | null };
+type Storage = { filename: string; extension: string; path: string }[];
+type ReqContextVariables = { [key: string]: any } & { user?: User | null; storage?: Storage };
 
 export class ReqContext {
-  private variables: ReqContextVariables = {};
+  public variables: ReqContextVariables = {};
 
   constructor() {}
 
@@ -13,6 +14,14 @@ export class ReqContext {
 
   public set user(user: User | null) {
     this.variables.user = user;
+  }
+
+  public get storage(): Storage | undefined {
+    return this.variables.storage;
+  }
+
+  public set storage(storage: Storage) {
+    this.variables.storage = storage;
   }
 }
 

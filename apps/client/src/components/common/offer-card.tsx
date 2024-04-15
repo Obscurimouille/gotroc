@@ -8,8 +8,8 @@ import { OfferService } from 'src/services/offer-service';
 const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const formattedDate = OfferService.formatDate(offer.createdAt, { displayTime: true });
-  const mainImage = offer.images.find((image) => image.position === 1);
-  const mainImageSrc = mainImage ? (OfferService.getImageUrl(mainImage)) : '/images/placeholder.png';
+  const mainImage = offer.images[0];
+  const mainImageSrc = mainImage ? (OfferService.getImageUrl(mainImage.imageUUID)) : '/images/placeholder.png';
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);

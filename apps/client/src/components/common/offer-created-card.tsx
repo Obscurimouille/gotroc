@@ -8,7 +8,7 @@ const OfferCreatedCard = () => {
   const [submitSectionOpen, setSubmitSectionOpen] = useState(true);
 
   return (
-    !submitSectionOpen ? <></> : <section className="relative w-full bg-background py-10 px-12 flex justify-center rounded-xl gap-12">
+    !submitSectionOpen ? <></> : <section className="relative w-full bg-background py-10 flex justify-center rounded-xl gap-12">
       <div className="flex flex-col gap-8">
         <h1 className="font-semibold text-5xl leading-[1.2]">Annonce publiée</h1>
         <p className="text-justify">

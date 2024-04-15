@@ -4,6 +4,32 @@ import { APIService } from './api-service';
 import { OfferImage } from '@gotroc/types/dist/types/offer';
 
 export class OfferService {
+  public static create({
+    title,
+    price,
+    description,
+    subCategoryName,
+    images,
+  }: {
+    title: string;
+    price: number;
+    description: string;
+    subCategoryName: string;
+    images: File[];
+  }) {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('price', price.toString());
+    formData.append('description', description);
+    formData.append('subCategoryName', subCategoryName);
+
+    for (let i = 0; i < images.length; i++) {
+      formData.append('images', images[i]);
+    }
+
+    return APIService.formData('/offer', formData);
+  }
+
   public static getAll() {
     return APIService.get('/offer');
   }
@@ -14,6 +40,10 @@ export class OfferService {
 
   public static getRecommendationsForOffer(id: number) {
     return APIService.get('/offer/recommendations/' + id);
+  }
+
+  public static getImageURL(imageUUID: string) {
+    return '/offer/image/' + imageUUID;
   }
 
   public static search({
@@ -39,8 +69,8 @@ export class OfferService {
     return APIService.get('/offer/user/' + userId);
   }
 
-  public static getImageUrl(image: OfferImage): string {
-    return `${APIService.API_URL}/images/offers/${image.uuid}.${image.extension}`;
+  public static getImageUrl(imageUUID: string): string {
+    return `${APIService.API_URL}/offer/image/${imageUUID}`;
   }
 
   private static conditionTranslations = {

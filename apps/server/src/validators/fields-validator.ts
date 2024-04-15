@@ -1,15 +1,25 @@
 import vine from '@vinejs/vine';
+import { existingSubcategoryRule } from './rules/existing-subcategory.js';
+import { existingOfferImageRule } from './rules/existing-offer-image.js';
 
-const UsernameSchema = vine.string().trim().toLowerCase().minLength(3).maxLength(20).alphaNumeric({
+export const UsernameSchema = vine.string().trim().toLowerCase().minLength(3).maxLength(20).alphaNumeric({
   allowDashes: true,
   allowSpaces: false,
   allowUnderscores: false,
 });
 
-const EmailSchema = vine.string().toLowerCase().trim().email();
+export const EmailSchema = vine.string().toLowerCase().trim().email();
 
-const PasswordSchema = vine.string().trim().minLength(8).maxLength(32);
+export const PasswordSchema = vine.string().trim().minLength(8).maxLength(32);
 
-const UserIdSchema = vine.number().positive();
+export const UserIdSchema = vine.number().positive();
 
-export { UsernameSchema, EmailSchema, PasswordSchema, UserIdSchema };
+export const SubCategoryNameSchema = vine.string().trim().toLowerCase().use(existingSubcategoryRule());
+
+export const OfferTitleSchema = vine.string().minLength(5).maxLength(32);
+
+export const OfferDescriptionSchema = vine.string().minLength(5).maxLength(32);
+
+export const OfferPriceSchema = vine.number().positive();
+
+export const OfferImageUUIDSchema = vine.string().use(existingOfferImageRule());

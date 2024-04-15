@@ -1,8 +1,7 @@
 import { EnumCondition } from '../enums/enum-condition';
 
 export type OfferImage = {
-  uuid: string;
-  extension: string;
+  imageUUID: string;
   position: number;
 };
 

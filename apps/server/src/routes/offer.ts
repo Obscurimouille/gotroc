@@ -1,16 +1,45 @@
 import express from 'express';
 import OfferController from '../controllers/offer-controller.js';
 const router = express.Router();
+import OfferUpload from '../storage/offer.js';
+import { authenticatedMiddleware } from '../middlewares/authenticated.js';
+import { reply } from '../controllers/utils.js';
+
+router.post('/', authenticatedMiddleware, OfferUpload, async (req, res) => {
+  const imageRefs = req.context.storage || [];
+  req.context.storage = [];
+
+  const result = await OfferController.create(
+    {
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      subCategoryName: req.body.subCategoryName,
+      images: imageRefs!.map((ref) => ref.path),
+    },
+    req.context.user!,
+  );
+  reply(res, result);
+});
 
 router.get('/', async (_, res) => {
   const result = await OfferController.getAll();
-  res.status(result.code || 200).json(result);
+  reply(res, result);
+});
+
+router.get('/image/:uuid', async (req, res) => {
+  const uuid = req.params.uuid;
+  const result = await OfferController.getImage(uuid);
+  if (result.success) {
+    return res.sendFile(result.data.path);
+  }
+  reply(res, result);
 });
 
 router.get('/recommendations/:id', async (req, res) => {
   const id = Number(req.params.id);
   const result = await OfferController.getRecommendationsForOffer(id);
-  res.status(result.code || 200).json(result);
+  reply(res, result);
 });
 
 router.get('/search', async (req, res) => {
@@ -19,19 +48,19 @@ router.get('/search', async (req, res) => {
   const mainCategoryName = req.query.mainCategoryName as string;
 
   const result = await OfferController.search({ subCategoryName, rawText, mainCategoryName });
-  res.status(result.code || 200).json(result);
+  reply(res, result);
 });
 
 router.get('/user/:id', async (req, res) => {
   const id = Number(req.params.id);
   const result = await OfferController.getByAuthorId(id);
-  res.status(result.code || 200).json(result);
+  reply(res, result);
 });
 
 router.get('/:id', async (req, res) => {
   const id = Number(req.params.id);
   const result = await OfferController.getById(id);
-  res.status(result.code || 200).json(result);
+  reply(res, result);
 });
 
 export default router;

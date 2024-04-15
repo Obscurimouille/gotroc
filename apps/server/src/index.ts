@@ -13,10 +13,10 @@ const port = process.env.PORT || 3000;
 const corsOptions: CorsOptions = {
   origin: env.get.CLIENT_URL,
   credentials: true,
-}
+};
 
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
 
 app.use((req, _, next) => {

@@ -26,7 +26,7 @@ const OfferResultCard = ({
       to={`/offer/${offer.id}`}
       className={cn("group w-full h-40 bg-background flex rounded-xl overflow-hidden shadow-md", className)}
     >
-      <img src={OfferService.getImageUrl(offer.images[0])} alt="Offer" className="h-full aspect-[4/3] object-cover" />
+      <img src={OfferService.getImageUrl(offer.images[0].imageUUID)} alt="Offer" className="h-full aspect-[4/3] object-cover" />
       <div className="flex-1 p-4 flex justify-between">
         <div className="flex flex-col gap-1">
           <h2 className="font-semibold text-xl leading-[1.2] mb-1 group-hover:text-primary transition-colors">

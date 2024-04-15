@@ -42,8 +42,12 @@ async function main() {
               ...{
                 images: {
                   create: offer.images.map((image: any, index: number) => ({
-                    uuid: image.uuid,
-                    extension: image.extension,
+                    image: {
+                      create: {
+                        uuid: image.uuid,
+                        extension: image.extension,
+                      }
+                    },
                     position: index + 1,
                   })),
                 },

@@ -2,6 +2,38 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class OfferService {
+  public static async add({
+    title,
+    price,
+    description,
+    subCategoryName,
+    images,
+    authorId,
+  }: {
+    title: string;
+    price: number;
+    description: string;
+    subCategoryName: string;
+    images: string[];
+    authorId: number;
+  }) {
+    return prisma.offer.create({
+      data: {
+        title,
+        price,
+        description,
+        subCategoryName,
+        images: {
+          create: images.map((uuid, index) => ({
+            imageUUID: uuid,
+            position: index,
+          }))
+        },
+        authorId,
+      }
+    })
+  }
+
   public static async getAll() {
     return prisma.offer.findMany({
       include: {
@@ -9,6 +41,10 @@ class OfferService {
         images: {
           orderBy: {
             position: 'asc',
+          },
+          select: {
+            position: true,
+            imageUUID: true,
           },
         },
       },
@@ -36,6 +72,10 @@ class OfferService {
           orderBy: {
             position: 'asc',
           },
+          select: {
+            position: true,
+            imageUUID: true,
+          },
         },
       },
     });
@@ -52,6 +92,10 @@ class OfferService {
           orderBy: {
             position: 'asc',
           },
+          select: {
+            position: true,
+            imageUUID: true,
+          },
         },
       },
     });
@@ -67,6 +111,10 @@ class OfferService {
         images: {
           orderBy: {
             position: 'asc',
+          },
+          select: {
+            position: true,
+            imageUUID: true,
           },
         },
       },
@@ -115,6 +163,10 @@ class OfferService {
         images: {
           orderBy: {
             position: 'asc',
+          },
+          select: {
+            position: true,
+            imageUUID: true,
           },
         },
       },

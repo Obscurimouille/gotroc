@@ -15,4 +15,14 @@ class CategoryService {
   }
 }
 
-export default CategoryService;
+class SubCategoryService {
+  public static getByName(name: string) {
+    return prisma.subCategory.findUnique({
+      where: {
+        name,
+      },
+    });
+  }
+}
+
+export { CategoryService, SubCategoryService };

@@ -1,5 +1,5 @@
-import { User } from "@gotroc/types";
-import { APIService } from "./api-service";
+import { User } from '@gotroc/types';
+import { APIService } from './api-service';
 
 export class AuthService {
   public static async login(identifier: string, password: string) {

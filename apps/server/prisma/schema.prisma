@@ -35,11 +35,18 @@ model Offer {
 }
 
 model OfferImage {
-  uuid            String    @id @default(uuid())
+  id              Int       @id @default(autoincrement())
   position        Int
-  extension       String
-  offer           Offer     @relation(fields: [offerId], references: [id])
+  imageUUID       String
+  image           File     @relation(fields: [imageUUID], references: [uuid])
   offerId         Int
+  offer           Offer     @relation(fields: [offerId], references: [id])
+}
+
+model File {
+  uuid            String    @id @default(uuid())
+  extension       String
+  offerImages     OfferImage[]
 }
 
 model User {

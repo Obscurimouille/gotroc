@@ -104,7 +104,7 @@ const CreateOfferForm = () => {
   useState(() => {
     CategoryService.getAll().then((result) => {
       if (!result.success) return;
-      setCategories(result.data);
+      setCategories(result.data!);
     });
   });
 
@@ -150,11 +150,21 @@ const CreateOfferForm = () => {
     );
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     toast.success('Annonce créée avec succès');
-    setTimeout(() => {
-      navigate('/?offer_created=1');
-    }, 2000);
+    const result = await OfferService.create({
+      title: values.title,
+      price: values.price,
+      description: values.description,
+      subCategoryName: values.category,
+      images,
+    });
+    if (!result.success) {
+      toast.error('Erreur lors de la création de l\'annonce, veuillez réessayer plus tard.');
+      return;
+    }
+    toast.success('Annonce créée avec succès');
+    navigate('/?offer_created=1');
   };
 
   return (
