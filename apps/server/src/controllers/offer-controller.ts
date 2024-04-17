@@ -14,12 +14,11 @@ import OfferImagesService from '../services/offer-images-service.js';
 import fs from 'fs';
 import UserService from '../services/user-service.js';
 import path from 'path';
+import { FileRef } from '../providers/file-reference.js';
 
 const __appRoot = process.cwd();
 
-
 class OfferController {
-
   public static async getImage(uuid: string) {
     try {
       const schema = vine.object({
@@ -32,14 +31,16 @@ class OfferController {
       const image = await OfferImagesService.get(field.uuid);
       if (!image) return NOT_FOUND;
 
-      const filepath = path.join(__appRoot, OfferImagesService.createPath(image.uuid, image.extension));
+      const filepath = path.join(
+        __appRoot,
+        OfferImagesService.createPath(image.uuid, image.extension),
+      );
 
       return {
         success: true,
-        data: {...image, path: filepath }
+        data: { ...image, path: filepath },
       };
-    }
-    catch (error) {
+    } catch (error) {
       if (error instanceof errors.E_VALIDATION_ERROR) {
         return { ...INVALID_PARAMS, errors: error.messages };
       }
@@ -53,7 +54,7 @@ class OfferController {
       description: string;
       price: number;
       subCategoryName: string;
-      images: string[];
+      images: FileRef[];
     },
     user: User,
   ) {
@@ -63,7 +64,7 @@ class OfferController {
         description: OfferDescriptionSchema,
         price: OfferPriceSchema,
         subCategoryName: SubCategoryNameSchema,
-        images: vine.array(vine.string()).minLength(1).maxLength(5),
+        images: vine.array(vine.any()).minLength(1).maxLength(5),
       });
 
       const validator = vine.compile(schema);
@@ -73,8 +74,8 @@ class OfferController {
       if (!(await UserService.getById(user.id))) return UNAUTHORIZED;
 
       const uuids: string[] = [];
-      for (const filepath of fields.images) {
-        const { uuid } = await OfferImagesService.add(filepath);
+      for (const imageRef of fields.images as FileRef[]) {
+        const { uuid } = await OfferImagesService.add(imageRef);
         uuids.push(uuid);
       }
 
@@ -92,8 +93,8 @@ class OfferController {
         data: [],
       };
     } catch (error) {
-      for (const filepath of offerData.images) {
-        if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
+      for (const imageRef of offerData.images) {
+        if (fs.existsSync(imageRef.absolutePath)) fs.unlinkSync(imageRef.absolutePath);
       }
 
       if (error instanceof errors.E_VALIDATION_ERROR) {

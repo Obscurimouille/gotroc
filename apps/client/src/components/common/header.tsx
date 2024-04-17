@@ -2,7 +2,7 @@ import { cn } from '@lib/utils';
 import { Button } from '@components/ui/button';
 import { Link } from 'react-router-dom';
 import SearchBar from './searchbar';
-import { Avatar, AvatarFallback } from '@components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
 import { ExitIcon, PersonIcon } from '@radix-ui/react-icons';
 import {
   DropdownMenu,
@@ -14,6 +14,7 @@ import {
 } from '@components/ui/dropdown-menu';
 import { useContext } from 'react';
 import { UserContext } from 'src/providers/user-context';
+import { UserService } from 'src/services/user.service';
 
 function Header({ className, ...props }: { className?: string }) {
   const userContext = useContext(UserContext);
@@ -76,8 +77,10 @@ const AccountDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="w-8 h-8 cursor-pointer">
-          {/* <AvatarImage src="https://github.com/shadcnaa.png" /> */}
+        <Avatar className="w-8 h-8 cursor-pointer border-1 border-neutral-200">
+          {!!userContext.user?.avatarUUID && (
+            <AvatarImage src={UserService.getAvatarURL(userContext.user.avatarUUID)} />
+          )}
           <AvatarFallback className="bg-neutral-700">
             <PersonIcon color="white" />
           </AvatarFallback>

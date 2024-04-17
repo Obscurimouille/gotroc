@@ -9,8 +9,12 @@ class UserService {
       firstname: string;
       lastname: string;
       email: string;
+      avatarUUID?: string;
     },
   ) {
+    const optionalData: any = {};
+    if (data.avatarUUID) optionalData.avatarUUID = data.avatarUUID;
+
     return prisma.user.update({
       where: {
         id: id,
@@ -19,6 +23,7 @@ class UserService {
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
+        ...optionalData
       },
     });
   }

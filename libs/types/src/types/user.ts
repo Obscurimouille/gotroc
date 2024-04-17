@@ -5,6 +5,7 @@ type User = {
   lastname: string | null;
   email: string;
   registerDate: Date;
+  avatarUUID: string | null;
 }
 
 type UserWithPassword = User & {

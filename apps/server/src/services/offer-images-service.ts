@@ -1,16 +1,16 @@
 import fs from 'fs';
 import FileService from './file-service.js';
-import path from 'path';
 import { File } from '@prisma/client';
+import { FileRef } from '../providers/file-reference.js';
 
 class OfferImagesService {
   public static IMAGES_DIR = 'public/images/offers';
 
-  public static async add(originalFile: string): Promise<{ uuid: string; extension: string }> {
+  public static async add(imageRef: FileRef): Promise<{ uuid: string; extension: string }> {
     const uuid = crypto.randomUUID();
-    const extension = path.extname(originalFile).slice(1);
+    const extension = imageRef.extension;
 
-    fs.copyFileSync(originalFile, this.createPath(uuid, extension));
+    fs.copyFileSync(imageRef.absolutePath, this.createPath(uuid, extension));
     await FileService.add(uuid, extension);
 
     return { uuid, extension };

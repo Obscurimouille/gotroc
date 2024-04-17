@@ -41,10 +41,6 @@ export class OfferService {
     return APIService.get('/offer/recommendations/' + id);
   }
 
-  public static getImageURL(imageUUID: string) {
-    return '/offer/image/' + imageUUID;
-  }
-
   public static search({
     subCategoryName,
     rawText,

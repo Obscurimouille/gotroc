@@ -6,6 +6,6 @@ node_modules
 dist
 
 # Offer images
-public/images/offers/*
+public/**
 # Don't ignore seed images
-!public/images/offers/seed_*
+!public/**/seed_*

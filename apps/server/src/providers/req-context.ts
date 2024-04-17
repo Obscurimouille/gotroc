@@ -1,6 +1,7 @@
 import { User } from '@gotroc/types';
+import { FileRef } from './file-reference.js';
 
-type Storage = { filename: string; extension: string; path: string }[];
+type Storage = FileRef[];
 type ReqContextVariables = { [key: string]: any } & { user?: User | null; storage?: Storage };
 
 export class ReqContext {

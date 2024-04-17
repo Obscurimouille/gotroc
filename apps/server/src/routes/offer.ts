@@ -1,26 +1,45 @@
 import express from 'express';
 import OfferController from '../controllers/offer-controller.js';
 const router = express.Router();
-import OfferUpload from '../storage/offer.js';
 import { authenticatedMiddleware } from '../middlewares/authenticated.js';
 import { reply } from '../controllers/utils.js';
+import { OfferImageUploadStrategy } from '../storage/strategies.js';
 
-router.post('/', authenticatedMiddleware, OfferUpload, async (req, res) => {
-  const imageRefs = req.context.storage || [];
-  req.context.storage = [];
-
-  const result = await OfferController.create(
+router.post(
+  '/',
+  authenticatedMiddleware,
+  OfferImageUploadStrategy.fields([
+    { name: 'images', maxCount: 5 },
     {
-      title: req.body.title,
-      description: req.body.description,
-      price: req.body.price,
-      subCategoryName: req.body.subCategoryName,
-      images: imageRefs!.map((ref) => ref.path),
+      name: 'title',
     },
-    req.context.user!,
-  );
-  reply(res, result);
-});
+    {
+      name: 'description',
+    },
+    {
+      name: 'price',
+    },
+    {
+      name: 'subCategoryName',
+    },
+  ]),
+  async (req, res) => {
+    const imageRefs = req.context.storage || [];
+    req.context.storage = [];
+
+    const result = await OfferController.create(
+      {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        subCategoryName: req.body.subCategoryName,
+        images: imageRefs,
+      },
+      req.context.user!,
+    );
+    reply(res, result);
+  },
+);
 
 router.get('/', async (_, res) => {
   const result = await OfferController.getAll();

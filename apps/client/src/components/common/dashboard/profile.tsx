@@ -50,7 +50,7 @@ const FormSchema = z.object({
 const DashboardProfile = ({ user }: { user: User }) => {
   const [submitting, setSubmitting] = useState(false);
   const [, setImageFile] = useState<File | null>(null);
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<string>(user.avatarUUID ? UserService.getAvatarURL(user.avatarUUID) : '');
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),

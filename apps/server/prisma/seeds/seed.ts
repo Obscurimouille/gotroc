@@ -33,6 +33,12 @@ async function main() {
         lastname: seedUser.lastname,
         email: seedUser.email,
         password: defaultPasswordHash,
+        avatar: !seedUser.avatar ? undefined : {
+          create: {
+            uuid: seedUser.avatar[0],
+            extension: seedUser.avatar[1],
+          }
+        },
         offers: {
           create: Array.from({ length: seedUser.nbDefaultOffers }).map(() => {
             if (offerIndex >= SeedOffers.length) offerIndex = 0;

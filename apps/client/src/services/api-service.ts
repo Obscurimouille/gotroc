@@ -25,8 +25,10 @@ export class APIService {
     });
   }
 
-  public static async formData(endpoint: string, body: FormData): Promise<APIResponse> {
-    return this.request(endpoint, 'POST', {
+  public static async formData(endpoint: string, body: FormData, options?: {
+    method?: 'POST' | 'PUT';
+  }): Promise<APIResponse> {
+    return this.request(endpoint, options?.method || 'POST', {
       body,
       headers: {},
     });

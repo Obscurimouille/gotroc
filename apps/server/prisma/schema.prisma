@@ -47,6 +47,7 @@ model File {
   uuid            String    @id @default(uuid())
   extension       String
   offerImages     OfferImage[]
+  userAvatar      User[]
 }
 
 model User {
@@ -58,6 +59,8 @@ model User {
   password        String
   registerDate    DateTime  @default(now())
   offers          Offer[]
+  avatarUUID      String?
+  avatar          File?      @relation(fields: [avatarUUID], references: [uuid])
 }
 
 datasource db {
