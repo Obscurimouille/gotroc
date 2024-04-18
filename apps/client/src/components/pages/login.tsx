@@ -33,14 +33,15 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const FormSchema = z.object({
-    identifier: z.string().trim().min(1, {
-      message: t('input.identifier.error.empty'),
-    }),
-    password: z
+    identifier: z
       .string()
+      .trim()
       .min(1, {
-        message: t('input.password.error.empty'),
-      })
+        message: t('input.identifier.error.empty'),
+      }),
+    password: z.string().min(1, {
+      message: t('input.password.error.empty'),
+    }),
   });
 
   useEffect(() => {
@@ -64,7 +65,7 @@ function LoginPage() {
     AuthService.login(data.identifier, data.password).then((result) => {
       setLoading(false);
       if (!result.success) return toast.error(t('message.wrong-credentials'));
-      userContext.user = result.data;
+      userContext.user = result.data.user;
       navigate('/');
     });
   };
@@ -136,11 +137,7 @@ const PasswordInput = (props: FormInputParams) => {
         <FormItem className={cn(props.className, '')}>
           <FormLabel>{t('input.password.title')}</FormLabel>
           <FormControl>
-            <Input
-              placeholder={t('input.password.placeholder')}
-              {...field}
-              type="password"
-            />
+            <Input placeholder={t('input.password.placeholder')} {...field} type="password" />
           </FormControl>
           <FormMessage />
           <a href="/reset-password" className="text-xs text-primary font-medium hover:underline">
