@@ -7,10 +7,12 @@ import { AuthService } from './services/auth-service';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     AuthService.me().then((user) => {
       setUser(user);
+      setLoading(false);
     });
   }, []);
 
@@ -24,7 +26,7 @@ function App() {
         },
       }}
     >
-      <RouterProvider router={router} />
+      {!loading && <RouterProvider router={router} />}
     </UserContext.Provider>
   );
 }

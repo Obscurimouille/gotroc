@@ -5,8 +5,8 @@ import DashboardSettings from '@components/common/dashboard/settings';
 import UserPagesSidebar from '@components/common/dashboard/sidebar';
 import Header from '@components/common/header';
 import { Page, PageContent } from '@components/common/layout';
-import { useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from 'src/providers/user-context';
 
 export enum EnumDashboardSection {
@@ -17,8 +17,13 @@ export enum EnumDashboardSection {
 }
 
 const DashboardPage = () => {
+  const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const { section } = useParams<{ section: EnumDashboardSection }>();
+
+  useEffect(() => {
+    if (!userContext.user) navigate('/login');
+  });
 
   return (
     <Page className="max-h-dvh">

@@ -31,7 +31,7 @@ const DashboardFavourites = ({ user }: { user: User }) => {
           <img src={noResultIllustration} className="w-56 mb-10" alt=""></img>
           <p className="text-xl font-semibold">Aucune annonce trouvée</p>
           <p className="mt-4">
-            <Link to="/create-offer" className="underline hover:text-primary transition-colors">
+            <Link to="/create" className="underline hover:text-primary transition-colors">
               Créez votre première annonce
             </Link>
           </p>
