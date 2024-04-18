@@ -116,7 +116,7 @@
   },
   "component": {
     "login-button": {
-      "title": "Login"
+      "title": "Login/Register"
     },
     "create-offer-button": {
       "title": "Post an offer"

@@ -116,7 +116,7 @@
   },
   "component": {
     "login-button": {
-      "title": "Se connecter"
+      "title": "S'identifier"
     },
     "create-offer-button": {
       "title": "Déposer une annonce"

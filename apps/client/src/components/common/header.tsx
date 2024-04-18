@@ -3,7 +3,7 @@ import { Button } from '@components/ui/button';
 import { Link } from 'react-router-dom';
 import SearchBar from './searchbar';
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
-import { ExitIcon, PersonIcon } from '@radix-ui/react-icons';
+import { ExitIcon, GlobeIcon, PersonIcon } from '@radix-ui/react-icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +17,7 @@ import { UserContext } from 'src/providers/user-context';
 import { UserService } from 'src/services/user.service';
 import { useTranslation } from 'react-i18next';
 import { EnumDashboardSection } from '@components/pages/dashboard';
+import i18next from 'i18next';
 
 function Header({ className, ...props }: { className?: string }) {
   const { t } = useTranslation();
@@ -38,16 +39,19 @@ function Header({ className, ...props }: { className?: string }) {
           <SearchBar className="flex-1 lg:max-w-[400px]" />
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2">
           <Button variant="default" size="sm" className="hidden md:block">
             <Link to="/create">{t('component.create-offer-button.title')}</Link>
           </Button>
           {userContext.user ? (
-            <AccountDropdown />
+            <AccountDropdown className='ml-4' />
           ) : (
-            <Button variant="link" size="sm" asChild>
-              <Link to="/login">{t('component.login-button.title')}</Link>
-            </Button>
+            <>
+              <Button variant="link" size="sm" className="ml-4" asChild>
+                <Link to="/login">{t('component.login-button.title')}</Link>
+              </Button>
+              <LanguageDropdown />
+            </>
           )}
         </div>
       </div>
@@ -55,7 +59,7 @@ function Header({ className, ...props }: { className?: string }) {
   );
 }
 
-const AccountDropdown = () => {
+const AccountDropdown = ({ className }: { className?: string }) => {
   const { t } = useTranslation();
   const userContext = useContext(UserContext);
   const navItems = Object.values(EnumDashboardSection);
@@ -63,7 +67,7 @@ const AccountDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="w-8 h-8 cursor-pointer border-1 border-neutral-200">
+        <Avatar className={cn('w-8 h-8 cursor-pointer border-1 border-neutral-200', className)}>
           {!!userContext.user?.avatarUUID && (
             <AvatarImage src={UserService.getAvatarURL(userContext.user.avatarUUID)} />
           )}
@@ -76,7 +80,10 @@ const AccountDropdown = () => {
         <DropdownMenuGroup>
           {navItems.map((item, index) => (
             <DropdownMenuItem key={index} className="cursor-pointer p-0">
-              <Link to={'/dashboard/' + item} className="flex-1 flex items-center gap-2 px-2 py-1.5">
+              <Link
+                to={'/dashboard/' + item}
+                className="flex-1 flex items-center gap-2 px-2 py-1.5"
+              >
                 {t('naviguation.account.' + item)}
               </Link>
             </DropdownMenuItem>
@@ -89,6 +96,46 @@ const AccountDropdown = () => {
             {t('naviguation.account.logout')}
           </div>
         </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+const LanguageDropdown = ({ className }: { className?: string }) => {
+  const { t } = useTranslation();
+  const laguages = [
+    {
+      code: 'en-US',
+      label: 'English',
+    },
+    {
+      code: 'fr-FR',
+      label: 'Français',
+    },
+  ];
+
+  const setLanguage = (lang: string) => {
+    i18next.changeLanguage(lang);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" className={cn('', className)}>
+          <GlobeIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        {laguages.map((lang, index) => (
+          <DropdownMenuItem key={index} className="cursor-pointer p-0">
+            <button
+              className="flex-1 flex items-center gap-2 px-2 py-1.5"
+              onClick={() => setLanguage(lang.code)}
+            >
+              {lang.label}
+            </button>
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

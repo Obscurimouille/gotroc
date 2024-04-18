@@ -22,7 +22,7 @@ const OfferResultCard = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const formattedPrice = OfferService.formatPrice(offer.price);
   const formattedDate = OfferService.formatDate(offer.createdAt, t);
-  console.log('OfferResultCard', offer);
+  
   return (
     <Link
       to={`/offer/${offer.id}`}
