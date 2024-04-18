@@ -1,9 +1,11 @@
 import { cn } from '@lib/utils';
 import { Cross2Icon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const SearchBar = ({ className, ...props }: { className?: string }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
 
@@ -27,7 +29,7 @@ const SearchBar = ({ className, ...props }: { className?: string }) => {
         <MagnifyingGlassIcon className="h-[18px] w-[18px] shrink-0" />
       </button>
       <input
-        placeholder="Rechercher..."
+        placeholder={t('component.searchbar.placeholder')}
         type="text"
         value={searchText}
         onChange={(event) => {

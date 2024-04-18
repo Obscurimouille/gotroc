@@ -6,8 +6,10 @@ import OfferSection from '@components/common/offer-section';
 import { useEffect, useState } from 'react';
 import { OfferService } from 'src/services/offer-service';
 import { Offer } from '@gotroc/types';
+import { useTranslation } from 'react-i18next';
 
 const OfferPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const params = useParams();
 
@@ -33,7 +35,7 @@ const OfferPage = () => {
       <PageContent className="py-8 pb-16 gap-8">
         {!!offer && <OfferComponent offer={offer!} />}
         {!!offer && !!recommendedOffers.length && (
-          <OfferSection title={'Dans la même catégorie'} offers={recommendedOffers} />
+          <OfferSection title={t('offer-section.same-category')} offers={recommendedOffers} />
         )}
       </PageContent>
     </Page>

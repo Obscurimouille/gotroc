@@ -4,10 +4,12 @@ import { StarIcon, StarFilledIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { OfferService } from 'src/services/offer-service';
+import { useTranslation } from 'react-i18next';
 
 const OfferCard = ({ offer, ...props }: { offer: Offer }) => {
+  const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(false);
-  const formattedDate = OfferService.formatDate(offer.createdAt, { displayTime: true });
+  const formattedDate = OfferService.formatDate(offer.createdAt, t, { displayTime: true });
   const mainImage = offer.images[0];
   const mainImageSrc = mainImage ? (OfferService.getImageUrl(mainImage.imageUUID)) : '/images/placeholder.png';
 

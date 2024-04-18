@@ -1,6 +1,186 @@
 {
-  "welcome": "Welcome",
-  "categories": {
+  "message": {
+    "clipboard": {
+      "link": "Link copied to clipboard"
+    },
+    "must-be-connected-to-create-offer": "You must be connected to create an offer.",
+    "wrong-credentials": "Wrong credentials",
+    "offer-created": {
+      "success": "Offer created successfully",
+      "error": "An error occurred. Please try later"
+    },
+    "file": {
+      "invalid-type": "Invalid file type",
+      "too-heavy": "File is too heavy. Max size is {{maxSize}}",
+      "added-single": "1 file added",
+      "added-multiple": "{{count}} files added"
+    }
+  },
+  "function": {
+    "format": {
+      "date": {
+        "yesterday": "Yesterday",
+        "yesterday-at": "Yesterday at {{time}}",
+        "today": "Today",
+        "today-at": "Today at {{time}}"
+      }
+    }
+  },
+  "modal": {
+    "share-offer": {
+      "title": "Share offer",
+      "link": "Link"
+    }
+  },
+  "input": {
+    "offer": {
+      "title": {
+        "title": "Title",
+        "placeholder": "Title of your offer",
+        "error": {
+          "too-short": "Title must contain at least {{min}} characters",
+          "too-long": "{{max}} characters maximum"
+        }
+      },
+      "description": {
+        "title": "Description",
+        "placeholder": "Describe your offer",
+        "error": {
+          "too-short": "Description must contain at least {{min}} characters",
+          "too-long": "{{max}} characters maximum"
+        }
+      },
+      "category": {
+        "title": "Category",
+        "placeholder": "Choose a category",
+        "search": "Search",
+        "search-empty": "No category found",
+        "error": {
+          "empty": "Please choose a category"
+        }
+      },
+      "price": {
+        "title": "Price (€)",
+        "error": {
+          "empty": "Price is required",
+          "invalid": "Invalid price"
+        }
+      },
+      "condition": {
+        "title": "Condition",
+        "placeholder": "Choose a condition",
+        "error": {
+          "empty": "Please choose a condition",
+          "invalid": "Invalid condition"
+        }
+      },
+      "images": {
+        "title": "Images {{count}}/{{maxCount}}",
+        "remove": "Remove",
+        "error": {
+          "empty": "You must add at least one image",
+          "too-many": "Maximum {{max}} images allowed"
+        }
+      }
+    },
+    "username": {
+      "title": "Username",
+      "placeholder": "Username"
+    },
+    "firstname": {
+      "title": "Firstname",
+      "placeholder": "Firstname"
+    },
+    "lastname": {
+      "title": "Lastname",
+      "placeholder": "Lastname"
+    },
+    "email": {
+      "title": "Email",
+      "placeholder": "Email"
+    },
+    "identifier": {
+      "title": "Username or email",
+      "placeholder": "Username or email",
+      "error": {
+        "empty": "Username or email is required"
+      }
+    },
+    "password": {
+      "title": "Password",
+      "placeholder": "Password",
+      "error": {
+        "empty": "Password is required"
+      }
+    }
+  },
+  "component": {
+    "login-button": {
+      "title": "Login"
+    },
+    "create-offer-button": {
+      "title": "Post an offer"
+    },
+    "searchbar": {
+      "placeholder": "Search"
+    }
+  },
+  "page": {
+    "not-found": {
+      "title": "Sorry, this page does not exist",
+      "description": "Check the URL or go back to the ",
+      "homepage": "homepage"
+    },
+    "login": {
+      "title": "Welcome back",
+      "submit": "Login",
+      "new-user": "New?",
+      "new-account": "Create an account",
+      "forgot-password": "Forgot password?"
+    },
+    "results": {
+      "nb-results": "{{count}} results",
+      "empty": {
+        "title": "Sorry, we found nothing",
+        "description": "Maybe try another search or wait for new offers"
+      }
+    },
+    "offer": {
+      "see-images": "See images",
+      "description": "Description",
+      "send-message": "Send a message",
+      "send-offer": "Place an offer"
+    },
+    "dashboard": {
+      "my-account": "My account",
+      "profile": {
+        "public-information": "Public information",
+        "personal-information": "Personal information",
+        "information-tip": "Personal information will not be visible to other users",
+        "member-since": "Member since {{month}} {{year}}"
+      }
+    },
+    "home": {
+      "offer-submitted": {
+        "title": "Offer submitted",
+        "description": {
+          "before": "It will be visible on the platform as soon as it has been validated by our team. You can check the status of your offer in the \"",
+          "action": "My offers",
+          "after": "\" section."
+        }
+      }
+    }
+  },
+  "naviguation": {
+    "account": {
+      "profile": "Profile",
+      "offers": "My offers",
+      "favourites": "Favourites",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  },
+  "category": {
     "animals": {
       "title": "Animals",
       "subcategories": {
@@ -110,5 +290,21 @@
         "utilities": "Utilities"
       }
     }
+  },
+  "condition": {
+    "new": "New",
+    "excellent": "Excellent",
+    "good": "Good",
+    "fair": "Fair",
+    "damaged": "Damaged"
+  },
+  "offer-section": {
+    "best-of-today": "Trending today",
+    "same-category": "Same category"
+  },
+  "common": {
+    "create": "Create",
+    "home": "Home",
+    "save": "Save changes"
   }
 }

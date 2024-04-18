@@ -15,8 +15,11 @@ import {
 import { useContext } from 'react';
 import { UserContext } from 'src/providers/user-context';
 import { UserService } from 'src/services/user.service';
+import { useTranslation } from 'react-i18next';
+import { EnumDashboardSection } from '@components/pages/dashboard';
 
 function Header({ className, ...props }: { className?: string }) {
+  const { t } = useTranslation();
   const userContext = useContext(UserContext);
 
   return (
@@ -37,13 +40,13 @@ function Header({ className, ...props }: { className?: string }) {
 
         <div className="flex items-center gap-6">
           <Button variant="default" size="sm" className="hidden md:block">
-            <Link to="/create">Déposer une annonce</Link>
+            <Link to="/create">{t('component.create-offer-button.title')}</Link>
           </Button>
           {userContext.user ? (
             <AccountDropdown />
           ) : (
             <Button variant="link" size="sm" asChild>
-              <Link to="/login">Se connecter</Link>
+              <Link to="/login">{t('component.login-button.title')}</Link>
             </Button>
           )}
         </div>
@@ -53,26 +56,9 @@ function Header({ className, ...props }: { className?: string }) {
 }
 
 const AccountDropdown = () => {
+  const { t } = useTranslation();
   const userContext = useContext(UserContext);
-
-  const items: { title: string; url: string }[] = [
-    {
-      title: 'Profil',
-      url: '/dashboard/profile',
-    },
-    {
-      title: 'Mes annonces',
-      url: '/dashboard/offers',
-    },
-    {
-      title: 'Favoris',
-      url: '/dashboard/favourites',
-    },
-    {
-      title: 'Paramètres',
-      url: '/dashboard/settings',
-    },
-  ];
+  const navItems = Object.values(EnumDashboardSection);
 
   return (
     <DropdownMenu>
@@ -88,10 +74,10 @@ const AccountDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          {items.map((item, index) => (
+          {navItems.map((item, index) => (
             <DropdownMenuItem key={index} className="cursor-pointer p-0">
-              <Link to={item.url} className="flex-1 flex items-center gap-2 px-2 py-1.5">
-                {item.title}
+              <Link to={'/dashboard/' + item} className="flex-1 flex items-center gap-2 px-2 py-1.5">
+                {t('naviguation.account.' + item)}
               </Link>
             </DropdownMenuItem>
           ))}
@@ -100,7 +86,7 @@ const AccountDropdown = () => {
         <DropdownMenuItem className="cursor-pointer" onClick={() => userContext.logout()}>
           <div className="flex items-center gap-2">
             <ExitIcon />
-            Déconnexion
+            {t('naviguation.account.logout')}
           </div>
         </DropdownMenuItem>
       </DropdownMenuContent>

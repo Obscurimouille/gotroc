@@ -17,6 +17,7 @@ import { Label } from '@components/ui/label';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'sonner';
 import ButtonFavorite from './button-favorite';
+import { useTranslation } from 'react-i18next';
 import {
   Carousel,
   CarouselApi,
@@ -27,12 +28,13 @@ import {
 } from '@components/ui/carousel';
 
 const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: string }) => {
+  const { t } = useTranslation();
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [, setCurrentImage] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [isImagesDialogOpen, setIsImagesDialogOpen] = useState(false);
-  const formattedDate = OfferService.formatDate(offer.createdAt);
+  const formattedDate = OfferService.formatDate(offer.createdAt, t);
   const url = window.location.href;
 
   useEffect(() => {
@@ -46,7 +48,7 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
   }, [carouselApi]);
 
   const onCopy = () => {
-    toast.success('Lien copié dans le presse-papier');
+    toast.success(t('message.clipboard.link'));
   };
 
   const openImagesDialog = (index?: number) => {
@@ -57,10 +59,10 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
     <Dialog open={isShareDialogOpen} onOpenChange={() => setIsShareDialogOpen(false)}>
       <DialogContent>
         <DialogHeader className="mb-1">
-          <DialogTitle>Partager l'annonce</DialogTitle>
+          <DialogTitle>{t('component.modal.share-offer.title')}</DialogTitle>
         </DialogHeader>
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="url">Lien</Label>
+          <Label htmlFor="url">{t('component.modal.share-offer.link')}</Label>
           <div className="w-full items-center flex gap-2">
             <Input id="url" type="text" className="flex-1" value={url} readOnly />
             <CopyToClipboard text={url} onCopy={() => onCopy()}>
@@ -88,7 +90,11 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <CarouselContent className="h-[75dvh] w-full ml-0">
             {offer.images.map((image, index) => (
               <CarouselItem key={index} className="w-full h-full px-0 flex flex-col">
-                <img src={OfferService.getImageUrl(image.imageUUID)} alt="Offer" className="h-full w-full object-contain" />
+                <img
+                  src={OfferService.getImageUrl(image.imageUUID)}
+                  alt="Offer"
+                  className="h-full w-full object-contain"
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -104,19 +110,27 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/" className="underline">
-            Accueil
+            {t('common.home')}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={'/search?category=' + offer.subCategory!.mainCategoryName} className="underline">
-            {offer.subCategory!.mainCategoryName}
+          <BreadcrumbLink
+            href={'/search?category=' + offer.subCategory!.mainCategoryName}
+            className="underline"
+          >
+            {t(`category.${offer.subCategory!.mainCategoryName}.title`)}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href={'/search?subcategory=' + offer.subCategoryName} className="underline">
-            {offer.subCategoryName}
+          <BreadcrumbLink
+            href={'/search?subcategory=' + offer.subCategoryName}
+            className="underline"
+          >
+            {t(
+              `category.${offer.subCategory!.mainCategoryName}.subcategories.${offer.subCategoryName}`,
+            )}
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
@@ -141,19 +155,35 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
       </div>
 
       <div className="flex gap-6">
-        <div className={cn("flex-1 relative rounded-xl overflow flex gap-2", offer.images.length === 1 ? 'aspect-[3/2]' : 'aspect-[2/1]')}>
+        <div
+          className={cn(
+            'flex-1 relative rounded-xl overflow flex gap-2',
+            offer.images.length === 1 ? 'aspect-[3/2]' : 'aspect-[2/1]',
+          )}
+        >
           <button
             className="absolute bg-background top-4 right-4 text-sm h-6 px-3 flex items-center rounded-xl hover:bg-slate-100 shadow-md cursor-pointer"
             onClick={() => openImagesDialog()}
           >
-            Voir les images
+            {t('page.offer.see-images')}
           </button>
-          <InteractiveImage image={OfferService.getImageUrl(offer.images[0].imageUUID)} onClick={() => openImagesDialog()} />
+          <InteractiveImage
+            image={OfferService.getImageUrl(offer.images[0].imageUUID)}
+            onClick={() => openImagesDialog()}
+          />
           {offer.images.length > 1 && (
             <div className="flex-1 flex flex-col gap-2">
-              {<InteractiveImage image={OfferService.getImageUrl(offer.images[1].imageUUID)} onClick={() => openImagesDialog()} />}
+              {
+                <InteractiveImage
+                  image={OfferService.getImageUrl(offer.images[1].imageUUID)}
+                  onClick={() => openImagesDialog()}
+                />
+              }
               {offer.images.length > 2 && (
-                <InteractiveImage image={OfferService.getImageUrl(offer.images[2].imageUUID)} onClick={() => openImagesDialog()} />
+                <InteractiveImage
+                  image={OfferService.getImageUrl(offer.images[2].imageUUID)}
+                  onClick={() => openImagesDialog()}
+                />
               )}
             </div>
           )}
@@ -162,23 +192,34 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <h1 className="text-2xl font-semibold line-clamp-3">{offer.title}</h1>
           <p className="font-semibold text-lg">{OfferService.formatPrice(offer.price)}</p>
           <small className="flex-1">{formattedDate}</small>
-          <Button className="w-full">Faire une offre</Button>
+          <Button className="w-full">{t('page.offer.send-offer')}</Button>
           <Button variant="outline" className="w-full">
-            Envoyer un message
+            {t('page.offer.send-message')}
           </Button>
         </div>
       </div>
       <div className="bg-background rounded-xl p-6 shadow">
-        <h2 className="text-xl font-semibold">Description</h2>
+        <h2 className="text-xl font-semibold">{t('page.offer.description')}</h2>
         <p className="mt-3">{offer.description}</p>
       </div>
     </div>
   );
 };
 
-const InteractiveImage = ({ image, onClick, className }: { image: string; className?: string; onClick: () => void }) => {
+const InteractiveImage = ({
+  image,
+  onClick,
+  className,
+}: {
+  image: string;
+  className?: string;
+  onClick: () => void;
+}) => {
   return (
-    <button className={cn(className, "flex-1 rounded-xl overflow-hidden shadow")} onClick={() => onClick()}>
+    <button
+      className={cn(className, 'flex-1 rounded-xl overflow-hidden shadow')}
+      onClick={() => onClick()}
+    >
       <img src={image} alt="Offer" className="object-cover w-full h-full" />
     </button>
   );

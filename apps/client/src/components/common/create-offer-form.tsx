@@ -44,64 +44,65 @@ const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'imag
 const ACCEPTED_IMAGE_TYPES = ['jpeg', 'jpg', 'png', 'webp'];
 const NB_IMAGES_MAX = 5;
 
-const formSchema = z.object({
-  title: z
-    .string({
-      required_error: 'Veuillez renseigner un titre',
-    })
-    .trim()
-    .min(5, {
-      message: 'Le titre doit contenir au moins 5 caractères',
-    })
-    .max(32, {
-      message: 'Le titre ne peut pas dépasser 32 caractères',
-    }),
-  price: z.coerce
-    .number({
-      required_error: 'Veillez renseigner un prix',
-    })
-    .positive({
-      message: 'Prix invalide',
-    }),
-  category: z
-    .string({
-      required_error: 'Veuillez choisir une catégorie',
-    })
-    .min(1, {
-      message: 'Veuillez choisir une catégorie',
-    }),
-  condition: z.nativeEnum(EnumCondition, {
-    required_error: 'Veillez renseigner un état',
-    invalid_type_error: 'État invalide',
-  }),
-  description: z
-    .string({
-      required_error: 'Veuillez renseigner une description',
-    })
-    .min(10, {
-      message: 'La description doit contenir au moins 10 caractères',
-    })
-    .max(1000, {
-      message: 'La description ne peut pas dépasser 1000 caractères',
-    }),
-  images: z
-    .array(z.any(), {
-      required_error: 'Vous devez ajouter au moins une image',
-    })
-    .min(1, {
-      message: 'Vous devez ajouter au moins une image',
-    })
-    .max(NB_IMAGES_MAX, {
-      message: 'Vous ne pouvez pas ajouter plus de ' + NB_IMAGES_MAX + ' images',
-    }),
-});
-
 const CreateOfferForm = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [openCategory, setOpenCategory] = React.useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [categories, setCategories] = useState<(MainCategory & { subCategories: string[] })[]>([]);
+
+  const formSchema = z.object({
+    title: z
+      .string()
+      .trim()
+      .min(5, {
+        message: t('input.offer.title.error.too-short', {
+          min: 5,
+        }),
+      })
+      .max(32, {
+        message: t('input.offer.title.error.too-long', {
+          max: 32,
+        }),
+      }),
+    price: z.coerce
+      .number({
+        invalid_type_error: t('input.offer.price.error.empty'),
+        required_error: t('input.offer.price.error.empty'),
+      })
+      .positive({
+        message: t('input.offer.price.error.invalid'),
+      }),
+    category: z.string().min(1, {
+      message: t('input.offer.category.error.empty'),
+    }),
+    condition: z.nativeEnum(EnumCondition, {
+      required_error: t('input.offer.condition.error.empty'),
+      invalid_type_error: t('input.offer.condition.error.invalid'),
+    }),
+    description: z
+      .string()
+      .min(10, {
+        message: t('input.offer.description.error.too-short', {
+          min: 10,
+        }),
+      })
+      .max(1000, {
+        message: t('input.offer.description.error.too-long', {
+          max: 1000,
+        }),
+      }),
+    images: z
+      .array(z.any())
+      .min(1, {
+        message: t('input.offer.images.error.empty'),
+      })
+      .max(NB_IMAGES_MAX, {
+        message: t('input.offer.images.error.too-many', {
+          max: NB_IMAGES_MAX,
+        }),
+      }),
+  });
 
   useState(() => {
     CategoryService.getAll().then((result) => {
@@ -112,7 +113,14 @@ const CreateOfferForm = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      title: '',
+      category: '',
+      description: '',
+      condition: undefined,
+      price: undefined,
+      images: [],
+    },
   });
 
   const addImages = (images: FileList) => {
@@ -121,8 +129,13 @@ const CreateOfferForm = () => {
       nbSuccess += +addImage(images[i]);
     }
     if (images.length && nbSuccess === images.length) {
-      if (images.length === 1) toast.success('1 fichier ajouté');
-      else toast.success(images.length + ' fichiers ajoutés');
+      if (images.length === 1) toast.success(t('message.file.added-single'));
+      else
+        toast.success(
+          t('message.file.added-single', {
+            count: images.length,
+          }),
+        );
     }
   };
 
@@ -132,11 +145,15 @@ const CreateOfferForm = () => {
       (image.type && !ACCEPTED_IMAGE_MIME_TYPES.includes(image.type)) ||
       !ACCEPTED_IMAGE_TYPES.includes(image.name.split('.').pop() as string)
     ) {
-      toast.error('Type de fichier non supporté.');
+      toast.error(t('message.file.invalid-type'));
       return false;
     }
     if (image.size >= MAX_FILE_SIZE) {
-      toast.error('Fichier trop volumineux. Taille maximum : 2MB.');
+      toast.error(
+        t('message.file.too-heavy', {
+          maxSize: '2MB',
+        }),
+      );
       return false;
     }
     setImages((prev) => [...prev, image]);
@@ -157,7 +174,6 @@ const CreateOfferForm = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    toast.success('Annonce créée avec succès');
     const result = await OfferService.create({
       title: values.title,
       price: values.price,
@@ -166,7 +182,7 @@ const CreateOfferForm = () => {
       images,
     });
     if (!result.success) {
-      toast.error("Erreur lors de la création de l'annonce, veuillez réessayer plus tard.");
+      toast.error(t('message.offer-created.error'));
       return;
     }
     toast.success('Annonce créée avec succès');
@@ -182,9 +198,13 @@ const CreateOfferForm = () => {
             name="title"
             render={({ field }) => (
               <FormItem className="flex-1 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-                <FormLabel className="text-lg">Titre de l'annonce</FormLabel>
+                <FormLabel className="text-lg">{t('input.offer.title.title')}</FormLabel>
                 <FormControl>
-                  <Input {...field} maxLength={32} />
+                  <Input
+                    {...field}
+                    maxLength={32}
+                    placeholder={t('input.offer.title.placeholder')}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -196,7 +216,7 @@ const CreateOfferForm = () => {
             name="price"
             render={({ field }) => (
               <FormItem className="shrink-1 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-                <FormLabel className="text-lg">Prix (€)</FormLabel>
+                <FormLabel className="text-lg">{t('input.offer.price.title')}</FormLabel>
                 <FormControl>
                   <Input {...field} type="number" className="max-w-32" step="any" />
                 </FormControl>
@@ -212,7 +232,7 @@ const CreateOfferForm = () => {
             name="category"
             render={({ field }) => (
               <FormItem className="grow-1 basis-3/5 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-                <FormLabel>Catégorie</FormLabel>
+                <FormLabel>{t('input.offer.category.title')}</FormLabel>
                 <Popover open={openCategory} onOpenChange={setOpenCategory}>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -225,19 +245,28 @@ const CreateOfferForm = () => {
                           !field.value && 'text-muted-foreground',
                         )}
                       >
-                        {field.value ? t(`categories.${getMainCategory(field.value)!.name}.subcategories.${field.value}`) : 'Choisir une catégorie'}
+                        {field.value
+                          ? t(
+                              `category.${getMainCategory(field.value)!.name}.subcategories.${field.value}`,
+                            )
+                          : t('input.offer.category.placeholder')}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
                   <PopoverContent className="w-[360px] p-0">
                     <Command>
-                      <CommandInput placeholder="Rechercher..." className="h-9" />
-                      <CommandEmpty>Aucun résultat.</CommandEmpty>
+                      <CommandInput
+                        placeholder={t('input.offer.category.search')}
+                        className="h-9"
+                      />
+                      <CommandEmpty>
+                        {t('input.offer.category.search-empty')}
+                      </CommandEmpty>
                       <CommandList>
                         {categories.map((mainCategory, index) => (
                           <div key={index}>
-                            <CommandGroup heading={t(`categories.${mainCategory.name}.title`)}>
+                            <CommandGroup heading={t(`category.${mainCategory.name}.title`)}>
                               {mainCategory.subCategories!.map((subCategoryName, subIndex) => (
                                 <CommandItem
                                   value={subCategoryName}
@@ -251,7 +280,9 @@ const CreateOfferForm = () => {
                                   )}
                                   disabled={false}
                                 >
-                                  {t(`categories.${mainCategory.name}.subcategories.${subCategoryName}`)}
+                                  {t(
+                                    `category.${mainCategory.name}.subcategories.${subCategoryName}`,
+                                  )}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',
@@ -281,17 +312,17 @@ const CreateOfferForm = () => {
             name="condition"
             render={({ field }) => (
               <FormItem className="grow-1 basis-2/5 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-                <FormLabel>État</FormLabel>
+                <FormLabel>{t('input.offer.condition.title')}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Choisir un état" />
+                      <SelectValue placeholder={t(`input.offer.condition.placeholder`)} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     {Object.values(EnumCondition).map((condition) => (
                       <SelectItem key={condition} value={condition}>
-                        {OfferService.formatCondition(condition)}
+                        {t(`condition.${condition.toLowerCase()}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -307,10 +338,10 @@ const CreateOfferForm = () => {
           name="description"
           render={({ field }) => (
             <FormItem className="bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-              <FormLabel className="">Description</FormLabel>
+              <FormLabel className="">{t('input.offer.description.title')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Décrivez votre annonce..."
+                  placeholder={t('input.offer.description.placeholder')}
                   className="resize-none h-[200px]"
                   {...field}
                   maxLength={1000}
@@ -326,7 +357,12 @@ const CreateOfferForm = () => {
           name="images"
           render={({ field }) => (
             <FormItem className="bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-              <FormLabel className="">Images ({images.length + '/' + NB_IMAGES_MAX})</FormLabel>
+              <FormLabel className="">
+                {t('input.offer.images.title', {
+                  count: images.length,
+                  maxCount: NB_IMAGES_MAX,
+                })}
+              </FormLabel>
               <FormControl className="">
                 <div className="flex gap-4">
                   {images.map((image, index) => (
@@ -347,7 +383,7 @@ const CreateOfferForm = () => {
                           removeImage(index);
                         }}
                       >
-                        Supprimer
+                        {t('input.offer.images.remove')}
                       </button>
                     </div>
                   ))}
@@ -384,7 +420,7 @@ const CreateOfferForm = () => {
 
         <div className="w-full flex justify-end">
           <Button type="submit" size="lg">
-            Valider
+            {t('common.create')}
           </Button>
         </div>
       </form>

@@ -1,6 +1,6 @@
-import { EnumCondition } from '@gotroc/types';
 import { isYesterday, isToday } from '@lib/utils';
 import { APIService } from './api-service';
+import i18next, { TFunction } from 'i18next';
 
 export class OfferService {
   public static create({
@@ -68,20 +68,38 @@ export class OfferService {
     return `${APIService.API_URL}/offer/image/${imageUUID}`;
   }
 
-  private static conditionTranslations = {
-    [EnumCondition.NEW]: 'Neuf',
-    [EnumCondition.EXCELLENT]: 'Excellent',
-    [EnumCondition.GOOD]: 'Bon',
-    [EnumCondition.FAIR]: 'Moyen',
-    [EnumCondition.DAMAGED]: 'Endommagé',
-  };
-
-  public static formatDate(date: Date, options?: { displayTime?: boolean }): string {
+  /**
+   * Format an offer date
+   * @param date The date to format
+   * @param t The translation function
+   * @param options Options
+   * @returns The formatted date
+   * @example OfferService.formatDate(new Date(), t, { displayTime: true }) // "Aujourd'hui à 14:30"
+   */
+  public static formatDate(
+    date: Date,
+    t: TFunction<'translation', undefined>,
+    options?: { displayTime?: boolean },
+  ): string {
+    const currentLocale = i18next.language;
     date = new Date(date);
-    const formattedHours = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-    if (isYesterday(date)) return 'Hier' + (options?.displayTime ? ' à ' + formattedHours : '');
-    if (isToday(date)) return "Aujourd'hui" + (options?.displayTime ? ' à ' + formattedHours : '');
-    return date.toLocaleDateString('fr-FR') + (options?.displayTime ? ' à ' + formattedHours : '');
+    const formattedHours = date.toLocaleTimeString(currentLocale, {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+    if (isYesterday(date)) {
+      return t('function.format.date.' + (options?.displayTime ? 'yesterday-at' : 'yesterday'), {
+        time: formattedHours,
+      });
+    }
+    if (isToday(date)) {
+      return t('function.format.date.' + (options?.displayTime ? 'today-at' : 'today'), {
+        time: formattedHours,
+      });
+    }
+    return (
+      date.toLocaleDateString(currentLocale) + (options?.displayTime ? ' à ' + formattedHours : '')
+    );
   }
 
   public static formatPrice(price: number, options?: Intl.NumberFormatOptions): string {
@@ -92,9 +110,5 @@ export class OfferService {
       maximumFractionDigits: 2,
       ...options,
     });
-  }
-
-  public static formatCondition(condition: EnumCondition): string {
-    return this.conditionTranslations[condition] || '';
   }
 }

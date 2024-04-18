@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { OfferService } from 'src/services/offer-service';
 import ButtonFavorite from './button-favorite';
 import { cn } from '@lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const OfferResultCard = ({
   offer,
@@ -17,10 +18,11 @@ const OfferResultCard = ({
   hideSubCategory?: boolean;
   disableFavourite?: boolean;
 }) => {
+  const { t } = useTranslation();
   const [isFavorite, setIsFavorite] = useState(false);
   const formattedPrice = OfferService.formatPrice(offer.price);
-  const formattedDate = OfferService.formatDate(offer.createdAt);
-
+  const formattedDate = OfferService.formatDate(offer.createdAt, t);
+  console.log('OfferResultCard', offer);
   return (
     <Link
       to={`/offer/${offer.id}`}
@@ -33,7 +35,7 @@ const OfferResultCard = ({
             {offer.title}
           </h2>
           <p className="flex-1 text-sm font-semibold">{formattedPrice}</p>
-          {!hideSubCategory && <p className="text-xs">{offer.subCategoryName}</p>}
+          {!hideSubCategory && <p className="text-xs">{t(`category.${offer.subCategory!.mainCategoryName}.subcategories.${offer.subCategoryName}`)}</p>}
           <p className="text-xs">{formattedDate}</p>
         </div>
         {!disableFavourite && (

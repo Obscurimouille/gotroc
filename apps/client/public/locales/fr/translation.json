@@ -1,6 +1,186 @@
 {
-  "welcome": "Bienvenue",
-  "categories": {
+  "message": {
+    "clipboard": {
+      "link": "Lien copié dans le presse-papier"
+    },
+    "must-be-connected-to-create-offer": "Vous devez être connecté pour pouvoir déposer une annonce.",
+    "wrong-credentials": "Identifiants incorrects",
+    "offer-created": {
+      "success": "Annonce créée avec succès",
+      "error": "Erreur lors de la création de l'annonce. Veuillez réessayer plus tard."
+    },
+    "file": {
+      "invalid-type": "Type de fichier invalide",
+      "too-heavy": "Fichier trop lourd. Taille maximale : {{maxSize}}",
+      "added-single": "1 fichier ajouté",
+      "added-multiple": "{{count}} fichiers ajoutés"
+    }
+  },
+  "function": {
+    "format": {
+      "date": {
+        "yesterday": "Hier",
+        "yesterday-at": "Hier à {{time}}",
+        "today": "Aujourd'hui",
+        "today-at": "Aujourd'hui à {{time}}"
+      }
+    }
+  },
+  "modal": {
+    "share-offer": {
+      "title": "Partager l'annonce",
+      "link": "Lien vers l'annonce"
+    }
+  },
+  "input": {
+    "offer": {
+      "title": {
+        "title": "Titre de l'annonce",
+        "placeholder": "Titre de l'annonce",
+        "error": {
+          "too-short": "Le titre doit contenir au moins {{min}} caractères",
+          "too-long": "{{max}} caractères maximum"
+        }
+      },
+      "description": {
+        "title": "Description",
+        "placeholder": "Décrivez votre annonce...",
+        "error": {
+          "too-short": "La description doit contenir au moins {{min}} caractères",
+          "too-long": "{{max}} caractères maximum"
+        }
+      },
+      "category": {
+        "title": "Catégorie",
+        "placeholder": "Choisissez une catégorie",
+        "search": "Rechercher...",
+        "search-empty": "Aucun résultat",
+        "error": {
+          "empty": "Veuillez choisir une catégorie"
+        }
+      },
+      "price": {
+        "title": "Prix (€)",
+        "error": {
+          "empty": "Veuillez renseigner un prix",
+          "invalid": "Prix invalide"
+        }
+      },
+      "condition": {
+        "title": "État",
+        "placeholder": "Choisir un état",
+        "error": {
+          "empty": "Veuillez choisir un état",
+          "invalid": "État invalide"
+        }
+      },
+      "images": {
+        "title": "Images {{count}}/{{maxCount}}",
+        "remove": "Supprimer",
+        "error": {
+          "empty": "Vous devez ajouter au moins une image",
+          "too-many": "Nombre maximum d'images atteint ({{max}})"
+        }
+      }
+    },
+    "username": {
+      "title": "Nom d'utilisateur",
+      "placeholder": "Nom d'utilisateur"
+    },
+    "firstname": {
+      "title": "Prénom",
+      "placeholder": "Prénom"
+    },
+    "lastname": {
+      "title": "Nom",
+      "placeholder": "Nom"
+    },
+    "email": {
+      "title": "Adresse email",
+      "placeholder": "Exemple: dupont@mail.com"
+    },
+    "identifier": {
+      "title": "Nom d'utilisateur ou adresse mail",
+      "placeholder": "Nom d'utilisateur ou adresse mail...",
+      "error": {
+        "empty": "Veuillez renseigner un identifiant."
+      }
+    },
+    "password": {
+      "title": "Mot de passe",
+      "placeholder": "Mot de passe",
+      "error": {
+        "empty": "Veuillez renseigner votre mot de passe."
+      }
+    }
+  },
+  "component": {
+    "login-button": {
+      "title": "Se connecter"
+    },
+    "create-offer-button": {
+      "title": "Déposer une annonce"
+    },
+    "searchbar": {
+      "placeholder": "Rechercher..."
+    }
+  },
+  "page": {
+    "not-found": {
+      "title": "Désolé, cette page n'existe pas",
+      "description": "Vérifiez l'URL ou retournez à la ",
+      "homepage": "page d'accueil"
+    },
+    "login": {
+      "title": "Bienvenue",
+      "submit": "Se connecter",
+      "new-user": "Nouveau ?",
+      "new-account": "Créer un compte",
+      "forgot-password": "Mot de passe oublié ?"
+    },
+    "results": {
+      "nb-results": "{{count}} résultats",
+      "empty": {
+        "title": "Désolé, nous n'avons rien trouvé",
+        "description": "Nous vous invitons à modifier vos critères de recherche"
+      }
+    },
+    "offer": {
+      "see-images": "Voir les images",
+      "description": "Description",
+      "send-message": "Envoyer un message",
+      "send-offer": "Faire une offre"
+    },
+    "dashboard": {
+      "my-account": "Mon compte",
+      "profile": {
+        "public-information": "Informations publiques",
+        "personal-information": "Informations personnelles",
+        "information-tip": "Les informations personnelles ne seront pas visibles par les autres utilisateurs",
+        "member-since": "Membre depuis {{month}} {{year}}"
+      }
+    },
+    "home": {
+      "offer-submitted": {
+        "title": "Annonce publiée",
+        "description": {
+          "before": "Elle sera visible sur la plateforme dès qu'elle aura été validée par notre équipe. Vous pouvez consulter l'état de votre annonce dans la section \"",
+          "action": "Mes annonces",
+          "after": "\"."
+        }
+      }
+    }
+  },
+  "naviguation": {
+    "account": {
+      "profile": "Profil",
+      "offers": "Mes annonces",
+      "favourites": "Favoris",
+      "settings": "Paramètres",
+      "logout": "Se déconnecter"
+    }
+  },
+  "category": {
     "animals": {
       "title": "Animaux",
       "subcategories": {
@@ -110,5 +290,21 @@
         "utilities": "Utilitaires"
       }
     }
+  },
+  "condition": {
+    "new": "Neuf",
+    "excellent": "Excellent",
+    "good": "Bon",
+    "fair": "Correct",
+    "damaged": "Endommagé"
+  },
+  "offer-section": {
+    "best-of-today": "À la une aujourd'hui",
+    "same-category": "Dans la même catégorie"
+  },
+  "common": {
+    "create": "Créer",
+    "home": "Accueil",
+    "save": "Enregistrer"
   }
 }

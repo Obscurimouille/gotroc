@@ -6,8 +6,10 @@ import { OfferService } from 'src/services/offer-service';
 import noResultIllustration from '@assets/illustration_notify.svg';
 import { useEffect, useState } from 'react';
 import { Offer } from '@gotroc/types';
+import { useTranslation } from 'react-i18next';
 
 const SearchResultsPage = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [results, setResults] = useState<Offer[]>([]);
   const [searchParams] = useSearchParams();
@@ -35,7 +37,9 @@ const SearchResultsPage = () => {
           <></>
         ) : !!results.length ? (
           <div className="">
-            <h2 className="mb-4">{results.length} annonces</h2>
+            <h2 className="mb-4">{t('page.results.nb-results', {
+              count: results.length
+            })}</h2>
             <div className="flex flex-col gap-6">
               {results.map((offer, index) => (
                 <OfferResultCard
@@ -47,10 +51,10 @@ const SearchResultsPage = () => {
             </div>
           </div>
         ) : (
-          <div className="w-full mt-8 flex flex-col items-center">
+          <div className="w-full mt-16 flex flex-col items-center">
             <img src={noResultIllustration} className="w-64 mb-8" alt=""></img>
-            <p className="text-xl font-semibold">Désolé, nous n'avons rien trouvé</p>
-            <p className="mt-2">Nous vous invitons à modifier vos critères de recherche</p>
+            <p className="text-xl font-semibold">{t('page.results.empty.title')}</p>
+            <p className="mt-2">{t('page.results.empty.description')}</p>
           </div>
         )}
       </PageContent>

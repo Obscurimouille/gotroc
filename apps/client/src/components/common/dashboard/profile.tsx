@@ -19,6 +19,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { UserService } from 'src/services/user.service';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 const ACCEPTED_IMAGE_TYPES = ['jpeg', 'jpg', 'png'];
@@ -48,6 +49,7 @@ const FormSchema = z.object({
 });
 
 const DashboardProfile = ({ user }: { user: User }) => {
+  const { t } = useTranslation();
   const [submitting, setSubmitting] = useState(false);
   const [, setImageFile] = useState<File | null>(null);
   const [image, setImage] = useState<string>(user.avatarUUID ? UserService.getAvatarURL(user.avatarUUID) : '');
@@ -119,7 +121,7 @@ const DashboardProfile = ({ user }: { user: User }) => {
         <div className="flex flex-col gap-5 lg:gap-8">
           <div className="flex items-center gap-3">
             <Separator className="flex-1 bg-neutral-300 md:hidden" />
-            <h3 className="font-medium md:text-md">Informations publiques</h3>
+            <h3 className="font-medium md:text-md">{t('page.dashboard.profile.public-information')}</h3>
             <Separator className="flex-1 bg-neutral-300" />
           </div>
           <div className="flex flex-col gap-4 pt-2 items-center md:pt-0 md:flex-row md:gap-12 flex-wrap md:items-stretch justify-between">
@@ -129,7 +131,7 @@ const DashboardProfile = ({ user }: { user: User }) => {
               <div className="flex items-center gap-x-0.5">
                 <BookmarkIcon className="text-foreground/50" />
                 <p className="ml-1 text-sm text-foreground/50">
-                  {UserService.formatRegisterDate(user.registerDate)}
+                  {UserService.formatRegisterDate(user.registerDate, t)}
                 </p>
               </div>
             </div>
@@ -139,7 +141,7 @@ const DashboardProfile = ({ user }: { user: User }) => {
         <div className="flex-1 flex flex-col gap-3 md:gap-4 lg:gap-6">
           <div className="flex items-center gap-3">
             <Separator className="flex-1 bg-neutral-300 md:hidden" />
-            <h3 className="font-medium">Informations personnelles</h3>
+            <h3 className="font-medium">{t('page.dashboard.profile.personal-information')}</h3>
             <Separator className="flex-1 bg-neutral-300" />
           </div>
           <div className="flex flex-1 flex-col gap-4 lg:gap-6">
@@ -152,14 +154,14 @@ const DashboardProfile = ({ user }: { user: User }) => {
             </div>
             <div className="flex-1 flex gap-10 justify-between items-end">
               <p className="text-xs text-foreground/50 italic">
-                Les informations personnelles ne seront pas visibles par les autres utilisateurs
+                {t('page.dashboard.profile.information-tip')}
               </p>
               <Button
                 type="submit"
                 className="self-end"
                 disabled={!form.formState.isValid || submitting}
               >
-                {submitting ? <ReloadIcon className="h-4 w-4 animate-spin" /> : 'Enregistrer'}
+                {submitting ? <ReloadIcon className="h-4 w-4 animate-spin" /> : t('common.save')}
               </Button>
             </div>
           </div>
@@ -228,15 +230,16 @@ const AvatarInput = (
 };
 
 const UsernameInput = (props: FormInputParams) => {
+  const { t } = useTranslation();
   return (
     <FormField
       control={props.form.control}
       name="username"
       render={({ field }) => (
         <FormItem className={cn(props.className, '')}>
-          <FormLabel>Nom d'utilisateur</FormLabel>
+          <FormLabel>{t('input.username.title')}</FormLabel>
           <FormControl>
-            <Input placeholder="Nom d'utilisateur" {...field} disabled />
+            <Input placeholder={t('input.username.placeholder')} {...field} disabled />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -246,15 +249,16 @@ const UsernameInput = (props: FormInputParams) => {
 };
 
 const FirstnameInput = (props: FormInputParams) => {
+  const { t } = useTranslation();
   return (
     <FormField
       control={props.form.control}
       name="firstname"
       render={({ field }) => (
         <FormItem className={cn(props.className, '')}>
-          <FormLabel>Prénom</FormLabel>
+          <FormLabel>{t('input.firstname.title')}</FormLabel>
           <FormControl>
-            <Input placeholder="Prénom" {...field} />
+            <Input placeholder={t('input.firstname.placeholder')} {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -264,15 +268,16 @@ const FirstnameInput = (props: FormInputParams) => {
 };
 
 const LastnameInput = (props: FormInputParams) => {
+  const { t } = useTranslation();
   return (
     <FormField
       control={props.form.control}
       name="lastname"
       render={({ field }) => (
         <FormItem className={cn(props.className, '')}>
-          <FormLabel>Nom</FormLabel>
+          <FormLabel>{t('input.lastname.title')}</FormLabel>
           <FormControl>
-            <Input placeholder="Nom" {...field} />
+            <Input placeholder={t('input.lastname.placeholder')} {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -282,15 +287,16 @@ const LastnameInput = (props: FormInputParams) => {
 };
 
 const EmailInput = (props: FormInputParams) => {
+  const { t } = useTranslation();
   return (
     <FormField
       control={props.form.control}
       name="email"
       render={({ field }) => (
         <FormItem className={cn(props.className, '')}>
-          <FormLabel>Adresse mail</FormLabel>
+          <FormLabel>{t('input.email.title')}</FormLabel>
           <FormControl>
-            <Input placeholder="Exemple : dupont@mail.com" {...field} />
+            <Input placeholder={t('input.email.placeholder')} {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
