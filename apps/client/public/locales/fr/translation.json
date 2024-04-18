@@ -1,0 +1,114 @@
+{
+  "welcome": "Bienvenue",
+  "categories": {
+    "animals": {
+      "title": "Animaux",
+      "subcategories": {
+        "accessories": "Accessoires",
+        "lost-animals": "Animaux perdus",
+        "pets": "Animaux"
+      }
+    },
+    "electronics": {
+      "title": "Electronique",
+      "subcategories": {
+        "computer-accessories": "Accessoires informatique",
+        "computers": "Ordinateurs",
+        "consoles": "Consoles",
+        "image-and-sound": "Image & Son",
+        "phones-and-connected-objects": "Téléphones & Objets connectés",
+        "tablets-and-e-readers": "Tablettes et liseuses",
+        "video-games": "Jeux vidéos"
+      }
+    },
+    "fashion": {
+      "title": "Mode",
+      "subcategories": {
+        "accessories-and-luggage": "Accessoires & Bagagerie",
+        "clothing": "Vêtements",
+        "shoes": "Chaussures",
+        "watches-and-jewelry": "Montres & Bijoux"
+      }
+    },
+    "home-and-garden": {
+      "title": "Maison & Jardin",
+      "subcategories": {
+        "appliances": "Electroménager",
+        "decoration": "Décoration",
+        "diy": "Bricolage",
+        "furnishing": "Ameublement",
+        "gardening": "Jardinage",
+        "household-linen": "Linge de maison"
+      }
+    },
+    "leisure": {
+      "title": "Loisirs",
+      "subcategories": {
+        "antiques": "Antiquités",
+        "bikes": "Vélos",
+        "books": "Livres",
+        "collectibles": "Collection",
+        "modeling": "Modélisme",
+        "movies": "DVD & Films",
+        "music": "CD & Musique",
+        "musical-instruments": "Instruments de musique",
+        "toys-and-games": "Jouets & Jeux",
+        "wine-and-gastronomy": "Vins et Gastronomie"
+      }
+    },
+    "professional-equipment": {
+      "title": "Matériel professionnel",
+      "subcategories": {
+        "agricultural-equipment": "Matériel agricole",
+        "construction-and-heavy-work": "BTP - Chantier Gros-oeuvre",
+        "heavy-duty": "Poids lourds",
+        "industrial-equipment": "Équipements Industriels",
+        "materials": "Matériaux",
+        "medical-equipment": "Matériel Médical",
+        "office-supplies": "Fournitures de Bureau",
+        "restaurant-and-hotel": "Restauration - Hôtellerie",
+        "tools": "Outillage",
+        "tractors": "Tracteurs",
+        "transport-and-handling": "Transport - Manutention"
+      }
+    },
+    "real-estate": {
+      "title": "Immobilier",
+      "subcategories": {
+        "offices-and-shops": "Bureaux & Commerces",
+        "real-estate-sales": "Ventes immobilières",
+        "rentals": "Locations",
+        "roommates": "Colocations"
+      }
+    },
+    "services": {
+      "title": "Services",
+      "subcategories": {
+        "artists-and-musicians": "Artistes et Musiciens",
+        "babysitting": "Baby-sitting",
+        "carpooling": "Covoiturage",
+        "cleaning": "Ménage",
+        "events": "Evénements",
+        "gardening-service": "Jardinnage",
+        "guardianship": "Gardiennage",
+        "moving": "Déménagement",
+        "neighbor-help": "Entraide entre voisins",
+        "other-services": "Autres services",
+        "personal-service": "Service à la personne",
+        "repairs": "Travaux et Réparations",
+        "tutoring": "Cours particuliers"
+      }
+    },
+    "vehicles": {
+      "title": "Véhicules",
+      "subcategories": {
+        "auto-equipment": "Equipement Auto",
+        "caravans": "Caravanes",
+        "cars": "Voitures",
+        "motorbike-equipment": "Equipement Moto",
+        "motorbikes": "Motos",
+        "utilities": "Utilitaires"
+      }
+    }
+  }
+}

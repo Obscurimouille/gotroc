@@ -5,8 +5,10 @@ import OfferCreatedCard from '@components/common/offer-created-card';
 import { Page, PageContent } from '../common/layout';
 import { useState } from 'react';
 import { OfferService } from 'src/services/offer-service';
+import { useTranslation } from 'react-i18next';
 
 const HomePage = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(true);
   const queryParams = new URLSearchParams(location.search);
@@ -27,7 +29,7 @@ const HomePage = () => {
       <Header />
       <PageContent className="pt-8 gap-8">
         {offerCreated && <OfferCreatedCard />}
-        <OfferSection title={"À la une aujourd'hui"} offers={recommendedOffers} />
+        <OfferSection title={t('welcome')} offers={recommendedOffers} />
       </PageContent>
     </Page>
   );

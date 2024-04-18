@@ -37,6 +37,7 @@ import {
 } from '@components/ui/select';
 import { OfferService } from 'src/services/offer-service';
 import { CategoryService } from 'src/services/category-service';
+import { useTranslation } from 'react-i18next';
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2; // 2MB
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -96,6 +97,7 @@ const formSchema = z.object({
 });
 
 const CreateOfferForm = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [openCategory, setOpenCategory] = React.useState(false);
   const [images, setImages] = useState<File[]>([]);
@@ -150,6 +152,10 @@ const CreateOfferForm = () => {
     );
   };
 
+  const getMainCategory = (subCategoryName: string) => {
+    return categories.find((mainCategory) => mainCategory.subCategories.includes(subCategoryName));
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     toast.success('Annonce créée avec succès');
     const result = await OfferService.create({
@@ -160,7 +166,7 @@ const CreateOfferForm = () => {
       images,
     });
     if (!result.success) {
-      toast.error('Erreur lors de la création de l\'annonce, veuillez réessayer plus tard.');
+      toast.error("Erreur lors de la création de l'annonce, veuillez réessayer plus tard.");
       return;
     }
     toast.success('Annonce créée avec succès');
@@ -219,7 +225,7 @@ const CreateOfferForm = () => {
                           !field.value && 'text-muted-foreground',
                         )}
                       >
-                        {field.value || 'Choisir une catégorie'}
+                        {field.value ? t(`categories.${getMainCategory(field.value)!.name}.subcategories.${field.value}`) : 'Choisir une catégorie'}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
@@ -231,7 +237,7 @@ const CreateOfferForm = () => {
                       <CommandList>
                         {categories.map((mainCategory, index) => (
                           <div key={index}>
-                            <CommandGroup heading={mainCategory.name}>
+                            <CommandGroup heading={t(`categories.${mainCategory.name}.title`)}>
                               {mainCategory.subCategories!.map((subCategoryName, subIndex) => (
                                 <CommandItem
                                   value={subCategoryName}
@@ -245,7 +251,7 @@ const CreateOfferForm = () => {
                                   )}
                                   disabled={false}
                                 >
-                                  {subCategoryName}
+                                  {t(`categories.${mainCategory.name}.subcategories.${subCategoryName}`)}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',

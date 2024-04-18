@@ -1,0 +1,114 @@
+{
+  "welcome": "Welcome",
+  "categories": {
+    "animals": {
+      "title": "Animals",
+      "subcategories": {
+        "accessories": "Accessories",
+        "lost-animals": "Lost animals",
+        "pets": "Animals"
+      }
+    },
+    "electronics": {
+      "title": "Electronics",
+      "subcategories": {
+        "computer-accessories": "Computer accessories",
+        "computers": "Computers & Laptops",
+        "consoles": "Consoles",
+        "image-and-sound": "Image & Sound",
+        "phones-and-connected-objects": "Phones & Connected objects",
+        "tablets-and-e-readers": "Tablets & E-readers",
+        "video-games": "Video games"
+      }
+    },
+    "fashion": {
+      "title": "Fashion",
+      "subcategories": {
+        "accessories-and-luggage": "Accessories & Luggage",
+        "clothing": "Clothing",
+        "shoes": "Shoes",
+        "watches-and-jewelry": "Watches & Jewelry"
+      }
+    },
+    "home-and-garden": {
+      "title": "Home & Garden",
+      "subcategories": {
+        "appliances": "Appliances",
+        "decoration": "Decoration",
+        "diy": "DIY",
+        "furnishing": "Furnishing",
+        "gardening": "Gardening",
+        "household-linen": "Household linen"
+      }
+    },
+    "leisure": {
+      "title": "Leisure",
+      "subcategories": {
+        "antiques": "Antiques",
+        "bikes": "Bikes",
+        "books": "Books",
+        "collectibles": "Collectibles",
+        "modeling": "Modeling",
+        "movies": "Movies",
+        "music": "Music",
+        "musical-instruments": "Musical instruments",
+        "toys-and-games": "Toys & Games",
+        "wine-and-gastronomy": "Wine & Gastronomy"
+      }
+    },
+    "professional-equipment": {
+      "title": "Professional Equipment",
+      "subcategories": {
+        "agricultural-equipment": "Agricultural Equipment",
+        "construction-and-heavy-work": "Construction & Heavy work",
+        "heavy-duty": "Heavy-duty",
+        "industrial-equipment": "Industrial Equipment",
+        "materials": "Materials",
+        "medical-equipment": "Medical Equipment",
+        "office-supplies": "Office Supplies",
+        "restaurant-and-hotel": "Restaurant & Hotel",
+        "tools": "Tools",
+        "tractors": "Tractors",
+        "transport-and-handling": "Transport & Handling"
+      }
+    },
+    "real-estate": {
+      "title": "Real Estate",
+      "subcategories": {
+        "offices-and-shops": "Offices & Shops",
+        "real-estate-sales": "Real Estate Sales",
+        "rentals": "Rentals",
+        "roommates": "Roommates"
+      }
+    },
+    "services": {
+      "title": "Services",
+      "subcategories": {
+        "artists-and-musicians": "Artists & Musicians",
+        "babysitting": "Babysitting",
+        "carpooling": "Carpooling",
+        "cleaning": "Cleaning",
+        "events": "Events",
+        "gardening-service": "Gardening Service",
+        "guardianship": "Guardianship",
+        "moving": "Moving",
+        "neighbor-help": "Neighbor Help",
+        "other-services": "Other Services",
+        "personal-service": "Personal Service",
+        "repairs": "Repairs",
+        "tutoring": "Tutoring"
+      }
+    },
+    "vehicles": {
+      "title": "Vehicles",
+      "subcategories": {
+        "auto-equipment": "Auto Equipment",
+        "caravans": "Caravans",
+        "cars": "Cars",
+        "motorbike-equipment": "Motorbike Equipment",
+        "motorbikes": "Motorbikes",
+        "utilities": "Utilities"
+      }
+    }
+  }
+}
