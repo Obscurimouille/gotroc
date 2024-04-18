@@ -1,5 +1,6 @@
 import { Response } from "express";
 import { ControllerResponse } from "../types/controller-response.js";
+import { errors } from "@vinejs/vine";
 
 export const INTERNAL_ERROR: ControllerResponse = {
   success: false,
@@ -36,6 +37,9 @@ export const reply = (res: Response, controllerResponse: ControllerResponse) => 
 }
 
 export const handleInternalError = (error: any) => {
+  if (error instanceof errors.E_VALIDATION_ERROR) {
+    return { ...INVALID_PARAMS, errors: error.messages };
+  }
   console.error(error);
   return INTERNAL_ERROR;
 };

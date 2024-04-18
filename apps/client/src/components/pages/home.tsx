@@ -19,7 +19,7 @@ const HomePage = () => {
   const [recommendedOffers, setRecommendedOffers] = useState([]);
 
   useState(() => {
-    OfferService.getAll().then((response) => {
+    OfferService.getRecommendations(12).then((response) => {
       if (!response.success) return;
       setRecommendedOffers(response.data);
       setLoading(false);

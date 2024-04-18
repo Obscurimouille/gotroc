@@ -55,6 +55,13 @@ router.get('/image/:uuid', async (req, res) => {
   reply(res, result);
 });
 
+router.get('/recommendations', async (req, res) => {
+  const user = req.context.user || null;
+  const limit = Number(req.query.limit);
+  const result = await OfferController.getRecommendations(user, limit);
+  reply(res, result);
+});
+
 router.get('/recommendations/:id', async (req, res) => {
   const id = Number(req.params.id);
   const result = await OfferController.getRecommendationsForOffer(id);

@@ -34,8 +34,13 @@ class OfferService {
     })
   }
 
-  public static async getAll() {
+  public static async getAll(options?: { limit?: number; excludeUserId?: number }) {
     return prisma.offer.findMany({
+      where: {
+        authorId: {
+          notIn: options?.excludeUserId ? [options.excludeUserId] : [],
+        },
+      },
       include: {
         subCategory: true,
         images: {
@@ -48,6 +53,7 @@ class OfferService {
           },
         },
       },
+      take: options?.limit,
     });
   }
 

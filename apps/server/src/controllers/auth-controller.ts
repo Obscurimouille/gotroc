@@ -1,9 +1,9 @@
 import UserService from '../services/user-service.js';
 import { ControllerResponse } from '../types/controller-response.js';
 import { EmailSchema, PasswordSchema, UsernameSchema } from '../validators/fields-validator.js';
-import vine, { errors } from '@vinejs/vine';
+import vine from '@vinejs/vine';
 import bcrypt from 'bcrypt';
-import { INVALID_CREDENTIALS, INVALID_PARAMS, handleInternalError } from './utils.js';
+import { INVALID_CREDENTIALS, handleInternalError } from './utils.js';
 import { uniqueEmailRule } from '../validators/rules/unique-email.js';
 import { uniqueUsernameRule } from '../validators/rules/unique-username.js';
 import jwt from 'jsonwebtoken';
@@ -37,9 +37,6 @@ class AuthController {
         data: user,
       };
     } catch (error) {
-      if (error instanceof errors.E_VALIDATION_ERROR) {
-        return { ...INVALID_PARAMS, errors: error.messages };
-      }
       return handleInternalError(error);
     }
   }
@@ -73,9 +70,6 @@ class AuthController {
         data: { user, token },
       };
     } catch (error) {
-      if (error instanceof errors.E_VALIDATION_ERROR) {
-        return { ...INVALID_PARAMS, errors: error.messages };
-      }
       return handleInternalError(error);
     }
   }

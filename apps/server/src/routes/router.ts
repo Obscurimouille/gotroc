@@ -3,7 +3,11 @@ import OffersRouter from './offer.js';
 import UserRouter from './user.js';
 import AuthRouter from './auth.js';
 import CategoryRouter from './category.js';
+import { authenticateMiddleware } from '../middlewares/authenticate.js';
 const router = express.Router();
+
+// Authenticate the user if possible
+router.use(authenticateMiddleware);
 
 router.use('/offer', OffersRouter);
 router.use('/category', CategoryRouter);

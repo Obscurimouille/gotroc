@@ -1,7 +1,7 @@
 import { User } from '@gotroc/types';
 import UserService from '../services/user-service.js';
 import { ControllerResponse } from '../types/controller-response.js';
-import { INVALID_PARAMS, NOT_FOUND, UNAUTHORIZED, handleInternalError } from './utils.js';
+import { NOT_FOUND, UNAUTHORIZED, handleInternalError } from './utils.js';
 import {
   EmailSchema,
   FirstNameSchema,
@@ -9,7 +9,7 @@ import {
   UserIdSchema,
   userAvatarUUIDSchema,
 } from '../validators/fields-validator.js';
-import vine, { errors } from '@vinejs/vine';
+import vine from '@vinejs/vine';
 import { uniqueEmailRule } from '../validators/rules/unique-email.js';
 import UserAvatarService from '../services/user-avatar-service.js';
 import path from 'path';
@@ -40,9 +40,6 @@ class UserController {
         data: { ...image, path: filepath },
       };
     } catch (error) {
-      if (error instanceof errors.E_VALIDATION_ERROR) {
-        return { ...INVALID_PARAMS, errors: error.messages };
-      }
       return handleInternalError(error);
     }
   }
@@ -87,9 +84,6 @@ class UserController {
         data: rest,
       };
     } catch (error) {
-      if (error instanceof errors.E_VALIDATION_ERROR) {
-        return { ...INVALID_PARAMS, errors: error.messages };
-      }
       return handleInternalError(error);
     }
   }
@@ -128,9 +122,6 @@ class UserController {
         data: rest,
       };
     } catch (error) {
-      if (error instanceof errors.E_VALIDATION_ERROR) {
-        return { ...INVALID_PARAMS, errors: error.messages };
-      }
       return handleInternalError(error);
     }
   }

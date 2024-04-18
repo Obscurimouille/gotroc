@@ -1,10 +1,9 @@
 import express from 'express';
 import AuthController from '../controllers/auth-controller.js';
 import { reply } from '../controllers/utils.js';
-import { authenticateMiddleware } from '../middlewares/authenticate.js';
 const router = express.Router();
 
-router.get('/', authenticateMiddleware, async (req, res) => {
+router.get('/', async (req, res) => {
   if (req.context.user) {
     return reply(res, { success: true, data: req.context.user });
   }

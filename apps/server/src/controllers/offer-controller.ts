@@ -2,7 +2,7 @@ import { User } from '@gotroc/types';
 import OfferService from '../services/offer-service.js';
 import { ControllerResponse } from '../types/controller-response.js';
 import { INVALID_PARAMS, NOT_FOUND, UNAUTHORIZED, handleInternalError } from './utils.js';
-import vine, { errors } from '@vinejs/vine';
+import vine from '@vinejs/vine';
 import {
   OfferDescriptionSchema,
   OfferImageUUIDSchema,
@@ -41,9 +41,6 @@ class OfferController {
         data: { ...image, path: filepath },
       };
     } catch (error) {
-      if (error instanceof errors.E_VALIDATION_ERROR) {
-        return { ...INVALID_PARAMS, errors: error.messages };
-      }
       return handleInternalError(error);
     }
   }
@@ -96,10 +93,6 @@ class OfferController {
       for (const imageRef of offerData.images) {
         if (fs.existsSync(imageRef.absolutePath)) fs.unlinkSync(imageRef.absolutePath);
       }
-
-      if (error instanceof errors.E_VALIDATION_ERROR) {
-        return { ...INVALID_PARAMS, errors: error.messages };
-      }
       return handleInternalError(error);
     }
   }
@@ -127,6 +120,30 @@ class OfferController {
       return {
         success: true,
         data: { ...offer, recommendations },
+      };
+    } catch (error) {
+      return handleInternalError(error);
+    }
+  }
+
+  public static async getRecommendations(user: User | null, limit?: number): Promise<ControllerResponse> {
+    try {
+      const schema = vine.object({
+        limit: vine.number().min(0).optional(),
+      });
+
+      const validator = vine.compile(schema);
+      const field = await validator.validate({ limit });
+
+      const options: { limit?: number; excludeUserId?: number } = {};
+      if (field.limit) options['limit'] = field.limit;
+      if (user) options['excludeUserId'] = user.id;
+
+      const offers = await OfferService.getAll(options);
+
+      return {
+        success: true,
+        data: offers,
       };
     } catch (error) {
       return handleInternalError(error);
