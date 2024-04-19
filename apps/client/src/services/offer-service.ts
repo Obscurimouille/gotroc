@@ -1,6 +1,7 @@
 import { isYesterday, isToday } from '@lib/utils';
 import { APIService } from './api-service';
 import i18next, { TFunction } from 'i18next';
+import { APIResponse } from '@gotroc/types';
 
 export class OfferService {
   public static create({
@@ -43,6 +44,10 @@ export class OfferService {
 
   public static getRecommendationsForOffer(id: number) {
     return APIService.get('/offer/recommendations/' + id);
+  }
+
+  public static toggleBookmark(offerId: number): Promise<APIResponse<boolean>> {
+    return APIService.post(`/offer/${offerId}/bookmark/toggle`);
   }
 
   public static search({

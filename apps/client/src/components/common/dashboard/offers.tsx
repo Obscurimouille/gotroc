@@ -32,7 +32,7 @@ const DashboardOffers = ({ user }: { user: User }) => {
               key={index}
               offer={offer}
               className="shrink-0 shadow-none border-1 border-neutral-300"
-              disableFavourite
+              disableBookmark
             />
           ))}
         </div>

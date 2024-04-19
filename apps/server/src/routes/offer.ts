@@ -4,6 +4,7 @@ const router = express.Router();
 import { authenticatedMiddleware } from '../middlewares/authenticated.js';
 import { reply } from '../controllers/utils.js';
 import { OfferImageUploadStrategy } from '../storage/strategies.js';
+import BookmarkController from '../controllers/bookmark-controller.js';
 
 router.post(
   '/',
@@ -41,8 +42,9 @@ router.post(
   },
 );
 
-router.get('/', async (_, res) => {
-  const result = await OfferController.getAll();
+router.get('/', async (req, res) => {
+  const user = req.context.user || null;
+  const result = await OfferController.getAll(user);
   reply(res, result);
 });
 
@@ -63,29 +65,40 @@ router.get('/recommendations', async (req, res) => {
 });
 
 router.get('/recommendations/:id', async (req, res) => {
+  const user = req.context.user || null;
   const id = Number(req.params.id);
-  const result = await OfferController.getRecommendationsForOffer(id);
+  const result = await OfferController.getRecommendationsForOffer(id, user);
   reply(res, result);
 });
 
 router.get('/search', async (req, res) => {
+  const user = req.context.user || null;
   const subCategoryName = req.query.subCategoryName as string;
   const rawText = req.query.rawText as string;
   const mainCategoryName = req.query.mainCategoryName as string;
 
-  const result = await OfferController.search({ subCategoryName, rawText, mainCategoryName });
+  const result = await OfferController.search({ subCategoryName, rawText, mainCategoryName }, user);
   reply(res, result);
 });
 
 router.get('/user/:id', async (req, res) => {
+  const user = req.context.user || null;
   const id = Number(req.params.id);
-  const result = await OfferController.getByAuthorId(id);
+  const result = await OfferController.getByAuthorId(id, user);
+  reply(res, result);
+});
+
+router.post('/:id/bookmark/toggle', authenticatedMiddleware, async (req, res) => {
+  const user = req.context.user!;
+  const offerId = Number(req.params.id);
+  const result = await BookmarkController.toggle(offerId, user);
   reply(res, result);
 });
 
 router.get('/:id', async (req, res) => {
+  const user = req.context.user || null;
   const id = Number(req.params.id);
-  const result = await OfferController.getById(id);
+  const result = await OfferController.getById(id, user);
   reply(res, result);
 });
 

@@ -4,6 +4,7 @@
       "link": "Link copied to clipboard"
     },
     "must-be-connected-to-create-offer": "You must be connected to create an offer.",
+    "must-be-connected-to-add-favourite": "You must be connected to add a favourite.",
     "wrong-credentials": "Wrong credentials",
     "offer-created": {
       "success": "Offer created successfully",

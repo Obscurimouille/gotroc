@@ -102,7 +102,6 @@ const AccountDropdown = ({ className }: { className?: string }) => {
 };
 
 const LanguageDropdown = ({ className }: { className?: string }) => {
-  const { t } = useTranslation();
   const laguages = [
     {
       code: 'en-US',

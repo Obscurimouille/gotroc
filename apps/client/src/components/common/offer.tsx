@@ -16,7 +16,7 @@ import { Input } from '@components/ui/input';
 import { Label } from '@components/ui/label';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'sonner';
-import ButtonFavorite from './button-favorite';
+import ButtonBookmark from './button-bookmark';
 import { useTranslation } from 'react-i18next';
 import {
   Carousel,
@@ -31,7 +31,6 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
   const { t } = useTranslation();
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [, setCurrentImage] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [isImagesDialogOpen, setIsImagesDialogOpen] = useState(false);
   const formattedDate = OfferService.formatDate(offer.createdAt, t);
@@ -59,10 +58,10 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
     <Dialog open={isShareDialogOpen} onOpenChange={() => setIsShareDialogOpen(false)}>
       <DialogContent>
         <DialogHeader className="mb-1">
-          <DialogTitle>{t('component.modal.share-offer.title')}</DialogTitle>
+          <DialogTitle>{t('modal.share-offer.title')}</DialogTitle>
         </DialogHeader>
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="url">{t('component.modal.share-offer.link')}</Label>
+          <Label htmlFor="url">{t('modal.share-offer.link')}</Label>
           <div className="w-full items-center flex gap-2">
             <Input id="url" type="text" className="flex-1" value={url} readOnly />
             <CopyToClipboard text={url} onCopy={() => onCopy()}>
@@ -150,7 +149,7 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <Button variant="ghost" size="icon" onClick={() => setIsShareDialogOpen(true)}>
             <Share1Icon />
           </Button>
-          <ButtonFavorite isFavorite={isFavorite} onClick={() => setIsFavorite(!isFavorite)} />
+          <ButtonBookmark initState={!!offer.bookmarked} offerId={offer.id} />
         </div>
       </div>
 

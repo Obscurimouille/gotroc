@@ -15,6 +15,7 @@ import fs from 'fs';
 import UserService from '../services/user-service.js';
 import path from 'path';
 import { FileRef } from '../providers/file-reference.js';
+import { Offer } from '@prisma/client';
 
 const __appRoot = process.cwd();
 
@@ -97,25 +98,39 @@ class OfferController {
     }
   }
 
-  public static async getAll(): Promise<ControllerResponse> {
+  public static async getAll(user: User | null): Promise<ControllerResponse> {
     try {
+      const offers = await OfferService.getAll({
+        userId: user ? user.id : undefined,
+      });
       return {
         success: true,
-        data: await OfferService.getAll(),
+        data: offers.map(this.formatOfferData),
       };
     } catch (error) {
       return handleInternalError(error);
     }
   }
 
-  public static async getById(id: number): Promise<ControllerResponse> {
+  public static async getById(id: number, user: User | null): Promise<ControllerResponse> {
     if (id === undefined || typeof id != 'number' || isNaN(id)) return INVALID_PARAMS;
     if (id < 0) return INVALID_PARAMS;
 
     try {
-      const offer = await OfferService.getById(id);
-      if (offer === null) return NOT_FOUND;
-      const recommendations = await OfferService.getRecommendationsForOffer({ ...offer });
+      const foundOffer = await OfferService.getById(id, {
+        userId: user ? user.id : undefined,
+      });
+      if (foundOffer === null) return NOT_FOUND;
+      const recommendations = (
+        await OfferService.getRecommendationsForOffer(
+          { ...foundOffer },
+          {
+            userId: user ? user.id : undefined,
+          },
+        )
+      ).map(this.formatOfferData);
+
+      const offer = this.formatOfferData(foundOffer);
 
       return {
         success: true,
@@ -126,7 +141,10 @@ class OfferController {
     }
   }
 
-  public static async getRecommendations(user: User | null, limit?: number): Promise<ControllerResponse> {
+  public static async getRecommendations(
+    user: User | null,
+    limit?: number,
+  ): Promise<ControllerResponse> {
     try {
       const schema = vine.object({
         limit: vine.number().min(0).optional(),
@@ -135,62 +153,86 @@ class OfferController {
       const validator = vine.compile(schema);
       const field = await validator.validate({ limit });
 
-      const options: { limit?: number; excludeUserId?: number } = {};
+      const options: { limit?: number; excludeUserId?: number; userId?: number } = {};
       if (field.limit) options['limit'] = field.limit;
-      if (user) options['excludeUserId'] = user.id;
+      if (user) {
+        options['excludeUserId'] = user.id;
+        options['userId'] = user.id;
+      }
 
       const offers = await OfferService.getAll(options);
 
       return {
         success: true,
-        data: offers,
+        data: offers.map(this.formatOfferData),
       };
     } catch (error) {
       return handleInternalError(error);
     }
   }
 
-  public static async getRecommendationsForOffer(id: number): Promise<ControllerResponse> {
+  public static async getRecommendationsForOffer(
+    id: number,
+    user: User | null,
+  ): Promise<ControllerResponse> {
     if (id === undefined || typeof id != 'number' || isNaN(id)) return INVALID_PARAMS;
     if (id < 0) return INVALID_PARAMS;
 
     try {
-      const offer = await OfferService.getById(id);
+      const offer = await OfferService.getById(id, {
+        userId: user ? user.id : undefined,
+      });
       if (offer === null) return NOT_FOUND;
+      const offers = await OfferService.getRecommendationsForOffer(
+        { ...offer },
+        {
+          userId: user ? user.id : undefined,
+        },
+      );
 
       return {
         success: true,
-        data: await OfferService.getRecommendationsForOffer({ ...offer }),
+        data: offers.map(this.formatOfferData),
       };
     } catch (error) {
       return handleInternalError(error);
     }
   }
 
-  public static async getByAuthorId(authorId: number): Promise<ControllerResponse> {
+  public static async getByAuthorId(
+    authorId: number,
+    user: User | null,
+  ): Promise<ControllerResponse> {
     if (authorId === undefined || typeof authorId != 'number' || isNaN(authorId))
       return INVALID_PARAMS;
     if (authorId < 0) return INVALID_PARAMS;
 
+    const offers = await OfferService.getByAuthorId(authorId, {
+      userId: user ? user.id : undefined,
+    });
+
     try {
       return {
         success: true,
-        data: await OfferService.getByAuthorId(authorId),
+        data: offers.map(this.formatOfferData),
       };
     } catch (error) {
       return handleInternalError(error);
     }
   }
 
-  public static async search({
-    subCategoryName,
-    rawText,
-    mainCategoryName,
-  }: {
-    subCategoryName?: string;
-    rawText?: string;
-    mainCategoryName?: string;
-  }): Promise<ControllerResponse> {
+  public static async search(
+    {
+      subCategoryName,
+      rawText,
+      mainCategoryName,
+    }: {
+      subCategoryName?: string;
+      rawText?: string;
+      mainCategoryName?: string;
+    },
+    user: User | null,
+  ): Promise<ControllerResponse> {
     if (subCategoryName !== undefined && typeof subCategoryName != 'string') return INVALID_PARAMS;
     if (rawText !== undefined && typeof rawText != 'string') return INVALID_PARAMS;
     if (mainCategoryName !== undefined && typeof mainCategoryName != 'string')
@@ -198,14 +240,29 @@ class OfferController {
     if (subCategoryName === undefined && rawText === undefined && mainCategoryName === undefined)
       return INVALID_PARAMS;
 
+    const offers = await OfferService.search(
+      { subCategoryName, rawText, mainCategoryName },
+      {
+        userId: user ? user.id : undefined,
+      },
+    );
+
     try {
       return {
         success: true,
-        data: await OfferService.search({ subCategoryName, rawText, mainCategoryName }),
+        data: offers.map(this.formatOfferData),
       };
     } catch (error) {
       return handleInternalError(error);
     }
+  }
+
+  private static formatOfferData(offer: any) {
+    const { bookmarks, ...rest } = offer;
+    return {
+      ...rest,
+      bookmarked: bookmarks && bookmarks.length > 0,
+    };
   }
 }
 

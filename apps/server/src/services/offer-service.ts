@@ -2,6 +2,19 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class OfferService {
+  private static constantInclude: any = {
+    subCategory: true,
+    images: {
+      orderBy: {
+        position: 'asc',
+      },
+      select: {
+        position: true,
+        imageUUID: true,
+      },
+    },
+  };
+
   public static async add({
     title,
     price,
@@ -27,14 +40,29 @@ class OfferService {
           create: images.map((uuid, index) => ({
             imageUUID: uuid,
             position: index,
-          }))
+          })),
         },
         authorId,
-      }
-    })
+      },
+    });
   }
 
-  public static async getAll(options?: { limit?: number; excludeUserId?: number }) {
+  public static async getAll(options?: {
+    limit?: number;
+    excludeUserId?: number;
+    userId?: number;
+  }) {
+    const optionalInclude: any = {};
+    if (options?.userId) {
+      optionalInclude['bookmarks'] = {
+        where: {
+          userId: options.userId,
+        },
+        select: {
+          userId: true,
+        },
+      };
+    }
     return prisma.offer.findMany({
       where: {
         authorId: {
@@ -42,22 +70,29 @@ class OfferService {
         },
       },
       include: {
-        subCategory: true,
-        images: {
-          orderBy: {
-            position: 'asc',
-          },
-          select: {
-            position: true,
-            imageUUID: true,
-          },
-        },
+        ...this.constantInclude,
+        ...optionalInclude,
       },
+
       take: options?.limit,
     });
   }
 
-  public static async getRecommendationsForOffer(offer: { id: number; subCategoryName: string }) {
+  public static async getRecommendationsForOffer(
+    offer: { id: number; subCategoryName: string },
+    options?: { userId?: number },
+  ) {
+    const optionalInclude: any = {};
+    if (options?.userId) {
+      optionalInclude['bookmarks'] = {
+        where: {
+          userId: options.userId,
+        },
+        select: {
+          userId: true,
+        },
+      };
+    }
     return prisma.offer.findMany({
       take: 8,
       where: {
@@ -73,69 +108,81 @@ class OfferService {
         ],
       },
       include: {
-        subCategory: true,
-        images: {
-          orderBy: {
-            position: 'asc',
-          },
-          select: {
-            position: true,
-            imageUUID: true,
-          },
-        },
+        ...this.constantInclude,
+        ...optionalInclude,
       },
     });
   }
 
-  public static async getById(id: number) {
+  public static async getById(id: number, options?: { userId?: number }) {
+    console.log('options', options)
+    const optionalInclude: any = {};
+    if (options?.userId) {
+      optionalInclude['bookmarks'] = {
+        where: {
+          userId: options.userId,
+        },
+        select: {
+          userId: true,
+        },
+      };
+    }
     return prisma.offer.findUnique({
       where: {
         id: id,
       },
       include: {
-        subCategory: true,
-        images: {
-          orderBy: {
-            position: 'asc',
-          },
-          select: {
-            position: true,
-            imageUUID: true,
-          },
-        },
+        ...this.constantInclude,
+        ...optionalInclude,
       },
     });
   }
 
-  public static async getByAuthorId(authorId: number) {
+  public static async getByAuthorId(authorId: number, options?: { userId?: number }) {
+    const optionalInclude: any = {};
+    if (options?.userId) {
+      optionalInclude['bookmarks'] = {
+        where: {
+          userId: options.userId,
+        },
+        select: {
+          userId: true,
+        },
+      };
+    }
     return prisma.offer.findMany({
       where: {
         authorId: authorId,
       },
       include: {
-        subCategory: true,
-        images: {
-          orderBy: {
-            position: 'asc',
-          },
-          select: {
-            position: true,
-            imageUUID: true,
-          },
-        },
+        ...this.constantInclude,
       },
     });
   }
 
-  public static async search({
-    subCategoryName,
-    rawText,
-    mainCategoryName,
-  }: {
-    subCategoryName?: string;
-    rawText?: string;
-    mainCategoryName?: string;
-  }) {
+  public static async search(
+    {
+      subCategoryName,
+      rawText,
+      mainCategoryName,
+    }: {
+      subCategoryName?: string;
+      rawText?: string;
+      mainCategoryName?: string;
+    },
+    options?: { userId?: number },
+  ) {
+    const optionalInclude: any = {};
+    if (options?.userId) {
+      optionalInclude['bookmarks'] = {
+        where: {
+          userId: options.userId,
+        },
+        select: {
+          userId: true,
+        },
+      };
+    }
     return prisma.offer.findMany({
       where: {
         OR: [
@@ -165,16 +212,8 @@ class OfferService {
         ],
       },
       include: {
-        subCategory: true,
-        images: {
-          orderBy: {
-            position: 'asc',
-          },
-          select: {
-            position: true,
-            imageUUID: true,
-          },
-        },
+        ...this.constantInclude,
+        ...optionalInclude,
       },
       orderBy: {
         createdAt: 'desc',

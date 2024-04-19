@@ -20,4 +20,5 @@ export type Offer = {
   images: OfferImage[];
   createdAt: Date;
   updatedAt: Date;
+  bookmarked?: boolean;
 };
