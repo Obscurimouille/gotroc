@@ -12,7 +12,7 @@ import { UserContext } from 'src/providers/user-context';
 export enum EnumDashboardSection {
   PROFILE = 'profile',
   OFFERS = 'offers',
-  FAVOURITES = 'favourites',
+  BOOKMARKS = 'bookmarks',
   SETTINGS = 'settings',
 }
 
@@ -36,7 +36,7 @@ const DashboardPage = () => {
         {section === EnumDashboardSection.OFFERS && !!userContext.user && (
           <DashboardOffers user={userContext.user} />
         )}
-        {section === EnumDashboardSection.FAVOURITES && !!userContext.user && (
+        {section === EnumDashboardSection.BOOKMARKS && !!userContext.user && (
           <DashboardBookmarks user={userContext.user} />
         )}
         {section === EnumDashboardSection.SETTINGS && !!userContext.user && (

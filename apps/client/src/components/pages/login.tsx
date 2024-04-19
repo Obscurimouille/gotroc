@@ -50,8 +50,8 @@ function LoginPage() {
       toast.error(t('message.must-be-connected-to-create-offer'));
       setFromParamToastState(true);
     }
-    else if (fromParam === 'add-favourite' && !fromParamToastState) {
-      toast.error(t('message.must-be-connected-to-add-favourite'));
+    else if (fromParam === 'add-bookmark' && !fromParamToastState) {
+      toast.error(t('message.must-be-connected-to-add-bookmark'));
       setFromParamToastState(true);
     }
   }, [fromParam, fromParamToastState, t]);

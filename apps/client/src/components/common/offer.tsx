@@ -9,8 +9,8 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@components/ui/breadcrumb';
-import { CopyIcon, Share1Icon } from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
+import { CopyIcon, Pencil2Icon, Share1Icon } from '@radix-ui/react-icons';
+import { useContext, useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@components/ui/dialog';
 import { Input } from '@components/ui/input';
 import { Label } from '@components/ui/label';
@@ -20,31 +20,26 @@ import ButtonBookmark from './button-bookmark';
 import { useTranslation } from 'react-i18next';
 import {
   Carousel,
-  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from '@components/ui/carousel';
+import { UserContext } from 'src/providers/user-context';
+import { Link } from 'react-router-dom';
 
 const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: string }) => {
   const { t } = useTranslation();
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [, setCurrentImage] = useState(0);
+  const userContext = useContext(UserContext);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const [isImagesDialogOpen, setIsImagesDialogOpen] = useState(false);
   const formattedDate = OfferService.formatDate(offer.createdAt, t);
   const url = window.location.href;
 
   useEffect(() => {
-    if (!carouselApi) return;
-
-    setCurrentImage(carouselApi.selectedScrollSnap() + 1);
-
-    carouselApi.on('select', () => {
-      setCurrentImage(carouselApi.selectedScrollSnap() + 1);
-    });
-  }, [carouselApi]);
+    setIsOwner(userContext.user?.id === offer.authorId);
+  }, [userContext.user, offer.authorId]);
 
   const onCopy = () => {
     toast.success(t('message.clipboard.link'));
@@ -79,7 +74,6 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
     <Dialog open={isImagesDialogOpen} onOpenChange={() => setIsImagesDialogOpen(false)}>
       <DialogContent className="min-w-[80dvw] m-0 px-16">
         <Carousel
-          setApi={setCarouselApi}
           className="w-full h-full"
           opts={{
             align: 'start',
@@ -149,7 +143,8 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <Button variant="ghost" size="icon" onClick={() => setIsShareDialogOpen(true)}>
             <Share1Icon />
           </Button>
-          <ButtonBookmark initState={!!offer.bookmarked} offerId={offer.id} />
+          {/* Disable bookmark button if the user is the owner of the offer */}
+          {!isOwner && <ButtonBookmark initState={!!offer.bookmarked} offerId={offer.id} />}
         </div>
       </div>
 
@@ -191,10 +186,23 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <h1 className="text-2xl font-semibold line-clamp-3">{offer.title}</h1>
           <p className="font-semibold text-lg">{OfferService.formatPrice(offer.price)}</p>
           <small className="flex-1">{formattedDate}</small>
-          <Button className="w-full">{t('page.offer.send-offer')}</Button>
-          <Button variant="outline" className="w-full">
-            {t('page.offer.send-message')}
-          </Button>
+          {isOwner ? (
+            <>
+              <Link to={`/offer/${offer.id}/edit`}>
+                <Button className="w-full gap-1.5">
+                  {t('page.offer.edit')}
+                  <Pencil2Icon className="mb-0.5" />
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Button className="w-full">{t('page.offer.send-offer')}</Button>
+              <Button variant="outline" className="w-full">
+                {t('page.offer.send-message')}
+              </Button>
+            </>
+          )}
         </div>
       </div>
       <div className="bg-background rounded-xl p-6 shadow">

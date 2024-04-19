@@ -4,7 +4,7 @@
       "link": "Link copied to clipboard"
     },
     "must-be-connected-to-create-offer": "You must be connected to create an offer.",
-    "must-be-connected-to-add-favourite": "You must be connected to add a favourite.",
+    "must-be-connected-to-add-bookmark": "You must be connected to add a bookmark.",
     "wrong-credentials": "Wrong credentials",
     "offer-created": {
       "success": "Offer created successfully",
@@ -149,6 +149,7 @@
     "offer": {
       "see-images": "See images",
       "description": "Description",
+      "edit": "Edit",
       "send-message": "Send a message",
       "send-offer": "Place an offer"
     },
@@ -194,7 +195,7 @@
     "account": {
       "profile": "Profile",
       "offers": "My offers",
-      "favourites": "Favourites",
+      "bookmarks": "Bookmarks",
       "settings": "Settings",
       "logout": "Logout"
     }

@@ -4,7 +4,7 @@
       "link": "Lien copié dans le presse-papier"
     },
     "must-be-connected-to-create-offer": "Vous devez être connecté pour pouvoir déposer une annonce.",
-    "must-be-connected-to-add-favourite": "Vous devez être connecté pour pouvoir ajouter une annonce à vos favoris.",
+    "must-be-connected-to-add-bookmark": "Vous devez être connecté pour pouvoir ajouter une annonce à vos favoris.",
     "wrong-credentials": "Identifiants incorrects",
     "offer-created": {
       "success": "Annonce créée avec succès",
@@ -149,6 +149,7 @@
     "offer": {
       "see-images": "Voir les images",
       "description": "Description",
+      "edit": "Modifier",
       "send-message": "Envoyer un message",
       "send-offer": "Faire une offre"
     },
@@ -194,7 +195,7 @@
     "account": {
       "profile": "Profil",
       "offers": "Mes annonces",
-      "favourites": "Favoris",
+      "bookmarks": "Favoris",
       "settings": "Paramètres",
       "logout": "Se déconnecter"
     }
