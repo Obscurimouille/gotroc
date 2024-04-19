@@ -1,14 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar';
 import { Button } from '@components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@components/ui/form';
-import { Input } from '@components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@components/ui/form';
 import { Separator } from '@components/ui/separator';
 import { User } from '@gotroc/types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,39 +12,33 @@ import { toast } from 'sonner';
 import { UserService } from 'src/services/user.service';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
+import { EmailInput, FirstnameInput, LastnameInput, UsernameInput } from '../inputs';
+import {
+  NewEmailSchema,
+  NewFirstnameSchema,
+  NewLastnameSchema,
+  NewUsernameSchema,
+} from 'src/validators/field-schema';
 
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 const ACCEPTED_IMAGE_TYPES = ['jpeg', 'jpg', 'png'];
 const MAX_FILE_SIZE = 1024 * 1024 * 2; // 2MB
 
-const FormSchema = z.object({
-  username: z
-    .string({
-      required_error: "Veuillez renseigner un nom d'utilisateur.",
-    })
-    .min(5, {
-      message: '5 charactères minimum.',
-    })
-    .max(20, {
-      message: '20 charactères maximum.',
-    }),
-  firstname: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  lastname: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  email: z.string().email({
-    message: 'Adresse mail invalide.',
-  }),
-  avatar: z.any(),
-});
-
 const DashboardProfile = ({ user }: { user: User }) => {
   const { t } = useTranslation();
   const [submitting, setSubmitting] = useState(false);
   const [, setImageFile] = useState<File | null>(null);
-  const [image, setImage] = useState<string>(user.avatarUUID ? UserService.getAvatarURL(user.avatarUUID) : '');
+  const [image, setImage] = useState<string>(
+    user.avatarUUID ? UserService.getAvatarURL(user.avatarUUID) : '',
+  );
+
+  const FormSchema = z.object({
+    username: NewUsernameSchema(t),
+    firstname: NewFirstnameSchema(t),
+    lastname: NewLastnameSchema(t),
+    email: NewEmailSchema(t),
+    avatar: z.any(),
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -89,7 +75,7 @@ const DashboardProfile = ({ user }: { user: User }) => {
     const result = await UserService.updateProfile(rest);
     setSubmitting(false);
     if (!result.success) {
-      toast.error("Erreur lors de la mise à jour du profil. Veuillez réessayer plus tard.");
+      toast.error('Erreur lors de la mise à jour du profil. Veuillez réessayer plus tard.');
       form.reset({
         username: user.username,
         firstname: user.firstname || '',
@@ -121,7 +107,9 @@ const DashboardProfile = ({ user }: { user: User }) => {
         <div className="flex flex-col gap-5 lg:gap-8">
           <div className="flex items-center gap-3">
             <Separator className="flex-1 bg-neutral-300 md:hidden" />
-            <h3 className="font-medium md:text-md">{t('page.dashboard.profile.public-information')}</h3>
+            <h3 className="font-medium md:text-md">
+              {t('page.dashboard.profile.public-information')}
+            </h3>
             <Separator className="flex-1 bg-neutral-300" />
           </div>
           <div className="flex flex-col gap-4 pt-2 items-center md:pt-0 md:flex-row md:gap-12 flex-wrap md:items-stretch justify-between">
@@ -221,82 +209,6 @@ const AvatarInput = (
                 ref={field.ref}
               />
             </div>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-const UsernameInput = (props: FormInputParams) => {
-  const { t } = useTranslation();
-  return (
-    <FormField
-      control={props.form.control}
-      name="username"
-      render={({ field }) => (
-        <FormItem className={cn(props.className, '')}>
-          <FormLabel>{t('input.username.title')}</FormLabel>
-          <FormControl>
-            <Input placeholder={t('input.username.placeholder')} {...field} disabled />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-const FirstnameInput = (props: FormInputParams) => {
-  const { t } = useTranslation();
-  return (
-    <FormField
-      control={props.form.control}
-      name="firstname"
-      render={({ field }) => (
-        <FormItem className={cn(props.className, '')}>
-          <FormLabel>{t('input.firstname.title')}</FormLabel>
-          <FormControl>
-            <Input placeholder={t('input.firstname.placeholder')} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-const LastnameInput = (props: FormInputParams) => {
-  const { t } = useTranslation();
-  return (
-    <FormField
-      control={props.form.control}
-      name="lastname"
-      render={({ field }) => (
-        <FormItem className={cn(props.className, '')}>
-          <FormLabel>{t('input.lastname.title')}</FormLabel>
-          <FormControl>
-            <Input placeholder={t('input.lastname.placeholder')} {...field} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-};
-
-const EmailInput = (props: FormInputParams) => {
-  const { t } = useTranslation();
-  return (
-    <FormField
-      control={props.form.control}
-      name="email"
-      render={({ field }) => (
-        <FormItem className={cn(props.className, '')}>
-          <FormLabel>{t('input.email.title')}</FormLabel>
-          <FormControl>
-            <Input placeholder={t('input.email.placeholder')} {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

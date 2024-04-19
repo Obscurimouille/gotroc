@@ -86,19 +86,38 @@
     },
     "username": {
       "title": "Username",
-      "placeholder": "Username"
+      "placeholder": "Username",
+      "error": {
+        "empty": "Username is required",
+        "too-short": "{{min}} characters minimum",
+        "too-long": "{{max}} characters maximum"
+      }
     },
     "firstname": {
       "title": "Firstname",
-      "placeholder": "Firstname"
+      "placeholder": "Firstname",
+      "error": {
+        "empty": "Firstname is required",
+        "too-short": "{{min}} characters minimum",
+        "too-long": "{{max}} characters maximum"
+      }
     },
     "lastname": {
       "title": "Lastname",
-      "placeholder": "Lastname"
+      "placeholder": "Lastname",
+      "error": {
+        "empty": "Lastname is required",
+        "too-short": "{{min}} characters minimum",
+        "too-long": "{{max}} characters maximum"
+      }
     },
     "email": {
       "title": "Email",
-      "placeholder": "Email"
+      "placeholder": "Email",
+      "error": {
+        "empty": "Email is required",
+        "invalid": "Invalid email"
+      }
     },
     "identifier": {
       "title": "Username or email",
@@ -110,8 +129,11 @@
     "password": {
       "title": "Password",
       "placeholder": "Password",
+      "forgot": "Forgot password?",
       "error": {
-        "empty": "Password is required"
+        "empty": "Password is required",
+        "too-short": "{{min}} characters minimum",
+        "too-long": "{{max}} characters maximum"
       }
     }
   },
@@ -132,12 +154,15 @@
       "description": "Check the URL or go back to the ",
       "homepage": "homepage"
     },
-    "login": {
-      "title": "Welcome back",
-      "submit": "Login",
-      "new-user": "New?",
-      "new-account": "Create an account",
-      "forgot-password": "Forgot password?"
+    "authenticate": {
+      "login": {
+        "title": "Login",
+        "submit": "Login"
+      },
+      "register": {
+        "title": "Register",
+        "submit": "Register"
+      }
     },
     "results": {
       "nb-results": "{{count}} results",

@@ -86,19 +86,38 @@
     },
     "username": {
       "title": "Nom d'utilisateur",
-      "placeholder": "Nom d'utilisateur"
+      "placeholder": "Nom d'utilisateur",
+      "error": {
+        "empty": "Champ requis",
+        "too-short": "{{min}} caractères minimum",
+        "too-long": "{{max}} caractères maximum"
+      }
     },
     "firstname": {
       "title": "Prénom",
-      "placeholder": "Prénom"
+      "placeholder": "Prénom",
+      "error": {
+        "empty": "Champ requis",
+        "too-short": "{{min}} caractères minimum",
+        "too-long": "{{max}} caractères maximum"
+      }
     },
     "lastname": {
       "title": "Nom",
-      "placeholder": "Nom"
+      "placeholder": "Nom",
+      "error": {
+        "empty": "Champ requis",
+        "too-short": "{{min}} caractères minimum",
+        "too-long": "{{max}} caractères maximum"
+      }
     },
     "email": {
       "title": "Adresse email",
-      "placeholder": "Exemple: dupont@mail.com"
+      "placeholder": "Exemple: dupont@mail.com",
+      "error": {
+        "empty": "Champ requis",
+        "invalid": "Adresse email invalide"
+      }
     },
     "identifier": {
       "title": "Nom d'utilisateur ou adresse mail",
@@ -111,7 +130,9 @@
       "title": "Mot de passe",
       "placeholder": "Mot de passe",
       "error": {
-        "empty": "Veuillez renseigner votre mot de passe."
+        "empty": "Veuillez renseigner votre mot de passe.",
+        "too-short": "{{min}} caractères minimum",
+        "too-long": "{{max}} caractères maximum"
       }
     }
   },
@@ -132,12 +153,15 @@
       "description": "Vérifiez l'URL ou retournez à la ",
       "homepage": "page d'accueil"
     },
-    "login": {
-      "title": "Bienvenue",
-      "submit": "Se connecter",
-      "new-user": "Nouveau ?",
-      "new-account": "Créer un compte",
-      "forgot-password": "Mot de passe oublié ?"
+    "authenticate": {
+      "login": {
+        "title": "Connexion",
+        "submit": "S'identifier"
+      },
+      "register": {
+        "title": "Inscription",
+        "submit": "S'inscrire"
+      }
     },
     "results": {
       "nb-results": "{{count}} résultats",
