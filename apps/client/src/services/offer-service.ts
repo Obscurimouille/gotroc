@@ -50,6 +50,10 @@ export class OfferService {
     return APIService.post(`/offer/${offerId}/bookmark/toggle`);
   }
 
+  public static getBookmarks() {
+    return APIService.get('/offer/bookmarked');
+  }
+
   public static search({
     subCategoryName,
     rawText,

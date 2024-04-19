@@ -1,4 +1,4 @@
-import DashboardFavourites from '@components/common/dashboard/favourites';
+import DashboardBookmarks from '@components/common/dashboard/bookmarks';
 import DashboardOffers from '@components/common/dashboard/offers';
 import DashboardProfile from '@components/common/dashboard/profile';
 import DashboardSettings from '@components/common/dashboard/settings';
@@ -37,7 +37,7 @@ const DashboardPage = () => {
           <DashboardOffers user={userContext.user} />
         )}
         {section === EnumDashboardSection.FAVOURITES && !!userContext.user && (
-          <DashboardFavourites user={userContext.user} />
+          <DashboardBookmarks user={userContext.user} />
         )}
         {section === EnumDashboardSection.SETTINGS && !!userContext.user && (
           <DashboardSettings user={userContext.user} />

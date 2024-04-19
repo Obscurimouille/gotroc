@@ -1,23 +1,22 @@
 import OfferResultCard from '../offer-result-card';
 import { Separator } from '@components/ui/separator';
-import noResultIllustration from '@assets/illustration_notify.svg';
-import { Link } from 'react-router-dom';
+import bookmarkIllustration from '@assets/illustration_love.svg';
+import { Offer, User } from '@gotroc/types';
 import { useEffect, useState } from 'react';
 import { OfferService } from 'src/services/offer-service';
-import { Offer, User } from '@gotroc/types';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@components/ui/skeleton';
 
-const DashboardOffers = ({ user }: { user: User }) => {
+const DashboardBookmarks = ({ user }: { user: User }) => {
   const { t } = useTranslation();
   const [loaded, setLoaded] = useState(false);
-  const [userOffers, setUserOffers] = useState<Offer[]>([]);
+  const [bookmarks, setBookmarks] = useState<Offer[]>([]);
 
   useEffect(() => {
-    OfferService.getUserOffers(user.id).then((response) => {
+    OfferService.getBookmarks().then((response) => {
       setLoaded(true);
       if (!response.success) return;
-      setUserOffers(response.data);
+      setBookmarks(response.data);
     });
   }, [user]);
 
@@ -26,31 +25,26 @@ const DashboardOffers = ({ user }: { user: User }) => {
       <div className="flex items-center gap-3">
         <Separator className="flex-1 bg-neutral-300 md:hidden" />
         <h3 className="font-medium md:text-md">
-          {t('page.dashboard.offers.title') + (userOffers.length ? ` (${userOffers.length})` : '')}
+          {t('page.dashboard.bookmarks.title') + (bookmarks.length ? ` (${bookmarks.length})` : '')}
         </h3>
         <Separator className="flex-1 bg-neutral-300" />
       </div>
       {loaded ? (
-        userOffers.length ? (
+        bookmarks.length ? (
           <div className="flex-1 flex flex-col overflow-y-auto no-scrollbar gap-8">
-            {userOffers.map((offer, index) => (
+            {bookmarks.map((offer, index) => (
               <OfferResultCard
                 key={index}
-                offer={offer}
+                offer={{ ...offer, bookmarked: true }}
                 className="shrink-0 shadow-none border-1 border-neutral-300"
-                disableBookmark
               />
             ))}
           </div>
         ) : (
           <div className="w-full mt-12 flex flex-col items-center">
-            <img src={noResultIllustration} className="w-56 max-h-48 mb-10" alt=""></img>
-            <p className="text-xl font-semibold">{t('page.dashboard.offers.empty.title')}</p>
-            <p className="mt-4">
-              <Link to="/create" className="underline hover:text-primary transition-colors">
-                {t('page.dashboard.offers.empty.action')}
-              </Link>
-            </p>
+            <img src={bookmarkIllustration} className="w-56 max-h-48 mb-10" alt=""></img>
+            <p className="text-xl font-semibold">{t('page.dashboard.bookmarks.empty.title')}</p>
+            <p className="mt-4">{t('page.dashboard.bookmarks.empty.description')}</p>
           </div>
         )
       ) : (
@@ -66,4 +60,4 @@ const DashboardOffers = ({ user }: { user: User }) => {
   );
 };
 
-export default DashboardOffers;
+export default DashboardBookmarks;

@@ -115,7 +115,6 @@ class OfferService {
   }
 
   public static async getById(id: number, options?: { userId?: number }) {
-    console.log('options', options)
     const optionalInclude: any = {};
     if (options?.userId) {
       optionalInclude['bookmarks'] = {
@@ -153,6 +152,21 @@ class OfferService {
     return prisma.offer.findMany({
       where: {
         authorId: authorId,
+      },
+      include: {
+        ...this.constantInclude,
+      },
+    });
+  }
+
+  public static async getBookmarked(userId: number) {
+    return prisma.offer.findMany({
+      where: {
+        bookmarks: {
+          some: {
+            userId: userId,
+          },
+        },
       },
       include: {
         ...this.constantInclude,

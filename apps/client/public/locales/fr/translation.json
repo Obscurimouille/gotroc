@@ -159,6 +159,24 @@
         "personal-information": "Informations personnelles",
         "information-tip": "Les informations personnelles ne seront pas visibles par les autres utilisateurs",
         "member-since": "Membre depuis {{month}} {{year}}"
+      },
+      "offers": {
+        "title": "Vos annonces",
+        "empty": {
+          "title": "Aucune annonce publiée",
+          "action": "Créer votre première annonce"
+        }
+      },
+      "bookmarks": {
+        "title": "Vos favoris",
+        "empty": {
+          "title": "Aucun favori",
+          "description": "Ajoutez des annonces à vos favoris pour les retrouver ici"
+        }
+      },
+      "settings": {
+        "title": "Paramètres",
+        "empty": "Aucun paramètre disponible pour le moment"
       }
     },
     "home": {

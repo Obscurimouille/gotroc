@@ -88,6 +88,12 @@ router.get('/user/:id', async (req, res) => {
   reply(res, result);
 });
 
+router.get('/bookmarked', authenticatedMiddleware, async (req, res) => {
+  const user = req.context.user!;
+  const result = await OfferController.getBookmarked(user);
+  reply(res, result);
+});
+
 router.post('/:id/bookmark/toggle', authenticatedMiddleware, async (req, res) => {
   const user = req.context.user!;
   const offerId = Number(req.params.id);

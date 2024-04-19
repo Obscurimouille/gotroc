@@ -15,11 +15,23 @@ import fs from 'fs';
 import UserService from '../services/user-service.js';
 import path from 'path';
 import { FileRef } from '../providers/file-reference.js';
-import { Offer } from '@prisma/client';
 
 const __appRoot = process.cwd();
 
 class OfferController {
+  public static async getBookmarked(user: User) {
+    try {
+      const bookmarks = await OfferService.getBookmarked(user.id);
+
+      return {
+        success: true,
+        data: bookmarks.map(this.formatOfferData),
+      };
+    } catch (error) {
+      return handleInternalError(error);
+    }
+  }
+
   public static async getImage(uuid: string) {
     try {
       const schema = vine.object({

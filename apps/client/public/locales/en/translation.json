@@ -159,6 +159,24 @@
         "personal-information": "Personal information",
         "information-tip": "Personal information will not be visible to other users",
         "member-since": "Member since {{month}} {{year}}"
+      },
+      "offers": {
+        "title": "Offers",
+        "empty": {
+          "title": "No offers",
+          "action": "Create your first offer"
+        }
+      },
+      "bookmarks": {
+        "title": "Bookmarks",
+        "empty": {
+          "title": "No bookmarks",
+          "description": "Add offers to your bookmarks to find them here"
+        }
+      },
+      "settings": {
+        "title": "Settings",
+        "empty": "No settings available for now"
       }
     },
     "home": {

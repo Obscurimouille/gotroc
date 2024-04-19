@@ -25,7 +25,7 @@ app.use((req, _, next) => {
   next();
 });
 
-app.use(delayMiddleware(400, { devOnly: true }), router);
+app.use(delayMiddleware(200, { devOnly: true }), router);
 app.use(delayMiddleware(200, { devOnly: true }), express.static('public'));
 
 app.listen(port, () => {
