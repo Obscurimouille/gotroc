@@ -13,6 +13,9 @@ router.get('/', async (req, res) => {
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   const result = await AuthController.register({ username, email, password });
+  if (result.success && result.data.token) {
+    res.cookie('token', result.data.token, { httpOnly: true, sameSite: 'lax' });
+  }
   reply(res, result);
 });
 

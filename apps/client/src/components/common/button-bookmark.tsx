@@ -28,7 +28,7 @@ const ButtonBookmark = ({
   const toggleBookmark = () => {
     if (isLoading) return;
     // Redirect to login page if the user is not connected
-    if (!userContext.user) return navigate('/login?from=add-bookmark');
+    if (!userContext.user) return navigate('/auth?from=add-bookmark');
     setIsLoading(true);
     OfferService.toggleBookmark(offerId).then((response) => {
       setIsLoading(false);

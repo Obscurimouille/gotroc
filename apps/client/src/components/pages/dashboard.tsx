@@ -22,7 +22,7 @@ const DashboardPage = () => {
   const { section } = useParams<{ section: EnumDashboardSection }>();
 
   useEffect(() => {
-    if (!userContext.user) navigate('/login');
+    if (!userContext.user) navigate('/auth');
   });
 
   return (

@@ -20,6 +20,6 @@ export class AuthService {
 
   public static async logout() {
     await APIService.post('/auth/logout');
-    document.location.href = '/login';
+    document.location.href = '/auth';
   }
 }

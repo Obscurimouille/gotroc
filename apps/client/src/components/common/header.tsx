@@ -48,7 +48,7 @@ function Header({ className, ...props }: { className?: string }) {
           ) : (
             <>
               <Button variant="link" size="sm" className="ml-4" asChild>
-                <Link to="/login">{t('component.login-button.title')}</Link>
+                <Link to="/auth">{t('component.login-button.title')}</Link>
               </Button>
               <LanguageDropdown />
             </>

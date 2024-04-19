@@ -31,10 +31,13 @@ class AuthController {
         fields.email,
         this.hashPassword(fields.password),
       );
+
+      const token = this.generateAuthToken(user.username);
+
       return {
         success: true,
         message: 'User registered successfully',
-        data: user,
+        data: { user, token },
       };
     } catch (error) {
       return handleInternalError(error);

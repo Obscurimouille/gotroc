@@ -11,7 +11,7 @@ function CreateOfferPage() {
 
   useEffect(() => {
     if (!userContext.user) {
-      navigate('/login?from=create-offer');
+      navigate('/auth?from=create-offer');
     }
   });
 

@@ -115,7 +115,7 @@ const DashboardProfile = ({ user }: { user: User }) => {
           <div className="flex flex-col gap-4 pt-2 items-center md:pt-0 md:flex-row md:gap-12 flex-wrap md:items-stretch justify-between">
             <AvatarInput form={form} image={image} onChanged={imageChanged} />
             <div className="w-full flex-1 flex flex-col justify-between gap-5">
-              <UsernameInput form={form} className="w-full md:w-[300px]" />
+              <UsernameInput form={form} className="w-full md:w-[300px]" disabled />
               <div className="flex items-center gap-x-0.5">
                 <BookmarkIcon className="text-foreground/50" />
                 <p className="ml-1 text-sm text-foreground/50">
