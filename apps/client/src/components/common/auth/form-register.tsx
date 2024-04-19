@@ -29,11 +29,10 @@ const RegisterForm = () => {
     AuthService.register(data.username, data.email, data.password).then((result) => {
       setLoading(false);
       if (!result.success) {
-        form.setValue('password', '');
-        return toast.error(t('message.wrong-credentials'));
+        return toast.error(t('message.auth.invalid-registration'));
       }
       userContext.user = result.data.user;
-      navigate('/');
+      navigate('/?register=1');
     });
   };
 
@@ -56,7 +55,7 @@ const RegisterForm = () => {
         <EmailInput form={form} className="w-full" disabled={loading} />
         <PasswordInput form={form} className="w-full" disabled={loading} />
         <Button type="submit" size="lg" className="mt-3 w-full">
-          {t('page.authenticate.register.submit')}
+          {t('page.auth.register.submit')}
         </Button>
       </form>
     </Form>

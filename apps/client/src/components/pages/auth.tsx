@@ -33,8 +33,8 @@ function LoginPage() {
         <div className="flex flex-col items-center gap-8 w-[330px]">
           <Tabs defaultValue="login" className="w-[400px]">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">{t('page.authenticate.login.title')}</TabsTrigger>
-              <TabsTrigger value="register">{t('page.authenticate.register.title')}</TabsTrigger>
+              <TabsTrigger value="login">{t('page.auth.login.title')}</TabsTrigger>
+              <TabsTrigger value="register">{t('page.auth.register.title')}</TabsTrigger>
             </TabsList>
             <TabsContent value="login">
               <LoginForm />

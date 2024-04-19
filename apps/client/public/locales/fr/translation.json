@@ -3,9 +3,12 @@
     "clipboard": {
       "link": "Lien copié dans le presse-papier"
     },
+    "auth": {
+      "invalid-registration": "Inscription invalide, veuillez réessayer plus tard",
+      "wrong-credentials": "Identifiants incorrects"
+    },
     "must-be-connected-to-create-offer": "Vous devez être connecté pour pouvoir déposer une annonce.",
     "must-be-connected-to-add-bookmark": "Vous devez être connecté pour pouvoir ajouter une annonce à vos favoris.",
-    "wrong-credentials": "Identifiants incorrects",
     "offer-created": {
       "success": "Annonce créée avec succès",
       "error": "Erreur lors de la création de l'annonce. Veuillez réessayer plus tard."
@@ -153,7 +156,7 @@
       "description": "Vérifiez l'URL ou retournez à la ",
       "homepage": "page d'accueil"
     },
-    "authenticate": {
+    "auth": {
       "login": {
         "title": "Connexion",
         "submit": "S'identifier"
@@ -205,6 +208,14 @@
       }
     },
     "home": {
+      "registered": {
+        "title": "Bienvenue sur GoTroc",
+        "description": {
+          "before": "Completer votre ",
+          "action": "profil",
+          "after": " pour commencer à publier des annonces."
+        }
+      },
       "offer-submitted": {
         "title": "Annonce publiée",
         "description": {

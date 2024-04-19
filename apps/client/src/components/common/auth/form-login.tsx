@@ -35,7 +35,7 @@ const LoginForm = () => {
       setLoading(false);
       if (!result.success) {
         form.setValue('password', '');
-        return toast.error(t('message.wrong-credentials'));
+        return toast.error(t('message.auth.wrong-credentials'));
       }
       userContext.user = result.data.user;
       navigate('/');
@@ -59,7 +59,7 @@ const LoginForm = () => {
         <IdentifierInput form={form} className="w-full" disabled={loading} />
         <PasswordInput form={form} className="w-full" disabled={loading} showForgot />
         <Button type="submit" size="lg" className="mt-3 w-full">
-          {t('page.authenticate.login.submit')}
+          {t('page.auth.login.submit')}
         </Button>
       </form>
     </Form>

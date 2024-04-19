@@ -3,9 +3,12 @@
     "clipboard": {
       "link": "Link copied to clipboard"
     },
+    "auth": {
+      "invalid-registration": "Invalid registration, please try again later",
+      "wrong-credentials": "Wrong credentials"
+    },
     "must-be-connected-to-create-offer": "You must be connected to create an offer.",
     "must-be-connected-to-add-bookmark": "You must be connected to add a bookmark.",
-    "wrong-credentials": "Wrong credentials",
     "offer-created": {
       "success": "Offer created successfully",
       "error": "An error occurred. Please try later"
@@ -154,7 +157,7 @@
       "description": "Check the URL or go back to the ",
       "homepage": "homepage"
     },
-    "authenticate": {
+    "auth": {
       "login": {
         "title": "Login",
         "submit": "Login"
@@ -206,6 +209,14 @@
       }
     },
     "home": {
+      "registered": {
+        "title": "Welcome on GoTroc",
+        "description": {
+          "before": "Complete your ",
+          "action": "profile",
+          "after": " to start posting offers"
+        }
+      },
       "offer-submitted": {
         "title": "Offer submitted",
         "description": {

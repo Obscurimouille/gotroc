@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import HomePage from '@components/pages/home';
 import CreateOfferPage from '@components/pages/create-offer';
-import LoginPage from '@components/pages/login';
+import LoginPage from '@components/pages/auth';
 import OfferPage from '@components/pages/offer';
 import SearchResultsPage from '@components/pages/search-results';
 import NotFoundPage from '@components/pages/not-found';
