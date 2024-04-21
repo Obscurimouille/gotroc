@@ -69,7 +69,7 @@ const AccountDropdown = ({ className }: { className?: string }) => {
       <DropdownMenuTrigger asChild>
         <Avatar className={cn('w-8 h-8 cursor-pointer border-1 border-neutral-200', className)}>
           {!!userContext.user?.avatarUUID && (
-            <AvatarImage src={UserService.getAvatarURL(userContext.user.avatarUUID)} />
+            <AvatarImage src={UserService.getAvatarURL(userContext.user.avatarUUID)} className='object-cover'/>
           )}
           <AvatarFallback className="bg-neutral-700">
             <PersonIcon color="white" />
