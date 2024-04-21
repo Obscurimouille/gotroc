@@ -9,7 +9,7 @@ import { UserContext } from 'src/providers/user-context';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { AuthService } from 'src/services/auth-service';
-import { NewEmailSchema, NewPasswordSchema, NewUsernameSchema } from 'src/validators/field-schema';
+import { NewEmailSchema, NewPasswordSchema, NewUsernameSchema } from 'src/validators/schemas/user';
 import { EmailInput, PasswordInput, UsernameInput } from '../inputs';
 
 const RegisterForm = () => {

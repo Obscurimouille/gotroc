@@ -76,7 +76,7 @@ export const NewFirstnameSchema = (t: TFunction<'translation', undefined>) => {
         min: 32,
       }),
     });
-}
+};
 
 /**
  * Schema for a new last name
@@ -97,4 +97,4 @@ export const NewLastnameSchema = (t: TFunction<'translation', undefined>) => {
         min: 32,
       }),
     });
-}
+};

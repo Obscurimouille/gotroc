@@ -17,7 +17,8 @@
       "invalid-type": "Type de fichier invalide",
       "too-heavy": "Fichier trop lourd. Taille maximale : {{maxSize}}",
       "added-single": "1 fichier ajouté",
-      "added-multiple": "{{count}} fichiers ajoutés"
+      "added-multiple": "{{count}} fichiers ajoutés",
+      "too-many": "Nombre maximum de fichiers atteint ({{max}})"
     }
   },
   "function": {
@@ -42,6 +43,7 @@
         "title": "Titre de l'annonce",
         "placeholder": "Titre de l'annonce",
         "error": {
+          "empty": "Champ requis",
           "too-short": "Le titre doit contenir au moins {{min}} caractères",
           "too-long": "{{max}} caractères maximum"
         }
@@ -50,6 +52,7 @@
         "title": "Description",
         "placeholder": "Décrivez votre annonce...",
         "error": {
+          "empty": "Champ requis",
           "too-short": "La description doit contenir au moins {{min}} caractères",
           "too-long": "{{max}} caractères maximum"
         }

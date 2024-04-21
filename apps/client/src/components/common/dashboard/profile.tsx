@@ -18,7 +18,7 @@ import {
   NewFirstnameSchema,
   NewLastnameSchema,
   NewUsernameSchema,
-} from 'src/validators/field-schema';
+} from 'src/validators/schemas/user';
 
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png'];
 const ACCEPTED_IMAGE_TYPES = ['jpeg', 'jpg', 'png'];

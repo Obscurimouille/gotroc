@@ -38,6 +38,13 @@ import {
 import { OfferService } from 'src/services/offer-service';
 import { CategoryService } from 'src/services/category-service';
 import { useTranslation } from 'react-i18next';
+import {
+  NewOfferDescriptionSchema,
+  NewOfferPriceSchema,
+  NewOfferTitleSchema,
+  OfferCategorySchema,
+  OfferConditionSchema,
+} from 'src/validators/schemas/offer';
 
 const MAX_FILE_SIZE = 1024 * 1024 * 2; // 2MB
 const ACCEPTED_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
@@ -52,46 +59,11 @@ const CreateOfferForm = () => {
   const [categories, setCategories] = useState<(MainCategory & { subCategories: string[] })[]>([]);
 
   const formSchema = z.object({
-    title: z
-      .string()
-      .trim()
-      .min(5, {
-        message: t('input.offer.title.error.too-short', {
-          min: 5,
-        }),
-      })
-      .max(32, {
-        message: t('input.offer.title.error.too-long', {
-          max: 32,
-        }),
-      }),
-    price: z.coerce
-      .number({
-        invalid_type_error: t('input.offer.price.error.empty'),
-        required_error: t('input.offer.price.error.empty'),
-      })
-      .positive({
-        message: t('input.offer.price.error.invalid'),
-      }),
-    category: z.string().min(1, {
-      message: t('input.offer.category.error.empty'),
-    }),
-    condition: z.nativeEnum(EnumCondition, {
-      required_error: t('input.offer.condition.error.empty'),
-      invalid_type_error: t('input.offer.condition.error.invalid'),
-    }),
-    description: z
-      .string()
-      .min(10, {
-        message: t('input.offer.description.error.too-short', {
-          min: 10,
-        }),
-      })
-      .max(1000, {
-        message: t('input.offer.description.error.too-long', {
-          max: 1000,
-        }),
-      }),
+    title: NewOfferTitleSchema(t),
+    price: NewOfferPriceSchema(t),
+    category: OfferCategorySchema(t),
+    condition: OfferConditionSchema(t),
+    description: NewOfferDescriptionSchema(t),
     images: z
       .array(z.any())
       .min(1, {
@@ -123,17 +95,25 @@ const CreateOfferForm = () => {
     },
   });
 
-  const addImages = (images: FileList) => {
+  const addImages = (imageList: FileList) => {
     let nbSuccess = 0;
-    for (let i = 0; i < images.length; i++) {
-      nbSuccess += +addImage(images[i]);
+    const nbToConcider = Math.min(imageList.length, 5 - images.length);
+    if (nbToConcider !== imageList.length) {
+      toast.error(
+        t('message.file.too-many', {
+          max: NB_IMAGES_MAX,
+        }),
+      );
     }
-    if (images.length && nbSuccess === images.length) {
-      if (images.length === 1) toast.success(t('message.file.added-single'));
+    for (let i = 0; i < nbToConcider; i++) {
+      nbSuccess += +addImage(imageList[i]);
+    }
+    if (nbToConcider && nbSuccess === imageList.length) {
+      if (nbToConcider === 1) toast.success(t('message.file.added-single'));
       else
         toast.success(
           t('message.file.added-single', {
-            count: images.length,
+            count: nbToConcider,
           }),
         );
     }
@@ -260,9 +240,7 @@ const CreateOfferForm = () => {
                         placeholder={t('input.offer.category.search')}
                         className="h-9"
                       />
-                      <CommandEmpty>
-                        {t('input.offer.category.search-empty')}
-                      </CommandEmpty>
+                      <CommandEmpty>{t('input.offer.category.search-empty')}</CommandEmpty>
                       <CommandList>
                         {categories.map((mainCategory, index) => (
                           <div key={index}>

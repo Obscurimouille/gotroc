@@ -17,7 +17,8 @@
       "invalid-type": "Invalid file type",
       "too-heavy": "File is too heavy. Max size is {{maxSize}}",
       "added-single": "1 file added",
-      "added-multiple": "{{count}} files added"
+      "added-multiple": "{{count}} files added",
+      "too-many": "Maximum {{max}} files allowed"
     }
   },
   "function": {
@@ -42,6 +43,7 @@
         "title": "Title",
         "placeholder": "Title of your offer",
         "error": {
+          "empty": "Title is required",
           "too-short": "Title must contain at least {{min}} characters",
           "too-long": "{{max}} characters maximum"
         }
@@ -50,6 +52,7 @@
         "title": "Description",
         "placeholder": "Describe your offer",
         "error": {
+          "empty": "Description is required",
           "too-short": "Description must contain at least {{min}} characters",
           "too-long": "{{max}} characters maximum"
         }
