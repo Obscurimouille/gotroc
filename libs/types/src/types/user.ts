@@ -6,10 +6,7 @@ type User = {
   email: string;
   registerDate: Date;
   avatarUUID: string | null;
+  isAdmin?: boolean;
 }
 
-type UserWithPassword = User & {
-  password: string;
-}
-
-export { User, UserWithPassword };
+export { User };

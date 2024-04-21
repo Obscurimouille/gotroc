@@ -1,8 +1,20 @@
-import { UserWithPassword } from '@gotroc/types';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class UserService {
+  private static alwaysInclude = {
+    isAdmin: true,
+  };
+
+  public static async isAdmin(userId: number): Promise<boolean> {
+    const user = await prisma.admin.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+    return !!user;
+  }
+
   public static update(
     id: number,
     data: {
@@ -23,15 +35,18 @@ class UserService {
         firstname: data.firstname,
         lastname: data.lastname,
         email: data.email,
-        ...optionalData
+        ...optionalData,
       },
     });
   }
 
-  public static getByUsername(username: string): Promise<UserWithPassword | null> {
+  public static getByUsername(username: string) {
     return prisma.user.findUnique({
       where: {
         username: username,
+      },
+      include: {
+        ...this.alwaysInclude,
       },
     });
   }
@@ -42,7 +57,7 @@ class UserService {
    * @param not An array of emails to exclude
    * @returns The user or null
    */
-  public static getByEmail(email: string, not?: string[]): Promise<UserWithPassword | null> {
+  public static getByEmail(email: string, not?: string[]) {
     return prisma.user.findFirst({
       where: {
         email: {
@@ -50,10 +65,13 @@ class UserService {
           notIn: not || [],
         },
       },
+      include: {
+        ...this.alwaysInclude,
+      },
     });
   }
 
-  public static getByIdentifier(identifier: string): Promise<UserWithPassword | null> {
+  public static getByIdentifier(identifier: string) {
     return prisma.user.findFirst({
       where: {
         OR: [
@@ -65,6 +83,9 @@ class UserService {
           },
         ],
       },
+      include: {
+        ...this.alwaysInclude,
+      },
     });
   }
 
@@ -73,18 +94,21 @@ class UserService {
       where: {
         id: id,
       },
+      include: {
+        ...this.alwaysInclude,
+      },
     });
   }
 
-  public static getAll(): Promise<UserWithPassword[]> {
-    return prisma.user.findMany();
+  public static getAll() {
+    return prisma.user.findMany({
+      include: {
+        ...this.alwaysInclude,
+      },
+    });
   }
 
-  public static add(
-    username: string,
-    email: string,
-    passwordHash: string,
-  ): Promise<UserWithPassword> {
+  public static add(username: string, email: string, passwordHash: string) {
     return prisma.user.create({
       data: {
         username: username,

@@ -52,17 +52,23 @@ model File {
 }
 
 model User {
-  id              Int       @id @default(autoincrement())
-  username        String    @unique
+  id              Int         @id @default(autoincrement())
+  username        String      @unique
   firstname       String?
   lastname        String?
-  email           String    @unique
+  email           String      @unique
   password        String
-  registerDate    DateTime  @default(now())
+  registerDate    DateTime    @default(now())
   offers          Offer[]
   avatarUUID      String?
-  avatar          File?      @relation(fields: [avatarUUID], references: [uuid])
-  bookmarks      Bookmark[]
+  avatar          File?       @relation(fields: [avatarUUID], references: [uuid])
+  bookmarks       Bookmark[]
+  isAdmin         Admin?
+}
+
+model Admin {
+  id              Int   @id
+  user            User  @relation(fields: [id], references: [id])
 }
 
 model Bookmark {

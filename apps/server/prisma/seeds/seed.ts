@@ -33,6 +33,9 @@ async function main() {
         lastname: seedUser.lastname,
         email: seedUser.email,
         password: defaultPasswordHash,
+        isAdmin: seedUser.isAdmin ? {
+          create: {},
+        } : {},
         avatar: !seedUser.avatar ? undefined : {
           create: {
             uuid: seedUser.avatar[0],

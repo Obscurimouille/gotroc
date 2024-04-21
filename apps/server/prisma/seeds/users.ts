@@ -8,6 +8,7 @@ export const SeedUsers: {
   email: string;
   nbDefaultOffers: number;
   avatar?: [string, string];
+  isAdmin?: boolean;
 }[] = [
   {
     username: 'alicedu92',
@@ -44,4 +45,11 @@ export const SeedUsers: {
     nbDefaultOffers: 0,
     avatar: ['seed_avatar_woman_2', 'png'],
   },
+  {
+    username: 'admin',
+    firstname: 'Admin',
+    email: 'admin@localhost.com',
+    nbDefaultOffers: 0,
+    isAdmin: true,
+  }
 ];

@@ -92,7 +92,7 @@ class UserController {
     try {
       const users: User[] = (await UserService.getAll()).map((user) => {
         const { password, ...rest } = user;
-        return rest;
+        return {...rest, isAdmin: !!user.isAdmin};
       });
 
       return {
@@ -119,7 +119,7 @@ class UserController {
       const { password, ...rest } = user;
       return {
         success: true,
-        data: rest,
+        data: {...rest, isAdmin: !!user.isAdmin},
       };
     } catch (error) {
       return handleInternalError(error);
