@@ -58,12 +58,14 @@ const HeadingCard = ({
   return !submitSectionOpen ? (
     <></>
   ) : (
-    <section className="relative w-full bg-background py-10 flex justify-center rounded-xl gap-12">
-      <div className="flex flex-col gap-8">
+    <section className="relative w-full bg-background py-10 flex justify-between rounded-xl gap-12">
+      <div className="flex-1 shrink-0 flex flex-col gap-8">
         <h1 className="font-semibold text-5xl leading-[1.2]">{title}</h1>
         <p className="text-justify">{description}</p>
       </div>
-      <img src={image} alt="" className="max-h-[360px]" />
+      <div className='flex-1 flex justify-center'>
+        <img src={image} alt="" className="max-h-[360px]" />
+      </div>
       <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={close}>
         <Cross2Icon />
       </Button>
