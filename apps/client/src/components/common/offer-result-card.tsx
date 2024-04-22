@@ -4,34 +4,51 @@ import { OfferService } from 'src/services/offer-service';
 import ButtonBookmark from './button-bookmark';
 import { cn } from '@lib/utils';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@components/ui/button';
+import { CheckIcon, Cross2Icon } from '@radix-ui/react-icons';
 
 const OfferResultCard = ({
+  validationMode,
   offer,
   hideSubCategory,
   disableBookmark,
   className,
+  evaluation,
+  showStatus,
 }: {
+  validationMode?: boolean;
   offer: Offer;
   className?: string;
   hideSubCategory?: boolean;
   disableBookmark?: boolean;
+  showStatus?: boolean;
+  evaluation?: (status: 'ACCEPT' | 'DECLINE') => void;
 }) => {
   const { t } = useTranslation();
   const formattedPrice = OfferService.formatPrice(offer.price);
   const formattedDate = OfferService.formatDate(offer.createdAt, t);
 
+  const evaluate = (event: any, status: 'ACCEPT' | 'DECLINE') => {
+    event.preventDefault();
+    if (evaluation) evaluation(status);
+  };
+
   return (
     <Link
       to={`/offer/${offer.id}`}
       className={cn(
-        'group w-full h-40 bg-background flex rounded-xl overflow-hidden shadow-md',
+        'w-full h-36 lg:h-40 bg-background flex rounded-xl overflow-hidden shadow-md',
+        showStatus ? (offer.status === 'REJECTED' ? 'bg-neutral-200' : 'group') : 'group',
         className,
       )}
     >
       <img
         src={OfferService.getImageUrl(offer.images[0].imageUUID)}
         alt="Offer"
-        className="h-full aspect-[4/3] object-cover"
+        className={cn(
+          'h-full aspect-[4/3] object-cover',
+          offer.status === 'REJECTED' ? 'filter grayscale' : '',
+        )}
       />
       <div className="flex-1 p-4 flex justify-between">
         <div className="flex flex-col gap-1">
@@ -48,10 +65,46 @@ const OfferResultCard = ({
           )}
           <p className="text-xs">{formattedDate}</p>
         </div>
-        {!disableBookmark && (
-          <div className="flex flex-col gap-2">
-            <ButtonBookmark initState={!!offer.bookmarked} offerId={offer.id} />
+        {validationMode ? (
+          <div className="flex">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={(e) => {
+                evaluate(e, 'ACCEPT');
+              }}
+            >
+              <CheckIcon />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={(e) => {
+                evaluate(e, 'DECLINE');
+              }}
+            >
+              <Cross2Icon />
+            </Button>
           </div>
+        ) : showStatus ? (
+          <div className="flex items-start">
+            {offer.status === 'PENDING' && (
+              <div className="text-xs font-medium bg-primary text-primary-foreground rounded-xl px-1.5 py-0.5">
+                {t('component.offer-card.badge.pending')}
+              </div>
+            )}
+            {offer.status === 'REJECTED' && (
+              <div className="text-xs font-medium bg-destructive text-destructive-foreground rounded-xl px-1.5 py-0.5">
+                {t('component.offer-card.badge.rejected')}
+              </div>
+            )}
+          </div>
+        ) : (
+          !disableBookmark && (
+            <div className="flex flex-col gap-2">
+              <ButtonBookmark initState={!!offer.bookmarked} offerId={offer.id} />
+            </div>
+          )
         )}
       </div>
     </Link>

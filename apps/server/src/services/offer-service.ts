@@ -15,6 +15,17 @@ class OfferService {
     },
   };
 
+  public static async validate(offerId: number, status: 'ACCEPTED' | 'REJECTED') {
+    return prisma.offer.update({
+      where: {
+        id: offerId,
+      },
+      data: {
+        status: status,
+      },
+    });
+  }
+
   public static async add({
     title,
     price,
@@ -48,10 +59,17 @@ class OfferService {
   }
 
   public static async getAll(options?: {
+    status?: 'PENDING' | 'ACCEPTED' | 'REJECTED';
     limit?: number;
     excludeUserId?: number;
     userId?: number;
   }) {
+    const optionalWhere: any = {};
+    if (options?.status) {
+      optionalWhere['status'] = {
+        equals: options.status,
+      };
+    }
     const optionalInclude: any = {};
     if (options?.userId) {
       optionalInclude['bookmarks'] = {
@@ -68,13 +86,16 @@ class OfferService {
         authorId: {
           notIn: options?.excludeUserId ? [options.excludeUserId] : [],
         },
+        ...optionalWhere,
       },
       include: {
         ...this.constantInclude,
         ...optionalInclude,
       },
-
       take: options?.limit,
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 
@@ -98,6 +119,9 @@ class OfferService {
       where: {
         AND: [
           {
+            status: 'ACCEPTED',
+          },
+          {
             id: {
               not: offer.id,
             },
@@ -110,6 +134,9 @@ class OfferService {
       include: {
         ...this.constantInclude,
         ...optionalInclude,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
   }
@@ -156,6 +183,9 @@ class OfferService {
       include: {
         ...this.constantInclude,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
   }
 
@@ -167,9 +197,13 @@ class OfferService {
             userId: userId,
           },
         },
+        status: 'ACCEPTED',
       },
       include: {
         ...this.constantInclude,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
   }
@@ -199,6 +233,7 @@ class OfferService {
     }
     return prisma.offer.findMany({
       where: {
+        status: 'ACCEPTED',
         OR: [
           rawText
             ? {

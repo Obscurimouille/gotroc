@@ -9,7 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@components/ui/breadcrumb';
-import { CopyIcon, Pencil2Icon, Share1Icon } from '@radix-ui/react-icons';
+import { CircleBackslashIcon, CopyIcon, Pencil2Icon, Share1Icon } from '@radix-ui/react-icons';
 import { useContext, useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@components/ui/dialog';
 import { Input } from '@components/ui/input';
@@ -187,14 +187,21 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <p className="font-semibold text-lg">{OfferService.formatPrice(offer.price)}</p>
           <small className="flex-1">{formattedDate}</small>
           {isOwner ? (
-            <>
-              <Link to={`/offer/${offer.id}/edit`}>
-                <Button className="w-full gap-1.5">
-                  {t('page.offer.edit')}
-                  <Pencil2Icon className="mb-0.5" />
-                </Button>
-              </Link>
-            </>
+            offer.status === 'REJECTED' ? (
+              <Button className="w-full gap-1.5" variant='outline' disabled>
+                {t('page.offer.rejected')}
+                <CircleBackslashIcon />
+              </Button>
+            ) : (
+              <>
+                <Link to={`/offer/${offer.id}/edit`}>
+                  <Button className="w-full gap-1.5">
+                    {t('page.offer.edit')}
+                    <Pencil2Icon className="mb-0.5" />
+                  </Button>
+                </Link>
+              </>
+            )
           ) : (
             <>
               <Button className="w-full">{t('page.offer.send-offer')}</Button>

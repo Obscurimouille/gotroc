@@ -154,6 +154,12 @@
     },
     "searchbar": {
       "placeholder": "Rechercher..."
+    },
+    "offer-card": {
+      "badge": {
+        "pending": "En attente de validation",
+        "rejected": "Rejetée"
+      }
     }
   },
   "page": {
@@ -183,8 +189,25 @@
       "see-images": "Voir les images",
       "description": "Description",
       "edit": "Modifier",
+      "rejected": "Rejetée",
       "send-message": "Envoyer un message",
-      "send-offer": "Faire une offre"
+      "send-offer": "Faire une offre",
+      "pending-owner": {
+        "title": "Annonce en attente de validation",
+        "description": "Votre annonce est en attente de validation par notre équipe."
+      },
+      "rejected-owner": {
+        "title": "Annonce rejetée",
+        "description": "Votre annonce a été rejetée par notre équipe."
+      },
+      "pending-admin": {
+        "title": "Annonce en attente",
+        "description": "Cette annonce est en attente de validation."
+      },
+      "rejected-admin": {
+        "title": "Annonce rejetée",
+        "description": "Cette annonce a été rejetée."
+      }
     },
     "admin-dashboard": {
       "title": "Administration",

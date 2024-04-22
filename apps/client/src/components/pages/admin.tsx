@@ -3,7 +3,6 @@ import AdminSidebar from '@components/common/admin/sidebar';
 import Header from '@components/common/header';
 import { Page, PageContent } from '@components/common/layout';
 import { useContext, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from 'src/providers/user-context';
 
@@ -12,7 +11,6 @@ export enum EnumAdminDashboardSection {
 }
 
 const AdminPage = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
   let { section } = useParams<{ section: EnumAdminDashboardSection }>();
@@ -26,7 +24,7 @@ const AdminPage = () => {
   return (
     <Page>
       <Header />
-      <PageContent paddingX={0} className='max-w-full flex-1 flex-row'>
+      <PageContent paddingX={0} className='lg:max-w-full max-w-full flex-1 flex-row'>
         <AdminSidebar activeSection={section} />
         {section === EnumAdminDashboardSection.PENDING_OFFERS && !!userContext.user && (
           <AdminDashboardOffers user={userContext.user} />

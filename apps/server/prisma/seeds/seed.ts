@@ -33,21 +33,26 @@ async function main() {
         lastname: seedUser.lastname,
         email: seedUser.email,
         password: defaultPasswordHash,
-        isAdmin: seedUser.isAdmin ? {
-          create: {},
-        } : {},
-        avatar: !seedUser.avatar ? undefined : {
-          create: {
-            uuid: seedUser.avatar[0],
-            extension: seedUser.avatar[1],
-          }
-        },
+        isAdmin: seedUser.isAdmin
+          ? {
+              create: {},
+            }
+          : {},
+        avatar: !seedUser.avatar
+          ? undefined
+          : {
+              create: {
+                uuid: seedUser.avatar[0],
+                extension: seedUser.avatar[1],
+              },
+            },
         offers: {
           create: Array.from({ length: seedUser.nbDefaultOffers }).map(() => {
             if (offerIndex >= SeedOffers.length) offerIndex = 0;
             const offer = SeedOffers[offerIndex++];
             return {
               ...offer,
+              status: offer.status || 'ACCEPTED',
               ...{
                 images: {
                   create: offer.images.map((image: any, index: number) => ({
@@ -55,7 +60,7 @@ async function main() {
                       create: {
                         uuid: image.uuid,
                         extension: image.extension,
-                      }
+                      },
                     },
                     position: index + 1,
                   })),

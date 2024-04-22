@@ -34,6 +34,18 @@ export class OfferService {
     return APIService.get('/offer');
   }
 
+  public static accept(offerId: number) {
+    return APIService.post('/offer/accept/' + offerId);
+  }
+
+  public static reject(offerId: number) {
+    return APIService.post('/offer/reject/' + offerId);
+  }
+
+  public static getPending() {
+    return APIService.get('/offer/pending');
+  }
+
   public static get(id: number) {
     return APIService.get('/offer/' + id);
   }

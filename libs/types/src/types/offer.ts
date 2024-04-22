@@ -21,4 +21,5 @@ export type Offer = {
   createdAt: Date;
   updatedAt: Date;
   bookmarked?: boolean;
+  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
 };

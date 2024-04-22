@@ -19,6 +19,7 @@ export const SeedOffers: {
   description: string;
   createdAt: Date;
   images: { uuid: string; extension: string }[];
+  status?: 'PENDING' | 'ACCEPTED' | 'REJECTED';
 }[] = [
   {
     title: 'Console PS5',
@@ -36,6 +37,7 @@ export const SeedOffers: {
         extension: 'jpeg',
       },
     ],
+    status: 'PENDING',
   },
   {
     title: 'Vélo femme',
@@ -49,6 +51,7 @@ export const SeedOffers: {
         extension: 'jpg',
       },
     ],
+    status: 'REJECTED'
   },
   {
     title: 'Lot de jeux de société dans un état certin lol',
@@ -75,6 +78,7 @@ export const SeedOffers: {
         extension: 'jpg',
       },
     ],
+    status: 'PENDING',
   },
   {
     title: 'Clio 4',
@@ -150,6 +154,7 @@ export const SeedOffers: {
         extension: 'jpg',
       },
     ],
+    status: 'PENDING',
   },
   {
     title: 'Audi A3',

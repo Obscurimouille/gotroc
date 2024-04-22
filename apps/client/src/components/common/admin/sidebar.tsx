@@ -9,7 +9,7 @@ const AdminSidebar = ({ activeSection }: { activeSection?: EnumAdminDashboardSec
   const navItems = Object.values(EnumAdminDashboardSection);
 
   return (
-    <div className="w-[320px] shrink-0 bg-background shadow-lg flex flex-col gap-2 p-2">
+    <div className="w-[280px] xl:w-[320px] shrink-0 bg-background shadow-lg flex flex-col gap-2 p-2">
       <div className="py-3 px-4 text-foreground rounded-md font-semibold">
         {t('page.admin-dashboard.title')}
       </div>

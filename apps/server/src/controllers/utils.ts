@@ -26,6 +26,12 @@ export const INVALID_CREDENTIALS: ControllerResponse = {
   code: 401,
 };
 
+export const FORBIDDEN: ControllerResponse = {
+  success: false,
+  message: "Forbidden",
+  code: 403,
+};
+
 export const UNAUTHORIZED: ControllerResponse = {
   success: false,
   message: "Unauthorized",
@@ -34,6 +40,14 @@ export const UNAUTHORIZED: ControllerResponse = {
 
 export const reply = (res: Response, controllerResponse: ControllerResponse) => {
   res.status(controllerResponse.code || 200).json(controllerResponse);
+}
+
+export const success = (data?: any, message?: string): ControllerResponse => {
+  return {
+    success: true,
+    data,
+    message,
+  };
 }
 
 export const handleInternalError = (error: any) => {

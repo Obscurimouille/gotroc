@@ -155,6 +155,12 @@
     },
     "searchbar": {
       "placeholder": "Search"
+    },
+    "offer-card": {
+      "badge": {
+        "pending": "Pending",
+        "rejected": "Rejected"
+      }
     }
   },
   "page": {
@@ -184,8 +190,25 @@
       "see-images": "See images",
       "description": "Description",
       "edit": "Edit",
+      "rejected": "Rejected",
       "send-message": "Send a message",
-      "send-offer": "Place an offer"
+      "send-offer": "Place an offer",
+      "pending-owner": {
+        "title": "Offer pending validation",
+        "description": "This offer is currently being validated by our team. It will be visible on the platform as soon as it has been validated."
+      },
+      "rejected-owner": {
+        "title": "Offer rejected",
+        "description": "This offer has been rejected by our team."
+      },
+      "pending-admin": {
+        "title": "Offer pending validation",
+        "description": "This offer is pending validation."
+      },
+      "rejected-admin": {
+        "title": "Offer rejected",
+        "description": "This offer has been rejected."
+      }
     },
     "admin-dashboard": {
       "title": "Administration",

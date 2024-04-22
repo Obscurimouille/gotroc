@@ -5,6 +5,7 @@ import { authenticatedMiddleware } from '../middlewares/authenticated.js';
 import { reply } from '../controllers/utils.js';
 import { OfferImageUploadStrategy } from '../storage/strategies.js';
 import BookmarkController from '../controllers/bookmark-controller.js';
+import { adminMiddleware } from '../middlewares/admin.js';
 
 router.post(
   '/',
@@ -45,6 +46,23 @@ router.post(
 router.get('/', async (req, res) => {
   const user = req.context.user || null;
   const result = await OfferController.getAll(user);
+  reply(res, result);
+});
+
+router.get('/pending', adminMiddleware, async (_, res) => {
+  const result = await OfferController.getPending();
+  reply(res, result);
+});
+
+router.post('/accept/:offerId', adminMiddleware, async (req, res) => {
+  const offerId = Number(req.params.offerId);
+  const result = await OfferController.evaluate(offerId, 'ACCEPTED');
+  reply(res, result);
+});
+
+router.post('/reject/:offerId', adminMiddleware, async (req, res) => {
+  const offerId = Number(req.params.offerId);
+  const result = await OfferController.evaluate(offerId, 'REJECTED');
   reply(res, result);
 });
 

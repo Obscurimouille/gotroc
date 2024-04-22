@@ -1,10 +1,18 @@
 import { User } from '@gotroc/types';
 import OfferService from '../services/offer-service.js';
 import { ControllerResponse } from '../types/controller-response.js';
-import { INVALID_PARAMS, NOT_FOUND, UNAUTHORIZED, handleInternalError } from './utils.js';
+import {
+  FORBIDDEN,
+  INVALID_PARAMS,
+  NOT_FOUND,
+  UNAUTHORIZED,
+  handleInternalError,
+  success,
+} from './utils.js';
 import vine from '@vinejs/vine';
 import {
   OfferDescriptionSchema,
+  OfferIdSchema,
   OfferImageUUIDSchema,
   OfferPriceSchema,
   OfferTitleSchema,
@@ -19,14 +27,44 @@ import { FileRef } from '../providers/file-reference.js';
 const __appRoot = process.cwd();
 
 class OfferController {
+  public static async evaluate(id: number, status: 'ACCEPTED' | 'REJECTED') {
+    try {
+      const schema = vine.object({
+        id: OfferIdSchema,
+      });
+
+      const validator = vine.compile(schema);
+      const field = await validator.validate({ id });
+
+      const offer = (await OfferService.getById(field.id))!;
+      // Prevent evaluating an offer that is not pending
+      if (offer.status !== 'PENDING') return FORBIDDEN;
+
+      await OfferService.validate(offer.id, status);
+
+      return success();
+    } catch (error) {
+      return handleInternalError(error);
+    }
+  }
+
+  public static async getPending() {
+    try {
+      const pendingOffers = await OfferService.getAll({
+        status: 'PENDING',
+      });
+
+      return success(pendingOffers.map(this.formatOfferData));
+    } catch (error) {
+      return handleInternalError(error);
+    }
+  }
+
   public static async getBookmarked(user: User) {
     try {
       const bookmarks = await OfferService.getBookmarked(user.id);
 
-      return {
-        success: true,
-        data: bookmarks.map(this.formatOfferData),
-      };
+      return success(bookmarks.map(this.formatOfferData));
     } catch (error) {
       return handleInternalError(error);
     }
@@ -49,10 +87,7 @@ class OfferController {
         OfferImagesService.createPath(image.uuid, image.extension),
       );
 
-      return {
-        success: true,
-        data: { ...image, path: filepath },
-      };
+      return success({ ...image, path: filepath });
     } catch (error) {
       return handleInternalError(error);
     }
@@ -98,10 +133,7 @@ class OfferController {
         authorId: user.id,
       });
 
-      return {
-        success: true,
-        data: [],
-      };
+      return success([]);
     } catch (error) {
       for (const imageRef of offerData.images) {
         if (fs.existsSync(imageRef.absolutePath)) fs.unlinkSync(imageRef.absolutePath);
@@ -115,24 +147,32 @@ class OfferController {
       const offers = await OfferService.getAll({
         userId: user ? user.id : undefined,
       });
-      return {
-        success: true,
-        data: offers.map(this.formatOfferData),
-      };
+      return success(offers.map(this.formatOfferData));
     } catch (error) {
       return handleInternalError(error);
     }
   }
 
   public static async getById(id: number, user: User | null): Promise<ControllerResponse> {
-    if (id === undefined || typeof id != 'number' || isNaN(id)) return INVALID_PARAMS;
-    if (id < 0) return INVALID_PARAMS;
-
     try {
-      const foundOffer = await OfferService.getById(id, {
-        userId: user ? user.id : undefined,
+      const schema = vine.object({
+        id: OfferIdSchema,
       });
-      if (foundOffer === null) return NOT_FOUND;
+
+      const validator = vine.compile(schema);
+      const field = await validator.validate({ id });
+
+      const foundOffer = (await OfferService.getById(field.id, {
+        userId: user ? user.id : undefined,
+      }))!;
+
+      // If the offer is not accepted, only the owner or an admin can see it
+      if (
+        foundOffer.status !== 'ACCEPTED' && (!user || (user.id !== foundOffer.authorId && !user.isAdmin))
+      ) {
+        return NOT_FOUND;
+      }
+
       const recommendations = (
         await OfferService.getRecommendationsForOffer(
           { ...foundOffer },
@@ -144,10 +184,7 @@ class OfferController {
 
       const offer = this.formatOfferData(foundOffer);
 
-      return {
-        success: true,
-        data: { ...offer, recommendations },
-      };
+      return success({ ...offer, recommendations });
     } catch (error) {
       return handleInternalError(error);
     }
@@ -165,7 +202,14 @@ class OfferController {
       const validator = vine.compile(schema);
       const field = await validator.validate({ limit });
 
-      const options: { limit?: number; excludeUserId?: number; userId?: number } = {};
+      const options: {
+        limit?: number;
+        excludeUserId?: number;
+        userId?: number;
+        status: 'ACCEPTED';
+      } = {
+        status: 'ACCEPTED',
+      };
       if (field.limit) options['limit'] = field.limit;
       if (user) {
         options['excludeUserId'] = user.id;
@@ -174,10 +218,7 @@ class OfferController {
 
       const offers = await OfferService.getAll(options);
 
-      return {
-        success: true,
-        data: offers.map(this.formatOfferData),
-      };
+      return success(offers.map(this.formatOfferData));
     } catch (error) {
       return handleInternalError(error);
     }
@@ -187,10 +228,10 @@ class OfferController {
     id: number,
     user: User | null,
   ): Promise<ControllerResponse> {
-    if (id === undefined || typeof id != 'number' || isNaN(id)) return INVALID_PARAMS;
-    if (id < 0) return INVALID_PARAMS;
-
     try {
+      if (id === undefined || typeof id != 'number' || isNaN(id)) return INVALID_PARAMS;
+      if (id < 0) return INVALID_PARAMS;
+
       const offer = await OfferService.getById(id, {
         userId: user ? user.id : undefined,
       });
@@ -202,10 +243,7 @@ class OfferController {
         },
       );
 
-      return {
-        success: true,
-        data: offers.map(this.formatOfferData),
-      };
+      return success(offers.map(this.formatOfferData));
     } catch (error) {
       return handleInternalError(error);
     }
@@ -215,19 +253,16 @@ class OfferController {
     authorId: number,
     user: User | null,
   ): Promise<ControllerResponse> {
-    if (authorId === undefined || typeof authorId != 'number' || isNaN(authorId))
-      return INVALID_PARAMS;
-    if (authorId < 0) return INVALID_PARAMS;
-
-    const offers = await OfferService.getByAuthorId(authorId, {
-      userId: user ? user.id : undefined,
-    });
-
     try {
-      return {
-        success: true,
-        data: offers.map(this.formatOfferData),
-      };
+      if (authorId === undefined || typeof authorId != 'number' || isNaN(authorId))
+        return INVALID_PARAMS;
+      if (authorId < 0) return INVALID_PARAMS;
+
+      const offers = await OfferService.getByAuthorId(authorId, {
+        userId: user ? user.id : undefined,
+      });
+
+      return success(offers.map(this.formatOfferData));
     } catch (error) {
       return handleInternalError(error);
     }
@@ -245,25 +280,23 @@ class OfferController {
     },
     user: User | null,
   ): Promise<ControllerResponse> {
-    if (subCategoryName !== undefined && typeof subCategoryName != 'string') return INVALID_PARAMS;
-    if (rawText !== undefined && typeof rawText != 'string') return INVALID_PARAMS;
-    if (mainCategoryName !== undefined && typeof mainCategoryName != 'string')
-      return INVALID_PARAMS;
-    if (subCategoryName === undefined && rawText === undefined && mainCategoryName === undefined)
-      return INVALID_PARAMS;
-
-    const offers = await OfferService.search(
-      { subCategoryName, rawText, mainCategoryName },
-      {
-        userId: user ? user.id : undefined,
-      },
-    );
-
     try {
-      return {
-        success: true,
-        data: offers.map(this.formatOfferData),
-      };
+      if (subCategoryName !== undefined && typeof subCategoryName != 'string')
+        return INVALID_PARAMS;
+      if (rawText !== undefined && typeof rawText != 'string') return INVALID_PARAMS;
+      if (mainCategoryName !== undefined && typeof mainCategoryName != 'string')
+        return INVALID_PARAMS;
+      if (subCategoryName === undefined && rawText === undefined && mainCategoryName === undefined)
+        return INVALID_PARAMS;
+
+      const offers = await OfferService.search(
+        { subCategoryName, rawText, mainCategoryName },
+        {
+          userId: user ? user.id : undefined,
+        },
+      );
+
+      return success(offers.map(this.formatOfferData));
     } catch (error) {
       return handleInternalError(error);
     }

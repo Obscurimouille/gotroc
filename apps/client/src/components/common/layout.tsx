@@ -63,7 +63,7 @@ const PageContent = ({
         'px-' + (paddingX !== undefined ? paddingX : 4),
       )}
     >
-      <div className={cn('w-full h-full flex flex-col min-h-0', className || 'lg:max-w-[1050px]')}>
+      <div className={cn('lg:max-w-[1050px] w-full h-full flex flex-col min-h-0', className)}>
         {children}
       </div>
     </div>

@@ -15,6 +15,5 @@ export const authenticateMiddleware = async (req: Request, _: Response, next: Ne
 
   const user = await AuthController.authenticate(token);
   if (user) req.context.user = user;
-
   next();
 };
