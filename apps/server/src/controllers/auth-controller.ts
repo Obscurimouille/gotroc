@@ -84,7 +84,7 @@ class AuthController {
         const fondUser = await UserService.getByUsername(data.username);
         if (!fondUser) return resolve(null);
         const { password, ...user } = fondUser;
-        resolve(user);
+        resolve({...user, isAdmin: !!user.isAdmin});
       });
     });
   }

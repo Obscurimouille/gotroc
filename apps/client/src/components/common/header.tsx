@@ -22,6 +22,7 @@ import i18next from 'i18next';
 function Header({ className, ...props }: { className?: string }) {
   const { t } = useTranslation();
   const userContext = useContext(UserContext);
+  const isAdmin = userContext.user?.isAdmin;
 
   return (
     <header
@@ -40,11 +41,17 @@ function Header({ className, ...props }: { className?: string }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="default" size="sm" className="hidden md:block">
-            <Link to="/create">{t('component.create-offer-button.title')}</Link>
-          </Button>
+          {isAdmin ? (
+            <Button variant="outline" size="sm" className="hidden md:block">
+              <Link to="/admin">{t('component.admin-button.title')}</Link>
+            </Button>
+          ) : (
+            <Button variant="default" size="sm" className="hidden md:block">
+              <Link to="/create">{t('component.create-offer-button.title')}</Link>
+            </Button>
+          )}
           {userContext.user ? (
-            <AccountDropdown className='ml-4' />
+            <AccountDropdown className="ml-4" />
           ) : (
             <>
               <Button variant="link" size="sm" className="ml-4" asChild>
@@ -69,7 +76,10 @@ const AccountDropdown = ({ className }: { className?: string }) => {
       <DropdownMenuTrigger asChild>
         <Avatar className={cn('w-8 h-8 cursor-pointer border-1 border-neutral-200', className)}>
           {!!userContext.user?.avatarUUID && (
-            <AvatarImage src={UserService.getAvatarURL(userContext.user.avatarUUID)} className='object-cover'/>
+            <AvatarImage
+              src={UserService.getAvatarURL(userContext.user.avatarUUID)}
+              className="object-cover"
+            />
           )}
           <AvatarFallback className="bg-neutral-700">
             <PersonIcon color="white" />

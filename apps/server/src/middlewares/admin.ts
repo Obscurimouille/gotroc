@@ -9,8 +9,6 @@ export const adminMiddleware = async (req: Request, res: Response, next: NextFun
   const user = req.context.user;
   if (!user) return reply(res, UNAUTHORIZED);
 
-  console.log(user);
-
   if (!user.isAdmin) return reply(res, UNAUTHORIZED);
   next();
 };

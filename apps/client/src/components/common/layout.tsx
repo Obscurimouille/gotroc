@@ -19,8 +19,7 @@ const Page = ({
       setTimeout(() => {
         setMontLoader(false);
       }, animationDuration);
-    }
-    else setMontLoader(true);
+    } else setMontLoader(true);
   }, [loading]);
 
   return (
@@ -48,10 +47,23 @@ const Page = ({
   );
 };
 
-const PageContent = ({ children, className }: { children: ReactNode; className?: string }) => {
+const PageContent = ({
+  children,
+  className,
+  paddingX,
+}: {
+  children: ReactNode;
+  className?: string;
+  paddingX?: number;
+}) => {
   return (
-    <div className={cn('flex-1 w-full flex flex-col items-center px-4 min-h-0')}>
-      <div className={cn('w-full lg:max-w-[1050px] h-full flex flex-col min-h-0', className)}>
+    <div
+      className={cn(
+        'flex-1 w-full flex flex-col items-center min-h-0',
+        'px-' + (paddingX !== undefined ? paddingX : 4),
+      )}
+    >
+      <div className={cn('w-full h-full flex flex-col min-h-0', className || 'lg:max-w-[1050px]')}>
         {children}
       </div>
     </div>

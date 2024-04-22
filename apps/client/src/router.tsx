@@ -6,6 +6,7 @@ import OfferPage from '@components/pages/offer';
 import SearchResultsPage from '@components/pages/search-results';
 import NotFoundPage from '@components/pages/not-found';
 import DashboardPage from '@components/pages/dashboard';
+import AdminPage from '@components/pages/admin';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: '/dashboard/:section',
     element: <DashboardPage />,
+  },
+  {
+    path: '/admin',
+    element: <AdminPage />,
+  },
+  {
+    path: '/admin/:section',
+    element: <AdminPage />,
   },
   {
     path: '*',

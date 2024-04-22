@@ -147,6 +147,9 @@
     "login-button": {
       "title": "Login/Register"
     },
+    "admin-button": {
+      "title": "Administration"
+    },
     "create-offer-button": {
       "title": "Post an offer"
     },
@@ -183,6 +186,13 @@
       "edit": "Edit",
       "send-message": "Send a message",
       "send-offer": "Place an offer"
+    },
+    "admin-dashboard": {
+      "title": "Administration",
+      "pending-offers": {
+        "title": "Offers to validate",
+        "empty": "No offers to validate for now"
+      }
     },
     "dashboard": {
       "my-account": "My account",
@@ -237,6 +247,9 @@
       "bookmarks": "Bookmarks",
       "settings": "Settings",
       "logout": "Logout"
+    },
+    "admin-dashboard": {
+      "pending-offers": "Pending offers"
     }
   },
   "category": {

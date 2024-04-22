@@ -146,6 +146,9 @@
     "login-button": {
       "title": "S'identifier"
     },
+    "admin-button": {
+      "title": "Administration"
+    },
     "create-offer-button": {
       "title": "Déposer une annonce"
     },
@@ -182,6 +185,13 @@
       "edit": "Modifier",
       "send-message": "Envoyer un message",
       "send-offer": "Faire une offre"
+    },
+    "admin-dashboard": {
+      "title": "Administration",
+      "pending-offers": {
+        "title": "Annonces en attente",
+        "empty": "Aucune annonce à valider pour le moment"
+      }
     },
     "dashboard": {
       "my-account": "Mon compte",
@@ -236,6 +246,9 @@
       "bookmarks": "Favoris",
       "settings": "Paramètres",
       "logout": "Se déconnecter"
+    },
+    "admin-dashboard": {
+      "pending-offers": "Annonces en attente"
     }
   },
   "category": {
