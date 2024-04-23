@@ -7,6 +7,7 @@ import { OfferService } from 'src/services/offer-service';
 import { Offer, User } from '@gotroc/types';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@components/ui/skeleton';
+import { toast } from 'sonner';
 
 const DashboardOffers = ({ user }: { user: User }) => {
   const { t } = useTranslation();
@@ -20,6 +21,14 @@ const DashboardOffers = ({ user }: { user: User }) => {
       setUserOffers(response.data);
     });
   }, [user]);
+
+  const deleteOffer = (offerId: number) => {
+    OfferService.delete(offerId).then((response) => {
+      if (!response.success) return toast.error(t('message.offer.delete.error'));
+      setUserOffers((offers) => offers.filter((offer) => offer.id !== offerId));
+      toast.success(t('message.offer.delete.success'));
+    });
+  };
 
   return (
     <div className="flex-1 flex flex-col gap-6 bg-background w-full rounded-xl px-8 py-7 lg:px-10 lg:py-9 shadow">
@@ -40,6 +49,8 @@ const DashboardOffers = ({ user }: { user: User }) => {
                 className="shrink-0 shadow-none border-1 border-neutral-300"
                 showStatus
                 disableBookmark
+                canDelete
+                onDelete={() => deleteOffer(offer.id)}
               />
             ))}
           </div>
@@ -55,12 +66,10 @@ const DashboardOffers = ({ user }: { user: User }) => {
           </div>
         )
       ) : (
-        <div className='flex-1 flex flex-col overflow-hidden gap-8'>
-          {
-            Array.from({ length: 4 }).map((_, index) => (
-              <Skeleton key={index} className="w-full h-40 rounded-xl" />
-            ))
-          }
+        <div className="flex-1 flex flex-col overflow-hidden gap-8">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Skeleton key={index} className="w-full h-40 rounded-xl" />
+          ))}
         </div>
       )}
     </div>

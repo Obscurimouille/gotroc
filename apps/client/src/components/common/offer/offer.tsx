@@ -29,7 +29,6 @@ import { Link } from 'react-router-dom';
 import ProfileAvatar from '../profile-avatar';
 import OfferBreadcrumb from './offer-breadcrumb';
 import { UserService } from 'src/services/user.service';
-import { Separator } from '@components/ui/separator';
 import RatingSet from './rating-set';
 import { RatingService } from 'src/services/rating-service';
 

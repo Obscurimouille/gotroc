@@ -4,6 +4,10 @@ import i18next, { TFunction } from 'i18next';
 import { APIResponse } from '@gotroc/types';
 
 export class OfferService {
+  public static delete(offerId: number) {
+    return APIService.delete('/offer/' + offerId);
+  }
+
   public static create({
     title,
     price,

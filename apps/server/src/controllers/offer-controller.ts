@@ -27,6 +27,27 @@ import { FileRef } from '../providers/file-reference.js';
 const __appRoot = process.cwd();
 
 class OfferController {
+  public static async delete(offerId: number, user: User) {
+    try {
+      const schema = vine.object({
+        offerId: OfferIdSchema,
+      });
+
+      const validator = vine.compile(schema);
+      const field = await validator.validate({ offerId });
+
+      const offer = (await OfferService.getById(field.offerId))!;
+      // Prevent deleting an offer that is not owned by the user
+      if (offer.authorId !== user.id && !user.isAdmin) return FORBIDDEN;
+
+      await OfferService.delete(field.offerId);
+      return success();
+    } catch (error) {
+      console.log(error);
+      return handleInternalError(error);
+    }
+  }
+
   public static async evaluate(id: number, status: 'ACCEPTED' | 'REJECTED') {
     try {
       const schema = vine.object({
@@ -168,7 +189,8 @@ class OfferController {
 
       // If the offer is not accepted, only the owner or an admin can see it
       if (
-        foundOffer.status !== 'ACCEPTED' && (!user || (user.id !== foundOffer.authorId && !user.isAdmin))
+        foundOffer.status !== 'ACCEPTED' &&
+        (!user || (user.id !== foundOffer.authorId && !user.isAdmin))
       ) {
         return NOT_FOUND;
       }

@@ -48,7 +48,7 @@ model OfferImage {
   imageUUID       String
   image           File     @relation(fields: [imageUUID], references: [uuid])
   offerId         Int
-  offer           Offer     @relation(fields: [offerId], references: [id])
+  offer           Offer     @relation(fields: [offerId], references: [id], onDelete: Cascade)
 }
 
 model File {

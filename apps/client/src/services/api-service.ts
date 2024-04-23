@@ -25,6 +25,12 @@ export class APIService {
     });
   }
 
+  public static delete(endpoint: string) {
+    return this.request(endpoint, 'DELETE', {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   public static async formData(endpoint: string, body: FormData, options?: {
     method?: 'POST' | 'PUT';
   }): Promise<APIResponse> {

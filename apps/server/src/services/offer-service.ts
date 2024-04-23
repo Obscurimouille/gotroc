@@ -24,6 +24,14 @@ class OfferService {
     }
   };
 
+  public static async delete(offerId: number) {
+    return prisma.offer.delete({
+      where: {
+        id: offerId,
+      },
+    });
+  }
+
   public static async validate(offerId: number, status: 'ACCEPTED' | 'REJECTED') {
     return prisma.offer.update({
       where: {

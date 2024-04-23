@@ -19,6 +19,15 @@
       "added-single": "1 file added",
       "added-multiple": "{{count}} files added",
       "too-many": "Maximum {{max}} files allowed"
+    },
+    "offer": {
+      "delete": {
+        "success": "Offer deleted successfully",
+        "error": "An error occurred. Please try later"
+      }
+    },
+    "error": {
+      "unexpected": "An unexpected error occurred. Please try again later"
     }
   },
   "function": {

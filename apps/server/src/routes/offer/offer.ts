@@ -119,6 +119,13 @@ router.post('/:id/bookmark/toggle', authenticatedMiddleware, async (req, res) =>
   reply(res, result);
 });
 
+router.delete('/:id', authenticatedMiddleware, async (req, res) => {
+  const user = req.context.user!;
+  const id = Number(req.params.id);
+  const result = await OfferController.delete(id, user);
+  reply(res, result);
+});
+
 router.get('/:id', async (req, res) => {
   const user = req.context.user || null;
   const id = Number(req.params.id);
