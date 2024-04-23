@@ -3,7 +3,7 @@ import { Page, PageContent } from '@components/common/layout';
 import OfferResultCard from '@components/common/offer/offer-result-card';
 import { useSearchParams } from 'react-router-dom';
 import { OfferService } from 'src/services/offer-service';
-import noResultIllustration from '@assets/illustration_notify.svg';
+import noResultIllustration from '@assets/illustrations/notify.svg';
 import { useEffect, useState } from 'react';
 import { Offer } from '@gotroc/types';
 import { useTranslation } from 'react-i18next';

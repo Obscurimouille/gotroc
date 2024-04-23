@@ -8,4 +8,13 @@ router.get('/', async (_, res) => {
   reply(res, result);
 });
 
+router.get('/image/:uuid', async (req, res) => {
+  const uuid = req.params.uuid;
+  const result = await CategoryController.getImage(uuid);
+  if (result.success) {
+    return res.sendFile(result.data.path);
+  }
+  reply(res, result);
+});
+
 export default router;

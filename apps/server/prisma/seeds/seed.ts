@@ -14,7 +14,21 @@ async function main() {
       create: {
         name: mainCategoryName,
         subCategories: {
-          create: subCategoryNames.map((name) => ({ name })),
+          create: subCategoryNames.map((subCategory) =>
+            typeof subCategory === 'string'
+              ? { name: subCategory }
+              : {
+                  name: subCategory.value,
+                  illustration: !subCategory.illustration
+                    ? undefined
+                    : {
+                        create: {
+                          uuid: subCategory.illustration.uuid,
+                          extension: subCategory.illustration.extension,
+                        },
+                      },
+                },
+          ),
         },
       },
     });
@@ -81,7 +95,9 @@ async function main() {
           data: {
             value: rating.value,
             note: rating.note,
-            authorId: (await prisma.user.findUnique({ where: { username: rating.authorUsername } }))!.id,
+            authorId: (await prisma.user.findUnique({
+              where: { username: rating.authorUsername },
+            }))!.id,
             targetId: (await prisma.user.findUnique({ where: { email: seedUser.email } }))!.id,
             datetime: rating.date,
           },

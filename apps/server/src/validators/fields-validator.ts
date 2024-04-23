@@ -3,6 +3,7 @@ import { existingSubcategoryRule } from './rules/existing-subcategory.js';
 import { existingOfferImageRule } from './rules/existing-offer-image.js';
 import { existingUserAvatarRule } from './rules/existing-user-avatar.js';
 import { existingOfferRule } from './rules/existing-offer.js';
+import { existingFileRule } from './rules/existing-file.js';
 
 export const UsernameSchema = vine.string().trim().toLowerCase().minLength(3).maxLength(20).alphaNumeric({
   allowDashes: true,
@@ -33,3 +34,5 @@ export const OfferPriceSchema = vine.number().positive();
 export const OfferImageUUIDSchema = vine.string().use(existingOfferImageRule());
 
 export const userAvatarUUIDSchema = vine.string().use(existingUserAvatarRule());
+
+export const FileUUIDSchema = vine.string().use(existingFileRule());

@@ -262,6 +262,7 @@
       }
     },
     "home": {
+      "recommended-categories": "Recommended categories",
       "registered": {
         "title": "Welcome on GoTroc",
         "description": {

@@ -9,8 +9,8 @@ class CategoryService {
           orderBy: {
             name: 'asc',
           },
-        }
-      }
+        },
+      },
     });
   }
 }

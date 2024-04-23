@@ -2,13 +2,16 @@ import Header from '@components/common/header';
 import { Link, useLocation } from 'react-router-dom';
 import OfferSection from '@components/common/offer/offer-section';
 import { Page, PageContent } from '../common/layout';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { OfferService } from 'src/services/offer-service';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@components/ui/button';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import offerSubmittedIllustration from '@assets/illustration_offer_submitted.svg';
-import welcomeIllustration from '@assets/illustration_welcome.svg';
+import offerSubmittedIllustration from '@assets/illustrations/offer_submitted.svg';
+import welcomeIllustration from '@assets/illustrations/welcome.svg';
+import { CategoryService } from 'src/services/category-service';
+import { APIResponse, MainCategory, SubCategory } from '@gotroc/types';
+import CategoryCarousel from '@components/common/category-carousel';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -19,14 +22,22 @@ const HomePage = () => {
   const justRegistered = !!Number(queryParams.get('register'));
 
   const [recommendedOffers, setRecommendedOffers] = useState([]);
+  const [recommendedCategories, setRecommendedCategories] = useState<SubCategory[]>([]);
 
-  useState(() => {
+  useEffect(() => {
+    CategoryService.getAll().then((response: APIResponse<MainCategory[]>) => {
+      if (!response.success) return;
+      const subCategories = response.data!.flatMap(
+        (category) => category.subCategories as SubCategory[],
+      );
+      setRecommendedCategories(subCategories.filter((subCategory) => subCategory.illustrationUUID));
+    });
     OfferService.getRecommendations(12).then((response) => {
       if (!response.success) return;
       setRecommendedOffers(response.data);
       setLoading(false);
     });
-  });
+  }, []);
 
   return (
     <Page className="bg-background" loading={loading}>
@@ -34,6 +45,11 @@ const HomePage = () => {
       <PageContent className="pt-8 gap-8">
         {offerCreated && <OfferCreatedCard />}
         {justRegistered && <RegistrationCard />}
+        <CategoryCarousel
+          className="mb-2"
+          title={t('page.home.recommended-categories')}
+          categories={recommendedCategories}
+        />
         <OfferSection title={t('offer-section.best-of-today')} offers={recommendedOffers} />
       </PageContent>
     </Page>
@@ -63,7 +79,7 @@ const HeadingCard = ({
         <h1 className="font-semibold text-5xl leading-[1.2]">{title}</h1>
         <p className="text-justify">{description}</p>
       </div>
-      <div className='flex-1 flex justify-center'>
+      <div className="flex-1 flex justify-center">
         <img src={image} alt="" className="max-h-[360px]" />
       </div>
       <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={close}>

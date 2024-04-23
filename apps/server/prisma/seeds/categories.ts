@@ -1,35 +1,50 @@
-export const SeedCategories: { [key: string]: string[] } = {
+export const SeedCategories: {
+  [key: string]: (string | { value: string; illustration?: { uuid: string; extension: string } })[];
+} = {
   vehicles: [
-    'cars',
-    'motorbikes',
+    { value: 'cars', illustration: { uuid: 'seed_cars', extension: 'jpg' } },
+    { value: 'motorbikes', illustration: { uuid: 'seed_motorbikes', extension: 'jpg' } },
     'caravans',
     'utilities',
     'auto-equipment',
     'motorbike-equipment',
   ],
-  'real-estate': ['real-estate-sales', 'rentals', 'roommates', 'offices-and-shops'],
+  'real-estate': [
+    {
+      value: 'real-estate-sales',
+      illustration: { uuid: 'seed_real-estate-sales', extension: 'jpg' },
+    },
+    'rentals',
+    'roommates',
+    'offices-and-shops',
+  ],
   electronics: [
     'computers',
     'computer-accessories',
     'image-and-sound',
     'phones-and-connected-objects',
-    'video-games',
+    { value: 'video-games', illustration: { uuid: 'seed_video-games', extension: 'jpg' } },
     'consoles',
     'tablets-and-e-readers',
   ],
   'home-and-garden': [
-    'furnishing',
+    { value: 'furnishing', illustration: { uuid: 'seed_furnishing', extension: 'jpg' } },
     'decoration',
     'household-linen',
     'diy',
     'gardening',
     'appliances',
   ],
-  fashion: ['clothing', 'shoes', 'accessories-and-luggage', 'watches-and-jewelry'],
+  fashion: [
+    { value: 'clothing', illustration: { uuid: 'seed_clothing', extension: 'jpg' } },
+    'shoes',
+    'accessories-and-luggage',
+    'watches-and-jewelry',
+  ],
   leisure: [
     'movies',
     'music',
-    'books',
+    { value: 'books', illustration: { uuid: 'seed_books', extension: 'jpg' } },
     'antiques',
     'toys-and-games',
     'musical-instruments',

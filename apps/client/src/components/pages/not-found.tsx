@@ -1,6 +1,6 @@
 import Header from '@components/common/header';
 import { Page, PageContent } from '@components/common/layout';
-import illustration from '@assets/illustration_page_not_found.svg';
+import illustration from '@assets/illustrations/page_not_found.svg';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 

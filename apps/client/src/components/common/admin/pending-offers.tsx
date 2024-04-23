@@ -1,6 +1,6 @@
 import OfferResultCard from '../offer/offer-result-card';
 import { Separator } from '@components/ui/separator';
-import coffeeIllustration from '@assets/illustration_coffee.svg';
+import coffeeIllustration from '@assets/illustrations/coffee.svg';
 import { useEffect, useState } from 'react';
 import { OfferService } from 'src/services/offer-service';
 import { Offer, User } from '@gotroc/types';

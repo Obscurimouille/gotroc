@@ -43,7 +43,6 @@ class OfferController {
       await OfferService.delete(field.offerId);
       return success();
     } catch (error) {
-      console.log(error);
       return handleInternalError(error);
     }
   }

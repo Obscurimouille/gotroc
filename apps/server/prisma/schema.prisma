@@ -18,6 +18,8 @@ model SubCategory {
   mainCategory      MainCategory @relation(fields: [mainCategoryName], references: [name])
   mainCategoryName  String
   offers            Offer[]
+  illustrationUUID  String?
+  illustration      File?        @relation(fields: [illustrationUUID], references: [uuid])
 }
 
 model Offer {
@@ -52,10 +54,11 @@ model OfferImage {
 }
 
 model File {
-  uuid            String    @id @default(uuid())
-  extension       String
-  offerImages     OfferImage[]
-  userAvatar      User[]
+  uuid                    String    @id @default(uuid())
+  extension               String
+  offerImages             OfferImage[]
+  userAvatar              User[]
+  subCategoryIllustration SubCategory[]
 }
 
 model User {

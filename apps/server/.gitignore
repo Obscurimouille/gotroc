@@ -5,7 +5,7 @@ node_modules
 # Build files
 dist
 
-# Offer images
+# Ignore the public folder
 public/**
-# Don't ignore seed images
+# Don't ignore seed files
 !public/**/seed_*

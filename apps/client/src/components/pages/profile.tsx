@@ -112,7 +112,7 @@ const ProfilePage = () => {
                   }}
                 >
                   <CarouselContent className="">
-                    {[...profile.ratings, ...profile.ratings, ...profile.ratings].map(
+                    {profile.ratings.map(
                       (rating, index) => (
                         <CarouselItem key={index} className="basis-1/2 lg:basis-1/3">
                           <RatingCard rating={rating} className="mx-1 mb-1 max-w-none min-w-0" />
