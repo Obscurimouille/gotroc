@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Page, PageContent } from '../common/layout';
 import Header from '@components/common/header';
-import OfferComponent from '@components/common/offer';
-import OfferSection from '@components/common/offer-section';
+import OfferComponent from '@components/common/offer/offer';
+import OfferSection from '@components/common/offer/offer-section';
 import { useContext, useEffect, useState } from 'react';
 import { OfferService } from 'src/services/offer-service';
 import { Offer } from '@gotroc/types';
@@ -27,11 +27,16 @@ const OfferPage = () => {
   const id = Number(params.id);
 
   useEffect(() => {
+    // Get the offer by the id from the URL
     OfferService.get(id).then((response) => {
+      // If the offer does not exist, redirect to the not found page
       if (!response.success) return navigate('/not-found');
+
       const offer = response.data;
       const isOwner = !!userContext.user && userContext.user.id === offer.authorId;
       setIsOwner(isOwner);
+
+      // If the offer is not accepted, only the owner or an admin can see it
       if (offer.status !== 'ACCEPTED') {
         if (!userContext.user || (!isOwner && !userContext.user.isAdmin)) {
           return navigate('/not-found');
@@ -39,6 +44,7 @@ const OfferPage = () => {
         if (offer.status === 'REJECTED') setIsRejected(true);
         setIsAccepted(false);
       }
+
       setOffer(offer);
       setRecommendedOffers(offer.recommendations);
       setLoading(false);

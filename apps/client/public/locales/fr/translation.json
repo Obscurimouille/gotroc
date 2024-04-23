@@ -160,6 +160,9 @@
         "pending": "En attente de validation",
         "rejected": "Rejetée"
       }
+    },
+    "rating": {
+      "nb-ratings": "{{count}} avis"
     }
   },
   "page": {
@@ -185,9 +188,14 @@
         "description": "Nous vous invitons à modifier vos critères de recherche"
       }
     },
+    "profile": {
+      "nb-results": "{{count}} annonces",
+      "nb-ratings": "{{count}} avis"
+    },
     "offer": {
       "see-images": "Voir les images",
       "description": "Description",
+      "seller": "Vendu par",
       "edit": "Modifier",
       "rejected": "Rejetée",
       "send-message": "Envoyer un message",

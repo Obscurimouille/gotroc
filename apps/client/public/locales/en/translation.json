@@ -161,6 +161,9 @@
         "pending": "Pending",
         "rejected": "Rejected"
       }
+    },
+    "rating": {
+      "nb-ratings": "{{count}} ratings"
     }
   },
   "page": {
@@ -186,9 +189,14 @@
         "description": "Maybe try another search or wait for new offers"
       }
     },
+    "profile": {
+      "nb-results": "{{count}} offers",
+      "nb-ratings": "{{count}} ratings"
+    },
     "offer": {
       "see-images": "See images",
       "description": "Description",
+      "seller": "Seller",
       "edit": "Edit",
       "rejected": "Rejected",
       "send-message": "Send a message",

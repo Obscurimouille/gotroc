@@ -1,0 +1,17 @@
+-- CreateTable
+CREATE TABLE `Rating` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `targetId` INTEGER NOT NULL,
+    `authorId` INTEGER NOT NULL,
+    `value` TINYINT NOT NULL,
+    `note` VARCHAR(191) NULL,
+    `datetime` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Rating` ADD CONSTRAINT `Rating_targetId_fkey` FOREIGN KEY (`targetId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Rating` ADD CONSTRAINT `Rating_authorId_fkey` FOREIGN KEY (`authorId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

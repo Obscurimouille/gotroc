@@ -4,6 +4,11 @@ const prisma = new PrismaClient();
 class UserService {
   private static alwaysInclude = {
     isAdmin: true,
+    ratings: {
+      include: {
+        author: true,
+      },
+    },
   };
 
   public static async isAdmin(userId: number): Promise<boolean> {

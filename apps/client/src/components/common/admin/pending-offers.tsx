@@ -1,4 +1,4 @@
-import OfferResultCard from '../offer-result-card';
+import OfferResultCard from '../offer/offer-result-card';
 import { Separator } from '@components/ui/separator';
 import coffeeIllustration from '@assets/illustration_coffee.svg';
 import { useEffect, useState } from 'react';

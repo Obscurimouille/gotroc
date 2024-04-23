@@ -3,13 +3,12 @@ import { Offer as OfferType } from '@gotroc/types';
 import { cn } from '@lib/utils';
 import { OfferService } from 'src/services/offer-service';
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from '@components/ui/breadcrumb';
-import { CircleBackslashIcon, CopyIcon, Pencil2Icon, Share1Icon } from '@radix-ui/react-icons';
+  BookmarkIcon,
+  CircleBackslashIcon,
+  CopyIcon,
+  Pencil2Icon,
+  Share1Icon,
+} from '@radix-ui/react-icons';
 import { useContext, useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@components/ui/dialog';
 import { Input } from '@components/ui/input';
@@ -27,6 +26,12 @@ import {
 } from '@components/ui/carousel';
 import { UserContext } from 'src/providers/user-context';
 import { Link } from 'react-router-dom';
+import ProfileAvatar from '../profile-avatar';
+import OfferBreadcrumb from './offer-breadcrumb';
+import { UserService } from 'src/services/user.service';
+import { Separator } from '@components/ui/separator';
+import RatingSet from './rating-set';
+import { RatingService } from 'src/services/rating-service';
 
 const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: string }) => {
   const { t } = useTranslation();
@@ -98,47 +103,13 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
     </Dialog>
   );
 
-  const breadcrumb = (
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="underline">
-            {t('common.home')}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink
-            href={'/search?category=' + offer.subCategory!.mainCategoryName}
-            className="underline"
-          >
-            {t(`category.${offer.subCategory!.mainCategoryName}.title`)}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink
-            href={'/search?subcategory=' + offer.subCategoryName}
-            className="underline"
-          >
-            {t(
-              `category.${offer.subCategory!.mainCategoryName}.subcategories.${offer.subCategoryName}`,
-            )}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem className="font-semibold">{offer.title}</BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
-  );
-
   return (
     <div className={cn(className, 'flex flex-col gap-8')}>
       {shareDialog}
       {imagesDialog}
 
       <div className="flex justify-between items-center h-4">
-        {breadcrumb}
+        <OfferBreadcrumb offer={offer} />
         <div className="flex gap-2">
           <Button variant="ghost" size="icon" onClick={() => setIsShareDialogOpen(true)}>
             <Share1Icon />
@@ -188,7 +159,7 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           <small className="flex-1">{formattedDate}</small>
           {isOwner ? (
             offer.status === 'REJECTED' ? (
-              <Button className="w-full gap-1.5" variant='outline' disabled>
+              <Button className="w-full gap-1.5" variant="outline" disabled>
                 {t('page.offer.rejected')}
                 <CircleBackslashIcon />
               </Button>
@@ -212,9 +183,41 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
           )}
         </div>
       </div>
-      <div className="bg-background rounded-xl p-6 shadow">
+
+      {/* Description */}
+      <div className="bg-background rounded-xl p-6 shadow flex flex-col gap-3">
         <h2 className="text-xl font-semibold">{t('page.offer.description')}</h2>
-        <p className="mt-3">{offer.description}</p>
+        <p className="">{offer.description}</p>
+      </div>
+
+      {/* Seller */}
+      <div className="bg-background rounded-xl p-6 shadow flex flex-col gap-4">
+        <h2 className="text-xl font-semibold">{t('page.offer.seller')}</h2>
+        <div className="mt-1 flex gap-5">
+          <Link to={`/user/${offer.authorId}`} className="font-semibold">
+            <ProfileAvatar
+              avatarUUID={offer.author.avatarUUID || undefined}
+              className="w-20 h-20"
+            />
+          </Link>
+          <div className="flex flex-col gap-1">
+            <Link to={`/user/${offer.authorId}`} className="font-semibold">
+              {offer.author.username}
+            </Link>
+            {!!offer.author.ratings?.length && (
+              <>
+                <RatingSet value={RatingService.getAverage(offer.author.ratings)} />
+                <div className="flex-1"></div>
+              </>
+            )}
+            <div className="flex items-center gap-x-0.5">
+              <BookmarkIcon className="text-foreground/50" />
+              <p className="ml-1 text-sm text-foreground/50">
+                {UserService.formatRegisterDate(offer.author.registerDate, t)}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import OfferResultCard from '../offer-result-card';
+import OfferResultCard from '../offer/offer-result-card';
 import { Separator } from '@components/ui/separator';
 import bookmarkIllustration from '@assets/illustration_love.svg';
 import { Offer, User } from '@gotroc/types';

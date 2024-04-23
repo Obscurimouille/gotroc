@@ -1,4 +1,4 @@
-import OfferResultCard from '../offer-result-card';
+import OfferResultCard from '../offer/offer-result-card';
 import { Separator } from '@components/ui/separator';
 import noResultIllustration from '@assets/illustration_notify.svg';
 import { Link } from 'react-router-dom';

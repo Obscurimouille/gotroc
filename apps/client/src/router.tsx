@@ -7,6 +7,7 @@ import SearchResultsPage from '@components/pages/search-results';
 import NotFoundPage from '@components/pages/not-found';
 import DashboardPage from '@components/pages/dashboard';
 import AdminPage from '@components/pages/admin';
+import ProfilePage from '@components/pages/profile';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: '/offer/:id',
     element: <OfferPage />,
+  },
+  {
+    path: '/user/:id',
+    element: <ProfilePage />,
   },
   {
     path: '/search',

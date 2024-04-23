@@ -13,6 +13,15 @@ class OfferService {
         imageUUID: true,
       },
     },
+    author: {
+      include: {
+        ratings: {
+          include: {
+            author: true
+          }
+        }
+      }
+    }
   };
 
   public static async validate(offerId: number, status: 'ACCEPTED' | 'REJECTED') {

@@ -1,9 +1,9 @@
 import express from 'express';
-import UserController from '../controllers/user-controller.js';
-import { reply } from '../controllers/utils.js';
-import { authenticatedMiddleware } from '../middlewares/authenticated.js';
-import { AvatarUploadStrategy } from '../storage/strategies.js';
-import { FileRef } from '../providers/file-reference.js';
+import UserController from '../../controllers/user-controller.js';
+import { reply } from '../../controllers/utils.js';
+import { authenticatedMiddleware } from '../../middlewares/authenticated.js';
+import { AvatarUploadStrategy } from '../../storage/strategies.js';
+import { FileRef } from '../../providers/file-reference.js';
 const router = express.Router();
 
 router.get('/', async (_, res) => {

@@ -1,11 +1,11 @@
 import express from 'express';
-import OfferController from '../controllers/offer-controller.js';
+import OfferController from '../../controllers/offer-controller.js';
 const router = express.Router();
-import { authenticatedMiddleware } from '../middlewares/authenticated.js';
-import { reply } from '../controllers/utils.js';
-import { OfferImageUploadStrategy } from '../storage/strategies.js';
-import BookmarkController from '../controllers/bookmark-controller.js';
-import { adminMiddleware } from '../middlewares/admin.js';
+import { authenticatedMiddleware } from '../../middlewares/authenticated.js';
+import { reply } from '../../controllers/utils.js';
+import { OfferImageUploadStrategy } from '../../storage/strategies.js';
+import BookmarkController from '../../controllers/bookmark-controller.js';
+import { adminMiddleware } from '../../middlewares/admin.js';
 
 router.post(
   '/',

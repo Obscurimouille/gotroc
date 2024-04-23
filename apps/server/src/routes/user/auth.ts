@@ -1,6 +1,6 @@
 import express from 'express';
-import AuthController from '../controllers/auth-controller.js';
-import { reply } from '../controllers/utils.js';
+import AuthController from '../../controllers/auth-controller.js';
+import { reply } from '../../controllers/utils.js';
 const router = express.Router();
 
 router.get('/', async (req, res) => {

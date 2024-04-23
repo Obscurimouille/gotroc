@@ -1,6 +1,6 @@
 import Header from '@components/common/header';
 import { Link, useLocation } from 'react-router-dom';
-import OfferSection from '@components/common/offer-section';
+import OfferSection from '@components/common/offer/offer-section';
 import { Page, PageContent } from '../common/layout';
 import { ReactNode, useState } from 'react';
 import { OfferService } from 'src/services/offer-service';

@@ -1,16 +1,4 @@
-const now = new Date();
-
-let yesterday = new Date();
-yesterday.setDate(now.getDate() - 1);
-
-let twoDaysAgo = new Date();
-twoDaysAgo.setDate(now.getDate() - 2);
-
-let oneHourAgo = new Date();
-oneHourAgo.setHours(now.getHours() - 1);
-
-let fiveMinutesAgo = new Date();
-fiveMinutesAgo.setMinutes(now.getMinutes() - 5);
+import { fiveMinutesAgo, oneHourAgo } from "./utils";
 
 export const SeedOffers: {
   title: string;

@@ -1,6 +1,6 @@
 import express from 'express';
-import CategoryController from '../controllers/category-controller.js';
-import { reply } from '../controllers/utils.js';
+import CategoryController from '../../controllers/category-controller.js';
+import { reply } from '../../controllers/utils.js';
 const router = express.Router();
 
 router.get('/', async (_, res) => {

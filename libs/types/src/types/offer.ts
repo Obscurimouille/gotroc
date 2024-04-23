@@ -1,13 +1,14 @@
-import { EnumCondition } from '../enums/enum-condition';
+import { User } from './user';
 
-export type OfferImage = {
+type OfferImage = {
   imageUUID: string;
   position: number;
 };
 
-export type Offer = {
+type Offer = {
   id: number;
   authorId: number;
+  author: User;
   title: string;
   price: number;
   subCategoryName: string;
@@ -23,3 +24,15 @@ export type Offer = {
   bookmarked?: boolean;
   status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
 };
+
+type Rating = {
+  id: number;
+  authorId: number;
+  author?: User;
+  targetId: number;
+  value: number;
+  note?: string;
+  datetime: Date;
+};
+
+export { Rating, Offer, OfferImage };

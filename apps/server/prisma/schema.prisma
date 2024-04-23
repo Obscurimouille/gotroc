@@ -71,11 +71,24 @@ model User {
   avatar          File?       @relation(fields: [avatarUUID], references: [uuid])
   bookmarks       Bookmark[]
   isAdmin         Admin?
+  ratings         Rating[]   @relation("target")
+  rated           Rating[]   @relation("author")
 }
 
 model Admin {
   id              Int   @id
   user            User  @relation(fields: [id], references: [id])
+}
+
+model Rating {
+  id             Int      @id @default(autoincrement())
+  targetId       Int
+  target         User     @relation(fields: [targetId], references: [id], name: "target")
+  authorId       Int
+  author         User     @relation(fields: [authorId], references: [id], name: "author")
+  value          Int      @db.TinyInt
+  note           String?
+  datetime       DateTime @default(now())
 }
 
 model Bookmark {

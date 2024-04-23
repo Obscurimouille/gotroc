@@ -1,3 +1,5 @@
+import { fiveMinutesAgo, oneHourAgo, yesterday } from './utils';
+
 export const DEFAULT_PASSWORD = 'Password123!';
 export const DEFAULT_HASH_SALT = 10;
 
@@ -9,6 +11,7 @@ export const SeedUsers: {
   nbDefaultOffers: number;
   avatar?: [string, string];
   isAdmin?: boolean;
+  ratings?: { value: number; authorUsername: string; note?: string; date: Date }[];
 }[] = [
   {
     username: 'alicedu92',
@@ -17,6 +20,19 @@ export const SeedUsers: {
     email: 'alice.dupont@gmail.com',
     nbDefaultOffers: 2,
     avatar: ['seed_avatar_woman_1', 'png'],
+    ratings: [
+      {
+        value: 5,
+        authorUsername: 'bob-online',
+        note: 'Alice est une excellente vendeuse, je recommande.',
+        date: new Date('2021-09-01'),
+      },
+      {
+        value: 3,
+        authorUsername: 'radis-doux-du-sud',
+        date: new Date(yesterday),
+      },
+    ],
   },
   {
     username: 'bob-online',
@@ -24,6 +40,20 @@ export const SeedUsers: {
     email: 'bob99@yahoot.com',
     nbDefaultOffers: 5,
     avatar: ['seed_avatar_man_1', 'png'],
+    ratings: [
+      {
+        value: 4,
+        authorUsername: 'alicedu92',
+        note: 'Bon vendeur, je recommande.',
+        date: new Date(fiveMinutesAgo),
+      },
+      {
+        value: 1,
+        authorUsername: 'radis-doux-du-sud',
+        note: 'Nul, ne répond pas aux messages.',
+        date: new Date('2024-01-16'),
+      },
+    ],
   },
   {
     username: 'radis-doux-du-sud',
@@ -44,6 +74,14 @@ export const SeedUsers: {
     email: 'elisadu72@gmail.com',
     nbDefaultOffers: 0,
     avatar: ['seed_avatar_woman_2', 'png'],
+    ratings: [
+      {
+        value: 2,
+        authorUsername: 'alicedu92',
+        note: 'Produit non conforme.',
+        date: new Date(oneHourAgo),
+      },
+    ],
   },
   {
     username: 'admin',
@@ -51,5 +89,5 @@ export const SeedUsers: {
     email: 'admin@localhost.com',
     nbDefaultOffers: 0,
     isAdmin: true,
-  }
+  },
 ];

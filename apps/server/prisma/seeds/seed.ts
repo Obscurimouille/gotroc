@@ -72,6 +72,23 @@ async function main() {
       },
     });
   }
+
+  // Generate all ratings
+  for (const seedUser of SeedUsers) {
+    if (seedUser.ratings?.length) {
+      for (const rating of seedUser.ratings) {
+        await prisma.rating.create({
+          data: {
+            value: rating.value,
+            note: rating.note,
+            authorId: (await prisma.user.findUnique({ where: { username: rating.authorUsername } }))!.id,
+            targetId: (await prisma.user.findUnique({ where: { email: seedUser.email } }))!.id,
+            datetime: rating.date,
+          },
+        });
+      }
+    }
+  }
 }
 
 main()
