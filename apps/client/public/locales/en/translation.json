@@ -131,7 +131,8 @@
       "placeholder": "Email",
       "error": {
         "empty": "Email is required",
-        "invalid": "Invalid email"
+        "invalid": "Invalid email",
+        "already-used": "Email already used"
       }
     },
     "identifier": {

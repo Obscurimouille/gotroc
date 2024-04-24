@@ -1,4 +1,5 @@
 import { TFunction } from 'i18next';
+import { AuthService } from 'src/services/auth-service';
 import { z } from 'zod';
 
 /**
@@ -25,15 +26,30 @@ export const NewUsernameSchema = (t: TFunction<'translation', undefined>) => {
 /**
  * Schema for a new email
  * @param t - Translation function
+ * @param options - Options
+ * @param options.notUsed - Check if the email is not already used
  */
-export const NewEmailSchema = (t: TFunction<'translation', undefined>) => {
-  return z
+export const NewEmailSchema = (
+  t: TFunction<'translation', undefined>,
+  options?: { notUsed?: boolean },
+) => {
+  const shema = z
     .string({
       required_error: t('input.email.error.empty'),
     })
     .email({
       message: t('input.email.error.invalid'),
     });
+
+  if (options?.notUsed) {
+    return shema.refine((email) => {
+      return AuthService.isEmailAvailable(email).then((result) => {
+        if (!result.success) return false;
+        return result.data;
+      });
+    }, t('input.email.error.already-used'));
+  }
+  return shema;
 };
 
 /**

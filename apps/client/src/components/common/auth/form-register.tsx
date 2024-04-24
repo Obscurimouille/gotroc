@@ -20,7 +20,7 @@ const RegisterForm = () => {
 
   const FormSchema = z.object({
     username: NewUsernameSchema(t),
-    email: NewEmailSchema(t),
+    email: NewEmailSchema(t, { notUsed: true }),
     password: NewPasswordSchema(t),
   });
 

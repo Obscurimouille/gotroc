@@ -18,6 +18,10 @@ export class AuthService {
     return null;
   }
 
+  public static async isEmailAvailable(email: string) {
+    return APIService.get('/auth/isEmailAvailable?email=' + email);
+  }
+
   public static async logout() {
     await APIService.post('/auth/logout');
     document.location.href = '/auth';

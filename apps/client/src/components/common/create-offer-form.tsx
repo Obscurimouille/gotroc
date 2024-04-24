@@ -26,7 +26,7 @@ import {
 } from '@components/ui/command';
 import { CaretSortIcon, CheckIcon, PlusIcon } from '@radix-ui/react-icons';
 import { cn } from '@lib/utils';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { EnumCondition, MainCategory } from '@gotroc/types';
 import {
   Select,
@@ -76,12 +76,12 @@ const CreateOfferForm = () => {
       }),
   });
 
-  useState(() => {
+  useEffect(() => {
     CategoryService.getAll().then((result) => {
       if (!result.success) return;
       setCategories(result.data!);
     });
-  });
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

@@ -10,6 +10,12 @@ router.get('/', async (req, res) => {
   reply(res, { success: false, message: 'User not authenticated' });
 });
 
+router.get('/isEmailAvailable', async (req, res) => {
+  const { email } = req.query;
+  const result = await AuthController.isEmailAvailable(String(email));
+  reply(res, result);
+});
+
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   const result = await AuthController.register({ username, email, password });

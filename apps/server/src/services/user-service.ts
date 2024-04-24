@@ -11,6 +11,15 @@ class UserService {
     },
   };
 
+  public static async isEmailAvailable(email: string) {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: email,
+      },
+    });
+    return !user;
+  }
+
   public static async isAdmin(userId: number): Promise<boolean> {
     const user = await prisma.admin.findFirst({
       where: {

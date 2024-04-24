@@ -3,7 +3,7 @@ import { ControllerResponse } from '../types/controller-response.js';
 import { EmailSchema, PasswordSchema, UsernameSchema } from '../validators/fields-validator.js';
 import vine from '@vinejs/vine';
 import bcrypt from 'bcrypt';
-import { INVALID_CREDENTIALS, handleInternalError } from './utils.js';
+import { INVALID_CREDENTIALS, handleInternalError, success } from './utils.js';
 import { uniqueEmailRule } from '../validators/rules/unique-email.js';
 import { uniqueUsernameRule } from '../validators/rules/unique-username.js';
 import jwt from 'jsonwebtoken';
@@ -11,6 +11,23 @@ import env from '../services/env-service.js';
 import { User } from '@gotroc/types';
 
 class AuthController {
+  public static async isEmailAvailable(email: string): Promise<ControllerResponse> {
+    try {
+      const schema = vine.object({
+        email: EmailSchema,
+      });
+
+      const validator = vine.compile(schema);
+      const field = await validator.validate({ email });
+
+      const isAvailable = await UserService.isEmailAvailable(field.email);
+
+      return success(isAvailable);
+    } catch (error) {
+      return handleInternalError(error);
+    }
+  }
+
   public static async register(data: {
     username: string;
     email: string;
@@ -34,11 +51,7 @@ class AuthController {
 
       const token = this.generateAuthToken(user.username);
 
-      return {
-        success: true,
-        message: 'User registered successfully',
-        data: { user, token },
-      };
+      return success({ user, token }, 'User registered successfully');
     } catch (error) {
       return handleInternalError(error);
     }
@@ -67,11 +80,7 @@ class AuthController {
 
       const token = this.generateAuthToken(user.username);
 
-      return {
-        success: true,
-        message: 'Loged in successfully',
-        data: { user, token },
-      };
+      return success({ user, token }, 'Loged in successfully');
     } catch (error) {
       return handleInternalError(error);
     }
@@ -84,7 +93,7 @@ class AuthController {
         const fondUser = await UserService.getByUsername(data.username);
         if (!fondUser) return resolve(null);
         const { password, ...user } = fondUser;
-        resolve({...user, isAdmin: !!user.isAdmin});
+        resolve({ ...user, isAdmin: !!user.isAdmin } as User);
       });
     });
   }

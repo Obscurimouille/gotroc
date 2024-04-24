@@ -131,7 +131,8 @@
       "placeholder": "Exemple: dupont@mail.com",
       "error": {
         "empty": "Champ requis",
-        "invalid": "Adresse email invalide"
+        "invalid": "Adresse email invalide",
+        "already-used": "Adresse email déjà utilisée"
       }
     },
     "identifier": {
