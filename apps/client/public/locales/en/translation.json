@@ -154,6 +154,28 @@
     }
   },
   "component": {
+    "footer": {
+      "about": {
+        "title": "About GoTroc",
+        "us": "Who are we?",
+        "career": "Join us",
+        "engagements": "Our commitments"
+      },
+      "legal": {
+        "title": "Legal informations",
+        "terms": "Terms of use",
+        "sell-terms": "General terms of sale",
+        "user-ratings": "User ratings",
+        "privacy": "Privacy / cookies",
+        "accessibility": "Accessibility"
+      },
+      "questions": {
+        "title": "Questions?",
+        "help": "Help",
+        "contact": "Contact us",
+        "faqs": "FAQs"
+      }
+    },
     "login-button": {
       "title": "Login/Register"
     },

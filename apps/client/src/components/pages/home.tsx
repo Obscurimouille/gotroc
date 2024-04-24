@@ -12,6 +12,7 @@ import welcomeIllustration from '@assets/illustrations/welcome.svg';
 import { CategoryService } from 'src/services/category-service';
 import { APIResponse, MainCategory, SubCategory } from '@gotroc/types';
 import CategoryCarousel from '@components/common/category-carousel';
+import Footer from '@components/common/footer';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ const HomePage = () => {
   return (
     <Page className="bg-background" loading={loading}>
       <Header />
-      <PageContent className="pt-8 gap-8">
+      <PageContent className="pt-8 pb-16 gap-8">
         {offerCreated && <OfferCreatedCard />}
         {justRegistered && <RegistrationCard />}
         <CategoryCarousel
@@ -52,6 +53,7 @@ const HomePage = () => {
         />
         <OfferSection title={t('offer-section.best-of-today')} offers={recommendedOffers} />
       </PageContent>
+      <Footer />
     </Page>
   );
 };
