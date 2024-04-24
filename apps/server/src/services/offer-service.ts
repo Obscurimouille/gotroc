@@ -18,7 +18,10 @@ class OfferService {
         ratings: {
           include: {
             author: true
-          }
+          },
+          orderBy: {
+            datetime: 'desc',
+          },
         }
       }
     }

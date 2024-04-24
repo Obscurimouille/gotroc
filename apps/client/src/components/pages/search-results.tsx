@@ -7,6 +7,7 @@ import noResultIllustration from '@assets/illustrations/notify.svg';
 import { useEffect, useState } from 'react';
 import { Offer } from '@gotroc/types';
 import { useTranslation } from 'react-i18next';
+import Footer from '@components/common/footer';
 
 const SearchResultsPage = () => {
   const { t } = useTranslation();
@@ -58,6 +59,7 @@ const SearchResultsPage = () => {
           </div>
         )}
       </PageContent>
+      <Footer />
     </Page>
   );
 };

@@ -4,6 +4,7 @@ import { Page, PageContent } from "../common/layout";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "src/providers/user-context";
+import Footer from "@components/common/footer";
 
 function CreateOfferPage() {
   const userContext = useContext(UserContext);
@@ -21,6 +22,7 @@ function CreateOfferPage() {
       <PageContent>
         <CreateOfferForm />
       </PageContent>
+      <Footer />
     </Page>
   );
 }

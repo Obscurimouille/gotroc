@@ -3,6 +3,7 @@ import { Page, PageContent } from '@components/common/layout';
 import illustration from '@assets/illustrations/page_not_found.svg';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Footer from '@components/common/footer';
 
 const NotFoundPage = () => {
   const { t } = useTranslation();
@@ -19,6 +20,7 @@ const NotFoundPage = () => {
           </Link>
         </p>
       </PageContent>
+      <Footer />
     </Page>
   );
 };

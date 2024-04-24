@@ -2,12 +2,15 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class UserService {
-  private static alwaysInclude = {
+  private static alwaysInclude: any = {
     isAdmin: true,
     ratings: {
       include: {
         author: true,
       },
+      orderBy: {
+        datetime: 'desc',
+      }
     },
   };
 

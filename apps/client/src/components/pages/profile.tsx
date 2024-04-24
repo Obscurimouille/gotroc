@@ -14,6 +14,7 @@ import { RatingService } from 'src/services/rating-service';
 import ProfileAvatar from '@components/common/profile-avatar';
 import { Carousel, CarouselContent, CarouselItem } from '@components/ui/carousel';
 import RatingCard from '@components/common/offer/rating-card';
+import Footer from '@components/common/footer';
 
 const ProfilePage = () => {
   const { t } = useTranslation();
@@ -107,7 +108,6 @@ const ProfilePage = () => {
                   className="w-full"
                   opts={{
                     align: 'start',
-                    loop: true,
                     slidesToScroll: 'auto',
                   }}
                 >
@@ -126,6 +126,7 @@ const ProfilePage = () => {
           </>
         )}
       </PageContent>
+      <Footer />
     </Page>
   );
 };

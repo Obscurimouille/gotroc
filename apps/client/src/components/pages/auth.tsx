@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs';
 import LoginForm from '@components/common/auth/form-login';
 import RegisterForm from '@components/common/auth/form-register';
 import { UserContext } from 'src/providers/user-context';
+import Footer from '@components/common/footer';
 
 function LoginPage() {
   const { t } = useTranslation();
@@ -53,6 +54,7 @@ function LoginPage() {
           </Tabs>
         </div>
       </PageContent>
+      <Footer />
     </Page>
   );
 }

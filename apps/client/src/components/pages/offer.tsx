@@ -9,6 +9,7 @@ import { Offer } from '@gotroc/types';
 import { useTranslation } from 'react-i18next';
 import { UserContext } from 'src/providers/user-context';
 import { Alert, AlertDescription, AlertTitle } from '@components/ui/alert';
+import Footer from '@components/common/footer';
 
 const OfferPage = () => {
   const { t } = useTranslation();
@@ -84,6 +85,7 @@ const OfferPage = () => {
           <OfferSection title={t('offer-section.same-category')} offers={recommendedOffers} />
         )}
       </PageContent>
+      <Footer />
     </Page>
   );
 };
