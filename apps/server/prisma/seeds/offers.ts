@@ -1,4 +1,4 @@
-import { fiveMinutesAgo, oneHourAgo } from "./utils";
+import { fiveMinutesAgo, oneHourAgo, twoDaysAgo, yesterday } from "./utils";
 
 export const SeedOffers: {
   title: string;
@@ -11,7 +11,7 @@ export const SeedOffers: {
 }[] = [
   {
     title: 'Console PS5',
-    subCategoryName: 'consoles',
+    subCategoryName: 'video-games',
     price: 500,
     description: 'Console PS5 neuve jamais utilisée. Vendu avec 3 jeux. Prix non négociable.',
     createdAt: new Date('2023-09-20T10:15:00'),
@@ -66,7 +66,6 @@ export const SeedOffers: {
         extension: 'jpg',
       },
     ],
-    status: 'PENDING',
   },
   {
     title: 'Clio 4',
@@ -96,6 +95,7 @@ export const SeedOffers: {
         extension: 'jpg',
       },
     ],
+    status: 'PENDING',
   },
   {
     title: 'Yamaha MT-07',
@@ -205,7 +205,7 @@ export const SeedOffers: {
   {
     title: 'Nintendo DS Lite',
     price: 50,
-    subCategoryName: 'consoles',
+    subCategoryName: 'video-games',
     description: 'Nintendo DS Lite vendu sans chargeur.',
     createdAt: new Date(oneHourAgo),
     images: [
@@ -383,7 +383,7 @@ export const SeedOffers: {
   {
     title: 'Vtech',
     price: 20,
-    subCategoryName: 'consoles',
+    subCategoryName: 'video-games',
     description: 'Vtech en bon état.',
     createdAt: new Date('2024-03-30T15:12:00'),
     images: [
@@ -435,4 +435,159 @@ export const SeedOffers: {
       },
     ],
   },
+  {
+    title: 'Ford Fiesta 1.4 TDCI TREND',
+    price: 6990,
+    subCategoryName: 'cars',
+    description: 'Ford Fiesta 1.4 TDCI TREND en bon état. Entretien chez Ford.',
+    createdAt: new Date(yesterday),
+    images: [
+      {
+        uuid: 'seed_fiesta_1',
+        extension: 'jpg',
+      },
+      {
+        uuid: 'seed_fiesta_2',
+        extension: 'jpg',
+      },
+      {
+        uuid: 'seed_fiesta_3',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: "Yamaha R1 2018",
+    price: 15000,
+    subCategoryName: 'motorbikes',
+    description: 'Yamaha R1 2018 en bon état.',
+    createdAt: new Date(yesterday),
+    images: [
+      {
+        uuid: 'seed_r1_1',
+        extension: 'jpg',
+      },
+      {
+        uuid: 'seed_r1_2',
+        extension: 'jpg',
+      },
+      {
+        uuid: 'seed_r1_3',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: "Jeu Mario64 n64",
+    price: 50,
+    subCategoryName: 'video-games',
+    description: 'Jeu Mario64 n64 en bon état.',
+    createdAt: new Date(oneHourAgo),
+    images: [
+      {
+        uuid: 'seed_mario64_1',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: "Titeuf guide du zizi sexuel",
+    price: 10,
+    subCategoryName: 'books',
+    description: 'Titeuf guide du zizi sexuel en bon état.',
+    createdAt: new Date(twoDaysAgo),
+    images: [
+      {
+        uuid: 'seed_titeuf_1',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: 'Shakespeare. Hamlet, le roi lear',
+    price: 5,
+    subCategoryName: 'books',
+    description: 'Shakespeare. Hamlet, le roi lear en bon état.',
+    createdAt: new Date(oneHourAgo),
+    images: [
+      {
+        uuid: 'seed_shakespeare_1',
+        extension: 'jpg',
+      },
+    ],
+    status: 'PENDING',
+  },
+  {
+    title: 'Lot d\'encyclopedies',
+    price: 100,
+    subCategoryName: 'books',
+    description: 'Lot d\'encyclopedies en bon état.',
+    createdAt: new Date('2024-01-22'),
+    images: [
+      {
+        uuid: 'seed_encyclopedie_1',
+        extension: 'jpg',
+      },
+      {
+        uuid: 'seed_encyclopedie_2',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: 'Lot BD Kid Paddle',
+    price: 12.5,
+    subCategoryName: 'books',
+    description: 'Lot BD Kid Paddle en bon état.',
+    createdAt: new Date('2023-11-05'),
+    images: [
+      {
+        uuid: 'seed_kid_paddle_1',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: 'Polo homme taille S',
+    price: 15,
+    subCategoryName: 'clothing',
+    description: 'Polo homme taille S en bon état.',
+    createdAt: new Date('2023-09-21'),
+    images: [
+      {
+        uuid: 'seed_polo_1',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: "Parka bleue comme neuve",
+    price: 30,
+    subCategoryName: 'clothing',
+    description: 'Parka bleue comme neuve en bon état.',
+    createdAt: new Date('2023-11-13'),
+    images: [
+      {
+        uuid: 'seed_parka_1',
+        extension: 'jpg',
+      },
+      {
+        uuid: 'seed_parka_2',
+        extension: 'jpg',
+      },
+    ],
+  },
+  {
+    title: 'Robe en 38',
+    price: 20,
+    subCategoryName: 'clothing',
+    description: 'Robe en 38 en bon état. Achetée 50€.',
+    createdAt: new Date(fiveMinutesAgo),
+    images: [
+      {
+        uuid: 'seed_robe_1',
+        extension: 'jpg',
+      },
+    ],
+  }
 ];

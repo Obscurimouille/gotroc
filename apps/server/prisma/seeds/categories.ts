@@ -24,7 +24,6 @@ export const SeedCategories: {
     'image-and-sound',
     'phones-and-connected-objects',
     { value: 'video-games', illustration: { uuid: 'seed_video-games', extension: 'jpg' } },
-    'consoles',
     'tablets-and-e-readers',
   ],
   'home-and-garden': [

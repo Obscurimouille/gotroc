@@ -37,6 +37,18 @@ async function main() {
   // Generate all users and their offers
   const defaultPasswordHash = await bcrypt.hash(DEFAULT_PASSWORD, DEFAULT_HASH_SALT);
   let offerIndex = 0;
+
+  const nbRequiredOffers = SeedUsers.reduce((acc, user) => acc + user.nbDefaultOffers, 0);
+  if (nbRequiredOffers > SeedOffers.length) {
+    throw new Error(
+      `Not enough offers to seed all users. Required: ${nbRequiredOffers}, Found: ${SeedOffers.length}`,
+    );
+  } else if (nbRequiredOffers < SeedOffers.length) {
+    console.warn(
+      `There are more offers than required by the users. Some offers will be ignored. Required: ${nbRequiredOffers}, Found: ${SeedOffers.length}`,
+    );
+  }
+
   for (const seedUser of SeedUsers) {
     await prisma.user.upsert({
       where: { email: seedUser.email },
@@ -47,6 +59,7 @@ async function main() {
         lastname: seedUser.lastname,
         email: seedUser.email,
         password: defaultPasswordHash,
+        registerDate: seedUser.registerDate,
         isAdmin: seedUser.isAdmin
           ? {
               create: {},
@@ -62,7 +75,6 @@ async function main() {
             },
         offers: {
           create: Array.from({ length: seedUser.nbDefaultOffers }).map(() => {
-            if (offerIndex >= SeedOffers.length) offerIndex = 0;
             const offer = SeedOffers[offerIndex++];
             return {
               ...offer,

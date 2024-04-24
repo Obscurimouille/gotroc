@@ -51,7 +51,7 @@ const HomePage = () => {
   return (
     <Page className="bg-background" loading={loading}>
       <Header />
-      <PageContent className="pt-8 pb-16 gap-8">
+      <PageContent className="pt-8 pb-16 gap-12">
         {offerCreated && <OfferCreatedCard />}
         {justRegistered && <RegistrationCard />}
         <CategoryCarousel
