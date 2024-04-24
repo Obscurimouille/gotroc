@@ -330,7 +330,6 @@
       "subcategories": {
         "computer-accessories": "Computer accessories",
         "computers": "Computers & Laptops",
-        "consoles": "Consoles",
         "image-and-sound": "Image & Sound",
         "phones-and-connected-objects": "Phones & Connected objects",
         "tablets-and-e-readers": "Tablets & E-readers",
@@ -435,7 +434,8 @@
     "damaged": "Damaged"
   },
   "offer-section": {
-    "best-of-today": "Trending today",
+    "recent": "Recently added",
+    "best-of-today": "Trending",
     "same-category": "Same category"
   },
   "common": {

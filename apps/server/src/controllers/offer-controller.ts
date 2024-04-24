@@ -211,7 +211,7 @@ class OfferController {
     }
   }
 
-  public static async getRecommendations(
+  public static async getRecent(
     user: User | null,
     limit?: number,
   ): Promise<ControllerResponse> {
@@ -238,6 +238,40 @@ class OfferController {
       }
 
       const offers = await OfferService.getAll(options);
+
+      return success(offers.map(this.formatOfferData));
+    } catch (error) {
+      return handleInternalError(error);
+    }
+  }
+
+  public static async getRecommendations(
+    user: User | null,
+    limit?: number,
+  ): Promise<ControllerResponse> {
+    try {
+      const schema = vine.object({
+        limit: vine.number().min(0).optional(),
+      });
+
+      const validator = vine.compile(schema);
+      const field = await validator.validate({ limit });
+
+      const options: {
+        limit?: number;
+        excludeUserId?: number;
+        userId?: number;
+        status: 'ACCEPTED';
+      } = {
+        status: 'ACCEPTED',
+      };
+      if (field.limit) options['limit'] = field.limit;
+      if (user) {
+        options['excludeUserId'] = user.id;
+        options['userId'] = user.id;
+      }
+
+      const offers = await OfferService.getPopular(options);
 
       return success(offers.map(this.formatOfferData));
     } catch (error) {

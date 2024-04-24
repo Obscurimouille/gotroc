@@ -54,6 +54,10 @@ export class OfferService {
     return APIService.get('/offer/' + id);
   }
 
+  public static getRecent(limit: number) {
+    return APIService.get('/offer/recent?limit=' + limit);
+  }
+
   public static getRecommendations(limit: number) {
     return APIService.get('/offer/recommendations?limit=' + limit);
   }

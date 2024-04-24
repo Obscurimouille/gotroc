@@ -22,6 +22,7 @@ const HomePage = () => {
   const offerCreated = !!Number(queryParams.get('offer_created'));
   const justRegistered = !!Number(queryParams.get('register'));
 
+  const [recentOffers, setRecentOffers] = useState([]);
   const [recommendedOffers, setRecommendedOffers] = useState([]);
   const [recommendedCategories, setRecommendedCategories] = useState<SubCategory[]>([]);
 
@@ -32,11 +33,18 @@ const HomePage = () => {
         (category) => category.subCategories as SubCategory[],
       );
       setRecommendedCategories(subCategories.filter((subCategory) => subCategory.illustrationUUID));
-    });
-    OfferService.getRecommendations(12).then((response) => {
-      if (!response.success) return;
-      setRecommendedOffers(response.data);
-      setLoading(false);
+
+      OfferService.getRecent(12).then((response) => {
+        if (!response.success) return;
+        setRecentOffers(response.data);
+
+        OfferService.getRecommendations(12).then((response) => {
+          if (!response.success) return;
+          setRecommendedOffers(response.data);
+
+          setLoading(false);
+        });
+      });
     });
   }, []);
 
@@ -51,6 +59,7 @@ const HomePage = () => {
           title={t('page.home.recommended-categories')}
           categories={recommendedCategories}
         />
+        <OfferSection title={t('offer-section.recent')} offers={recentOffers} />
         <OfferSection title={t('offer-section.best-of-today')} offers={recommendedOffers} />
       </PageContent>
       <Footer />

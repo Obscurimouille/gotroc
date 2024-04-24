@@ -75,6 +75,26 @@ class OfferService {
     });
   }
 
+  public static async getPopular(options?: { excludeUserId?: number; limit?: number; }) {
+    return prisma.offer.findMany({
+      where: {
+        authorId: {
+          notIn: options?.excludeUserId ? [options.excludeUserId] : [],
+        },
+        status: 'ACCEPTED',
+      },
+      include: {
+        ...this.constantInclude,
+      },
+      take: options?.limit,
+      orderBy: {
+        bookmarks: {
+          _count: 'desc',
+        },
+      },
+    });
+  }
+
   public static async getAll(options?: {
     status?: 'PENDING' | 'ACCEPTED' | 'REJECTED';
     limit?: number;
