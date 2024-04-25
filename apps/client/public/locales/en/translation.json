@@ -154,6 +154,21 @@
     }
   },
   "component": {
+    "filters": {
+      "price": {
+        "title": "Price",
+        "label-min": "Minimum ({{unit}})",
+        "placeholder-min": "Min",
+        "label-max": "Maximum ({{unit}})",
+        "placeholder-max": "Max"
+      },
+      "condition": {
+        "title": "Condition"
+      },
+      "sort-by": {
+        "title": "Sort by"
+      }
+    },
     "footer": {
       "about": {
         "title": "About GoTroc",
@@ -215,6 +230,7 @@
       }
     },
     "results": {
+      "apply-filters": "Apply",
       "nb-results": "{{count}} results",
       "empty": {
         "title": "Sorry, we found nothing",
@@ -426,12 +442,20 @@
       }
     }
   },
-  "condition": {
-    "new": "New",
-    "excellent": "Excellent",
-    "good": "Good",
-    "fair": "Fair",
-    "damaged": "Damaged"
+  "enum": {
+    "offer-sort-by": {
+      "price-asc": "Price (ascending)",
+      "price-desc": "Price (descending)",
+      "date-asc": "Date (ascending)",
+      "date-desc": "Date (descending)"
+    },
+    "condition": {
+      "new": "New",
+      "excellent": "Excellent",
+      "good": "Good",
+      "fair": "Fair",
+      "damaged": "Damaged"
+    }
   },
   "offer-section": {
     "recent": "Recently added",

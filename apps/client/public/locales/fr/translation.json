@@ -154,6 +154,21 @@
     }
   },
   "component": {
+    "filters": {
+      "price": {
+        "title": "Prix",
+        "label-min": "Minimum ({{unit}})",
+        "placeholder-min": "Min",
+        "label-max": "Maximum ({{unit}})",
+        "placeholder-max": "Max"
+      },
+      "condition": {
+        "title": "Etat"
+      },
+      "sort-by": {
+        "title": "Trier par"
+      }
+    },
     "footer": {
       "about": {
         "title": "À propos de GoTroc",
@@ -215,6 +230,7 @@
       }
     },
     "results": {
+      "apply-filters": "Appliquer",
       "nb-results": "{{count}} résultats",
       "empty": {
         "title": "Désolé, nous n'avons rien trouvé",
@@ -426,12 +442,20 @@
       }
     }
   },
-  "condition": {
-    "new": "Neuf",
-    "excellent": "Excellent",
-    "good": "Bon",
-    "fair": "Correct",
-    "damaged": "Endommagé"
+  "enum": {
+    "offer-sort-by": {
+      "price-asc": "Prix le plus bas",
+      "price-desc": "Prix le plus élevé",
+      "date-asc": "Les plus anciennes",
+      "date-desc": "Les plus récentes"
+    },
+    "condition": {
+      "new": "Neuf",
+      "excellent": "Excellent",
+      "good": "Bon",
+      "fair": "Correct",
+      "damaged": "Endommagé"
+    }
   },
   "offer-section": {
     "recent": "Ajouts récents",

@@ -1,6 +1,13 @@
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "@components/ui/breadcrumb";
-import { Offer } from "@gotroc/types";
-import { useTranslation } from "react-i18next";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+} from '@components/ui/breadcrumb';
+import { Offer } from '@gotroc/types';
+import { useTranslation } from 'react-i18next';
+import { OfferService } from 'src/services/offer-service';
 
 const OfferBreadcrumb = ({ offer }: { offer: Offer }) => {
   const { t } = useTranslation();
@@ -15,7 +22,9 @@ const OfferBreadcrumb = ({ offer }: { offer: Offer }) => {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink
-            href={'/search?category=' + offer.subCategory!.mainCategoryName}
+            href={`/search?${OfferService.createSearchUrlParams({
+              category: offer.subCategory!.mainCategoryName,
+            })}`}
             className="underline"
           >
             {t(`category.${offer.subCategory!.mainCategoryName}.title`)}
@@ -24,7 +33,9 @@ const OfferBreadcrumb = ({ offer }: { offer: Offer }) => {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink
-            href={'/search?subcategory=' + offer.subCategoryName}
+            href={`/search?${OfferService.createSearchUrlParams({
+              subCategory: offer.subCategoryName,
+            })}`}
             className="underline"
           >
             {t(

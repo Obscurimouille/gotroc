@@ -1,3 +1,4 @@
+import { OfferFilters, OfferSearchQueryParams } from '@gotroc/types';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
@@ -17,14 +18,14 @@ class OfferService {
       include: {
         ratings: {
           include: {
-            author: true
+            author: true,
           },
           orderBy: {
             datetime: 'desc',
           },
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   public static async delete(offerId: number) {
@@ -78,7 +79,7 @@ class OfferService {
     });
   }
 
-  public static async getPopular(options?: { excludeUserId?: number; limit?: number; }) {
+  public static async getPopular(options?: { excludeUserId?: number; limit?: number }) {
     return prisma.offer.findMany({
       where: {
         authorId: {
@@ -249,16 +250,11 @@ class OfferService {
   }
 
   public static async search(
-    {
-      subCategoryName,
-      rawText,
-      mainCategoryName,
-    }: {
-      subCategoryName?: string;
-      rawText?: string;
-      mainCategoryName?: string;
+    query: OfferSearchQueryParams,
+    options?: {
+      userId?: number;
+      filters?: Partial<OfferFilters>;
     },
-    options?: { userId?: number },
   ) {
     const optionalInclude: any = {};
     if (options?.userId) {
@@ -271,30 +267,63 @@ class OfferService {
         },
       };
     }
+    const orderBy: any = {};
+    if (!options?.filters?.sortBy) orderBy['createdAt'] = 'desc';
+    else {
+      switch (options.filters.sortBy) {
+        case 'price-asc':
+          orderBy['price'] = 'asc';
+          break;
+        case 'price-desc':
+          orderBy['price'] = 'desc';
+          break;
+        case 'date-asc':
+          orderBy['createdAt'] = 'asc';
+          break;
+        case 'date-desc':
+          orderBy['createdAt'] = 'desc';
+          break;
+      }
+    }
     return prisma.offer.findMany({
       where: {
         status: 'ACCEPTED',
-        OR: [
-          rawText
+        // TODO: Item condition filter
+        ...(query.rawText
+          ? {
+              title: {
+                contains: query.rawText.toLowerCase(),
+              },
+            }
+          : {}),
+
+        ...(query.subCategory
+          ? {
+              subCategoryName: query.subCategory,
+            }
+          : {}),
+
+        ...(query.category
+          ? {
+              subCategory: {
+                mainCategory: {
+                  name: query.category,
+                },
+              },
+            }
+          : {}),
+        AND: [
+          options?.filters?.priceMin
             ? {
-                title: {
-                  contains: rawText,
+                price: {
+                  gte: options.filters.priceMin,
                 },
               }
             : {},
-
-          subCategoryName
+          options?.filters?.priceMax
             ? {
-                subCategoryName: subCategoryName,
-              }
-            : {},
-
-          mainCategoryName
-            ? {
-                subCategory: {
-                  mainCategory: {
-                    name: mainCategoryName,
-                  },
+                price: {
+                  lte: options.filters.priceMax,
                 },
               }
             : {},
@@ -304,9 +333,7 @@ class OfferService {
         ...this.constantInclude,
         ...optionalInclude,
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy,
     });
   }
 }

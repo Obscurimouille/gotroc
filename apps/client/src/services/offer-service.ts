@@ -1,7 +1,7 @@
 import { isYesterday, isToday } from '@lib/utils';
 import { APIService } from './api-service';
 import i18next, { TFunction } from 'i18next';
-import { APIResponse } from '@gotroc/types';
+import { APIResponse, EnumCondition, EnumOfferSortBy, OfferFilters, OfferSearchQueryParams } from '@gotroc/types';
 
 export class OfferService {
   public static delete(offerId: number) {
@@ -74,22 +74,63 @@ export class OfferService {
     return APIService.get('/offer/bookmarked');
   }
 
-  public static search({
-    subCategoryName,
-    rawText,
-    mainCategoryName,
-  }: {
-    subCategoryName?: string;
-    rawText?: string;
-    mainCategoryName?: string;
-  }) {
-    if (subCategoryName === undefined && rawText === undefined && mainCategoryName === undefined)
+  public static createSearchUrlParams(
+    query: OfferSearchQueryParams,
+    filters?: Partial<OfferFilters>,
+  ) {
+    let params = '';
+    if (query.subCategory) params += `subCategory=${query.subCategory}&`;
+    if (query.rawText) params += `rawText=${query.rawText}&`;
+    if (query.category) params += `category=${query.category}&`;
+    params += this.createFilterUrlParams(filters || {});
+    if (params.endsWith('&')) params = params.slice(0, -1);
+    return params;
+  }
+
+  public static createFilterUrlParams(filters: Partial<OfferFilters>) {
+    let params = '';
+    if (filters.priceMin !== undefined) params += `priceMin=${filters.priceMin}&`;
+    if (filters.priceMax !== undefined) params += `priceMax=${filters.priceMax}&`;
+    if (filters.sortBy) params += `sortBy=${filters.sortBy}&`;
+    if (filters.condition?.length)
+      params += `condition=${filters.condition.join(',').toLowerCase()}&`;
+    return params.slice(0, -1);
+  }
+
+  public static parseSearchParams(searchParams: URLSearchParams): {
+    query: OfferSearchQueryParams;
+    filters: OfferFilters;
+  } {
+    const category = searchParams.get('category');
+    const subCategory = searchParams.get('subCategory');
+    const rawText = searchParams.get('rawText');
+    const priceMin = searchParams.get('priceMin');
+    const priceMax = searchParams.get('priceMax');
+    const condition = searchParams.get('condition');
+    const sortBy = searchParams.get('sortBy');
+
+    const query: OfferSearchQueryParams = {
+      category: category ? category.trim() : undefined,
+      subCategory: subCategory ? subCategory.trim() : undefined,
+      rawText: rawText ? rawText.trim() : undefined,
+    };
+    const filters: OfferFilters = {
+      priceMin: priceMin ? parseInt(priceMin) : undefined,
+      priceMax: priceMax ? parseInt(priceMax) : undefined,
+      condition: condition ? (condition.toUpperCase().split(',') as EnumCondition[]) : [],
+      sortBy: (sortBy as EnumOfferSortBy | undefined) || EnumOfferSortBy.DATE_DESC,
+    };
+    return { query, filters };
+  }
+
+  public static search(query: OfferSearchQueryParams, filters?: Partial<OfferFilters>) {
+    if (
+      query.subCategory === undefined &&
+      query.rawText === undefined &&
+      query.category === undefined
+    )
       return Promise.resolve([] as any);
-    let endpoint = '/offer/search?';
-    if (subCategoryName) endpoint += `subCategoryName=${subCategoryName}&`;
-    if (rawText) endpoint += `rawText=${rawText}&`;
-    if (mainCategoryName) endpoint += `mainCategoryName=${mainCategoryName}&`;
-    endpoint = endpoint.slice(0, -1);
+    const endpoint = '/offer/search?' + this.createSearchUrlParams(query, filters || {});
     return APIService.get(endpoint);
   }
 

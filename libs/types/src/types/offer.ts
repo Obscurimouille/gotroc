@@ -1,3 +1,5 @@
+import { EnumCondition } from '../enums/enum-condition';
+import { EnumOfferSortBy } from '../enums/offer';
 import { User } from './user';
 
 type OfferImage = {
@@ -35,4 +37,17 @@ type Rating = {
   datetime: Date;
 };
 
-export { Rating, Offer, OfferImage };
+type OfferFilters = {
+  priceMin: number | undefined;
+  priceMax: number | undefined;
+  condition: EnumCondition[];
+  sortBy: EnumOfferSortBy;
+};
+
+type OfferSearchQueryParams = {
+  category?: string;
+  subCategory?: string;
+  rawText?: string;
+};
+
+export { Rating, Offer, OfferImage, OfferFilters, OfferSearchQueryParams };

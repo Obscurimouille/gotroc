@@ -1,46 +1,65 @@
 import Header from '@components/common/header';
 import { Page, PageContent } from '@components/common/layout';
 import OfferResultCard from '@components/common/offer/offer-result-card';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { OfferService } from 'src/services/offer-service';
 import noResultIllustration from '@assets/illustrations/notify.svg';
 import { useEffect, useState } from 'react';
-import { Offer } from '@gotroc/types';
+import { Offer, OfferFilters, OfferSearchQueryParams } from '@gotroc/types';
 import { useTranslation } from 'react-i18next';
 import Footer from '@components/common/footer';
+import SearchFilterBar from '@components/common/offer/filter-bar';
+import { Button } from '@components/ui/button';
+import { CheckIcon } from '@radix-ui/react-icons';
 
 const SearchResultsPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
   const [results, setResults] = useState<Offer[]>([]);
   const [searchParams] = useSearchParams();
-  let category = searchParams.get('category');
-  let subcategory = searchParams.get('subcategory');
-  let text = searchParams.get('text');
+  const [filters, setFilters] = useState<OfferFilters>();
+  const [query, setQuery] = useState<OfferSearchQueryParams>();
 
   useEffect(() => {
-    OfferService.search({
-      mainCategoryName: category ? category.trim() : undefined,
-      subCategoryName: subcategory ? subcategory.trim() : undefined,
-      rawText: text ? text.trim() : undefined,
-    }).then((response) => {
+    setLoading(true);
+    const { query, filters } = OfferService.parseSearchParams(searchParams);
+    setQuery(query);
+    setFilters(filters);
+    
+    OfferService.search(query, filters).then((response) => {
       if (!response.success) return;
       setResults(response.data);
       setLoading(false);
     });
-  }, [category, subcategory, text]);
+  }, [searchParams]);
+
+  // Apply search filters
+  const applyFilters = () => {
+    if (!filters) return;
+    navigate(`/search?${OfferService.createSearchUrlParams(query!, filters)}`, { replace: true });
+  };
 
   return (
     <Page loading={loading}>
       <Header />
       <PageContent className="py-8 pb-16">
+        <div className="flex items-center justify-between">
+          {!!filters && <SearchFilterBar defaultFilters={filters} getFilters={setFilters} />}
+          <Button className="gap-1.5" onClick={applyFilters}>
+            <CheckIcon className="h-4 w-4"></CheckIcon>
+            {t('page.results.apply-filters')}
+          </Button>
+        </div>
         {!!loading ? (
           <></>
         ) : !!results.length ? (
-          <div className="">
-            <h2 className="mb-4">{t('page.results.nb-results', {
-              count: results.length
-            })}</h2>
+          <div className="mt-6">
+            <h2 className="mb-4">
+              {t('page.results.nb-results', {
+                count: results.length,
+              })}
+            </h2>
             <div className="flex flex-col gap-6">
               {results.map((offer, index) => (
                 <OfferResultCard

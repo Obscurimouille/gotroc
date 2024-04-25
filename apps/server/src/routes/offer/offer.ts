@@ -6,6 +6,7 @@ import { reply } from '../../controllers/utils.js';
 import { OfferImageUploadStrategy } from '../../storage/strategies.js';
 import BookmarkController from '../../controllers/bookmark-controller.js';
 import { adminMiddleware } from '../../middlewares/admin.js';
+import { OfferFilters, OfferSearchQueryParams } from '@gotroc/types';
 
 router.post(
   '/',
@@ -98,11 +99,19 @@ router.get('/recommendations/:id', async (req, res) => {
 
 router.get('/search', async (req, res) => {
   const user = req.context.user || null;
-  const subCategoryName = req.query.subCategoryName as string;
-  const rawText = req.query.rawText as string;
-  const mainCategoryName = req.query.mainCategoryName as string;
+  const { subCategory, rawText, category, priceMin, priceMax, condition, sortBy } =
+    req.query as OfferSearchQueryParams & Partial<OfferFilters>;
 
-  const result = await OfferController.search({ subCategoryName, rawText, mainCategoryName }, user);
+  const result = await OfferController.search(
+    { subCategory, rawText, category },
+    {
+      priceMin,
+      priceMax,
+      condition,
+      sortBy,
+    },
+    user,
+  );
   reply(res, result);
 });
 

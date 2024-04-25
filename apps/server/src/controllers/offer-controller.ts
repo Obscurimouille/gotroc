@@ -1,4 +1,4 @@
-import { User } from '@gotroc/types';
+import { EnumCondition, EnumOfferSortBy, OfferFilters, OfferSearchQueryParams, User } from '@gotroc/types';
 import OfferService from '../services/offer-service.js';
 import { ControllerResponse } from '../types/controller-response.js';
 import {
@@ -211,10 +211,7 @@ class OfferController {
     }
   }
 
-  public static async getRecent(
-    user: User | null,
-    limit?: number,
-  ): Promise<ControllerResponse> {
+  public static async getRecent(user: User | null, limit?: number): Promise<ControllerResponse> {
     try {
       const schema = vine.object({
         limit: vine.number().min(0).optional(),
@@ -324,32 +321,39 @@ class OfferController {
   }
 
   public static async search(
-    {
-      subCategoryName,
-      rawText,
-      mainCategoryName,
-    }: {
-      subCategoryName?: string;
-      rawText?: string;
-      mainCategoryName?: string;
-    },
+    query: OfferSearchQueryParams,
+    filters: Partial<OfferFilters>,
     user: User | null,
   ): Promise<ControllerResponse> {
     try {
-      if (subCategoryName !== undefined && typeof subCategoryName != 'string')
-        return INVALID_PARAMS;
-      if (rawText !== undefined && typeof rawText != 'string') return INVALID_PARAMS;
-      if (mainCategoryName !== undefined && typeof mainCategoryName != 'string')
-        return INVALID_PARAMS;
-      if (subCategoryName === undefined && rawText === undefined && mainCategoryName === undefined)
-        return INVALID_PARAMS;
+      const querySchema = vine.object({
+        subCategory: vine.string().optional(),
+        category: vine.string().optional(),
+        rawText: vine.string().trim().optional(),
+      });
 
-      const offers = await OfferService.search(
-        { subCategoryName, rawText, mainCategoryName },
-        {
-          userId: user ? user.id : undefined,
-        },
-      );
+      const filtersSchema = vine.object({
+        priceMin: vine.number().positive().optional(),
+        priceMax: vine.number().positive().optional(),
+        condition: vine
+          .array(vine.enum(EnumCondition))
+          .parse((value) => {
+            if (typeof value !== 'string') return value;
+            return value.toUpperCase().split(',');
+          })
+          .optional(),
+        sortBy: vine.enum(EnumOfferSortBy).optional(),
+      });
+
+      const queryValidator = vine.compile(querySchema);
+      const filtersValidator = vine.compile(filtersSchema);
+      const validatedQuery: OfferSearchQueryParams = await queryValidator.validate(query);
+      const validatedFilters: Partial<OfferFilters> = await filtersValidator.validate(filters);
+
+      const offers = await OfferService.search(validatedQuery, {
+        userId: user ? user.id : undefined,
+        filters: validatedFilters,
+      });
 
       return success(offers.map(this.formatOfferData));
     } catch (error) {

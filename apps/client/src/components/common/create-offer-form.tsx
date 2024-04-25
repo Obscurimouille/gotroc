@@ -300,7 +300,7 @@ const CreateOfferForm = () => {
                   <SelectContent>
                     {Object.values(EnumCondition).map((condition) => (
                       <SelectItem key={condition} value={condition}>
-                        {t(`condition.${condition.toLowerCase()}`)}
+                        {t(`enum.condition.${condition.toLowerCase()}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
