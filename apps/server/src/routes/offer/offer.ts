@@ -99,7 +99,7 @@ router.get('/recommendations/:id', async (req, res) => {
 
 router.get('/search', async (req, res) => {
   const user = req.context.user || null;
-  const { subCategory, rawText, category, priceMin, priceMax, condition, sortBy } =
+  const { subCategory, rawText, category, priceMin, priceMax, mileageMin, mileageMax, condition, sortBy } =
     req.query as OfferSearchQueryParams & Partial<OfferFilters>;
 
   const result = await OfferController.search(
@@ -107,6 +107,8 @@ router.get('/search', async (req, res) => {
     {
       priceMin,
       priceMax,
+      mileageMin,
+      mileageMax,
       condition,
       sortBy,
     },

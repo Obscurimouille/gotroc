@@ -18,13 +18,15 @@ type Offer = {
     name: string;
     mainCategoryName: string;
   };
-  // condition: EnumCondition;
   description: string;
   images: OfferImage[];
   createdAt: Date;
   updatedAt: Date;
   bookmarked?: boolean;
   status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  // OPTIONAL FIELDS
+  condition?: EnumCondition;
+  mileage?: number;
 };
 
 type Rating = {
@@ -41,6 +43,8 @@ type OfferFilters = {
   priceMin: number | undefined;
   priceMax: number | undefined;
   condition: EnumCondition[];
+  mileageMin: number | undefined;
+  mileageMax: number | undefined;
   sortBy: EnumOfferSortBy;
 };
 

@@ -1,9 +1,9 @@
 import vine from '@vinejs/vine';
-import { CategoryService } from '../services/category-service.js';
+import { CategoryService, SubCategoryService } from '../services/category-service.js';
 import { ControllerResponse } from '../types/controller-response.js';
 import { NOT_FOUND, handleInternalError, success } from './utils.js';
 import path from 'path';
-import { FileUUIDSchema } from '../validators/fields-validator.js';
+import { FileUUIDSchema, SubCategoryNameSchema } from '../validators/fields-validator.js';
 import CategoryIllustrationService from '../services/category-illustration-service.js';
 
 const __appRoot = process.cwd();
@@ -43,8 +43,35 @@ class CategoryController {
             name: subCategory.name,
             mainCategoryName: mainCategory.name,
             illustrationUUID: subCategory.illustrationUUID,
+            requiresCondition: subCategory.requiresCondition,
+            requiresMileage: subCategory.requiresMileage,
           })),
         })),
+      };
+    } catch (error) {
+      return handleInternalError(error);
+    }
+  }
+
+  /**
+   * Get sub category object by its name
+   * @param params.name - name of the sub category
+   */
+  public static async getSubByName(params: {name: string}): Promise<ControllerResponse> {
+    try {
+      const schema = vine.object({
+        name: SubCategoryNameSchema,
+      });
+
+      const validator = vine.compile(schema);
+      const { name } = await validator.validate(params);
+
+      const subCategory = await SubCategoryService.getByName(name);
+      if (!subCategory) return NOT_FOUND;
+
+      return {
+        success: true,
+        data: subCategory,
       };
     } catch (error) {
       return handleInternalError(error);

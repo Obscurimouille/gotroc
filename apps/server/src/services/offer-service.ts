@@ -288,7 +288,6 @@ class OfferService {
     return prisma.offer.findMany({
       where: {
         status: 'ACCEPTED',
-        // TODO: Item condition filter
         ...(query.rawText
           ? {
               title: {
@@ -313,6 +312,17 @@ class OfferService {
             }
           : {}),
         AND: [
+          options?.filters?.condition
+            ? {
+                condition: {
+                  in: options.filters.condition,
+                },
+                NOT: {
+                  condition: null,
+                },
+              }
+            : {},
+
           options?.filters?.priceMin
             ? {
                 price: {
@@ -324,6 +334,21 @@ class OfferService {
             ? {
                 price: {
                   lte: options.filters.priceMax,
+                },
+              }
+            : {},
+
+          options?.filters?.mileageMin
+            ? {
+                mileage: {
+                  gte: options.filters.mileageMin,
+                },
+              }
+            : {},
+          options?.filters?.mileageMax
+            ? {
+                mileage: {
+                  lte: options.filters.mileageMax,
                 },
               }
             : {},

@@ -11,6 +11,7 @@ import Footer from '@components/common/footer';
 import SearchFilterBar from '@components/common/offer/filter-bar';
 import { Button } from '@components/ui/button';
 import { CheckIcon } from '@radix-ui/react-icons';
+import { CategoryService } from 'src/services/category-service';
 
 const SearchResultsPage = () => {
   const { t } = useTranslation();
@@ -21,18 +22,32 @@ const SearchResultsPage = () => {
   const [filters, setFilters] = useState<OfferFilters>();
   const [query, setQuery] = useState<OfferSearchQueryParams>();
 
+  // Optional filters
+  const [enableConditionFilter, setEnableConditionFilter] = useState<boolean>(false);
+  const [enableMileageFilter, setEnableMileageFilter] = useState<boolean>(false);
+
   useEffect(() => {
+    if (!searchParams.toString()) return navigate('/');
     setLoading(true);
     const { query, filters } = OfferService.parseSearchParams(searchParams);
     setQuery(query);
     setFilters(filters);
-    
+
+    // Disable condition filter if sub category uses it
+    if (query.subCategory) {
+      CategoryService.getSub(query.subCategory).then((response) => {
+        if (!response.success) return;
+        setEnableConditionFilter(!!response.data!.requiresCondition);
+        setEnableMileageFilter(!!response.data!.requiresMileage);
+      });
+    }
+
     OfferService.search(query, filters).then((response) => {
       if (!response.success) return;
       setResults(response.data);
       setLoading(false);
     });
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   // Apply search filters
   const applyFilters = () => {
@@ -45,7 +60,14 @@ const SearchResultsPage = () => {
       <Header />
       <PageContent className="py-8 pb-16">
         <div className="flex items-center justify-between">
-          {!!filters && <SearchFilterBar defaultFilters={filters} getFilters={setFilters} />}
+          {!!filters && (
+            <SearchFilterBar
+              defaultFilters={filters}
+              getFilters={setFilters}
+              enableCondition={enableConditionFilter}
+              enableMileage={enableMileageFilter}
+            />
+          )}
           <Button className="gap-1.5" onClick={applyFilters}>
             <CheckIcon className="h-4 w-4"></CheckIcon>
             {t('page.results.apply-filters')}

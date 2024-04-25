@@ -1,6 +1,6 @@
 type MainCategory = {
   name: string;
-  subCategories?: SubCategory[] | string[];
+  subCategories?: SubCategory[];
 };
 
 type SubCategory = {
@@ -8,6 +8,8 @@ type SubCategory = {
   mainCategoryName: string;
   mainCategory?: MainCategory;
   illustrationUUID?: string;
+  requiresCondition?: boolean;
+  requiresMileage?: boolean;
 };
 
 export { MainCategory, SubCategory };

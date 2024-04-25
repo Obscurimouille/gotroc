@@ -186,6 +186,20 @@ const Offer = ({ offer, className, ...props }: { offer: OfferType; className?: s
       {/* Description */}
       <div className="bg-background rounded-xl p-6 shadow flex flex-col gap-3">
         <h2 className="text-xl font-semibold">{t('page.offer.description')}</h2>
+        {offer.condition && (
+          <p className="font-semibold">
+            {t('page.offer.condition')}
+            <span className="font-normal italic">
+              {' ' + t('enum.condition.' + offer.condition.toLowerCase())}
+            </span>
+          </p>
+        )}
+        {offer.mileage && (
+          <p className="font-semibold">
+            {t('page.offer.mileage')}
+            <span className="font-normal italic">{' ' + offer.mileage}</span>
+          </p>
+        )}
         <p className="">{offer.description}</p>
       </div>
 

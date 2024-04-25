@@ -14,21 +14,19 @@ async function main() {
       create: {
         name: mainCategoryName,
         subCategories: {
-          create: subCategoryNames.map((subCategory) =>
-            typeof subCategory === 'string'
-              ? { name: subCategory }
+          create: subCategoryNames.map((subCategory) => ({
+            name: subCategory.value,
+            requiresCondition: subCategory.requiresCondition || false,
+            requiresMileage: subCategory.requiresMileage || false,
+            illustration: !subCategory.illustration
+              ? undefined
               : {
-                  name: subCategory.value,
-                  illustration: !subCategory.illustration
-                    ? undefined
-                    : {
-                        create: {
-                          uuid: subCategory.illustration.uuid,
-                          extension: subCategory.illustration.extension,
-                        },
-                      },
+                  create: {
+                    uuid: subCategory.illustration.uuid,
+                    extension: subCategory.illustration.extension,
+                  },
                 },
-          ),
+          })),
         },
       },
     });

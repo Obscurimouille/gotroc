@@ -35,8 +35,13 @@ router.post('/login', async (req, res) => {
 });
 
 router.all('/logout', async (_, res) => {
-  res.clearCookie('token');
-  reply(res, { success: true, message: 'User logged out successfully' });
+  try {
+    res.clearCookie('token');
+    reply(res, { success: true, message: 'User logged out successfully' });
+  } catch (error) {
+    reply(res, { success: false, message: 'Failed to log out user' });
+    console.error(error);
+  }
 });
 
 export default router;

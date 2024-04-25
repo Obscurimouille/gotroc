@@ -1,4 +1,5 @@
-import { fiveMinutesAgo, oneHourAgo, twoDaysAgo, yesterday } from "./utils";
+import { Condition } from '@prisma/client';
+import { fiveMinutesAgo, oneHourAgo, twoDaysAgo, yesterday } from './utils';
 
 export const SeedOffers: {
   title: string;
@@ -7,6 +8,8 @@ export const SeedOffers: {
   description: string;
   createdAt: Date;
   images: { uuid: string; extension: string }[];
+  condition?: Condition;
+  mileage?: number;
   status?: 'PENDING' | 'ACCEPTED' | 'REJECTED';
 }[] = [
   {
@@ -14,7 +17,8 @@ export const SeedOffers: {
     subCategoryName: 'video-games',
     price: 500,
     description: 'Console PS5 neuve jamais utilisée. Vendu avec 3 jeux. Prix non négociable.',
-    createdAt: new Date('2023-09-20T10:15:00'),
+    createdAt: new Date('2023-09-30T13:48:00'),
+    condition: 'NEW',
     images: [
       {
         uuid: 'seed_ps5_1',
@@ -32,21 +36,23 @@ export const SeedOffers: {
     subCategoryName: 'bikes',
     price: 110.0,
     description: 'Vélo femme en bon état.',
-    createdAt: new Date('2023-09-20T10:15:00'),
+    createdAt: new Date('2023-09-20T10:01:00'),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_velo_1',
         extension: 'jpg',
       },
     ],
-    status: 'REJECTED'
+    status: 'REJECTED',
   },
   {
     title: 'Lot de jeux de société dans un état certin lol',
     price: 20.499,
     subCategoryName: 'toys-and-games',
-    description: '8 jeux de société en bon état.',
-    createdAt: new Date('2023-09-20T10:15:00'),
+    description: '8 jeux de société en moyen état.',
+    createdAt: new Date('2023-09-20T08:37:00'),
+    condition: 'FAIR',
     images: [
       {
         uuid: 'seed_jeux_societe_1',
@@ -60,6 +66,7 @@ export const SeedOffers: {
     subCategoryName: 'video-games',
     description: 'Jeux DS en bon état.',
     createdAt: new Date('2023-09-20T10:15:00'),
+    condition: 'EXCELLENT',
     images: [
       {
         uuid: 'seed_jeux_ds_1',
@@ -72,7 +79,9 @@ export const SeedOffers: {
     price: 8890,
     subCategoryName: 'cars',
     description: 'Clio 4 en bon état. Quelques rayures sur la carrosserie.',
-    createdAt: new Date('2023-09-20T10:15:00'),
+    createdAt: new Date('2023-09-19T17:18:00'),
+    condition: 'GOOD',
+    mileage: 48200,
     images: [
       {
         uuid: 'seed_clio_1',
@@ -103,6 +112,8 @@ export const SeedOffers: {
     subCategoryName: 'motorbikes',
     description: 'Yamaha MT-07 en bon état. Entretien régulier chez le concessionnaire.',
     createdAt: new Date('2024-04-01T14:21:00'),
+    condition: 'EXCELLENT',
+    mileage: 9300,
     images: [
       {
         uuid: 'seed_mt07_1',
@@ -128,6 +139,8 @@ export const SeedOffers: {
     subCategoryName: 'motorbikes',
     description: 'Honda CB650R avec ABS. Controle technique OK.',
     createdAt: new Date('2024-03-31T11:45:00'),
+    condition: 'GOOD',
+    mileage: 21000,
     images: [
       {
         uuid: 'seed_cb650r_1',
@@ -150,6 +163,8 @@ export const SeedOffers: {
     subCategoryName: 'cars',
     description: 'Audi A3 en excellent état. Entretien régulier chez le concessionnaire.',
     createdAt: new Date('2024-03-15T09:33:00'),
+    condition: 'EXCELLENT',
+    mileage: 73150,
     images: [
       {
         uuid: 'seed_a3_1',
@@ -179,6 +194,8 @@ export const SeedOffers: {
     subCategoryName: 'cars',
     description: 'Porsche 911 GT3 RS. Entretien chez Porsche.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'EXCELLENT',
+    mileage: 15000,
     images: [
       {
         uuid: 'seed_gt3rs_1',
@@ -208,6 +225,7 @@ export const SeedOffers: {
     subCategoryName: 'video-games',
     description: 'Nintendo DS Lite vendu sans chargeur.',
     createdAt: new Date(oneHourAgo),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_ds_1',
@@ -225,6 +243,7 @@ export const SeedOffers: {
     subCategoryName: 'motorbike-equipment',
     description: 'Casque moto modulable en bon état.',
     createdAt: new Date(fiveMinutesAgo),
+    condition: 'EXCELLENT',
     images: [
       {
         uuid: 'seed_casque_moto_1',
@@ -264,10 +283,12 @@ export const SeedOffers: {
   },
   {
     title: 'Triumph Trident 660',
-    price: 8000,
+    price: 8200,
     subCategoryName: 'motorbikes',
     description: 'Triumph Trident 660 en bon état.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'NEW',
+    mileage: 80,
     images: [
       {
         uuid: 'seed_trident_660_1',
@@ -289,6 +310,8 @@ export const SeedOffers: {
     subCategoryName: 'cars',
     description: 'Audi R8 en excellent état. Entretien chez Audi.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'EXCELLENT',
+    mileage: 11200,
     images: [
       {
         uuid: 'seed_r8_1',
@@ -310,6 +333,8 @@ export const SeedOffers: {
     subCategoryName: 'cars',
     description: 'Porsche Cayenne en excellent état. Entretien chez Porsche.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'EXCELLENT',
+    mileage: 39500,
     images: [
       {
         uuid: 'seed_cayenne_1',
@@ -327,6 +352,8 @@ export const SeedOffers: {
     subCategoryName: 'cars',
     description: 'BMW E46 vente pour pièces.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'DAMAGED',
+    mileage: 475000,
     images: [
       {
         uuid: 'seed_e46_1',
@@ -344,6 +371,8 @@ export const SeedOffers: {
     subCategoryName: 'cars',
     description: 'Peugeot 205 GTI en excellent état. Entretien chez Peugeot.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'EXCELLENT',
+    mileage: 73070,
     images: [
       {
         uuid: 'seed_205_gti_1',
@@ -361,6 +390,8 @@ export const SeedOffers: {
     subCategoryName: 'cars',
     description: 'Alpine A110 en excellent état. Entretien chez Alpine.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'GOOD',
+    mileage: 23800,
     images: [
       {
         uuid: 'seed_a110_1',
@@ -386,6 +417,7 @@ export const SeedOffers: {
     subCategoryName: 'video-games',
     description: 'Vtech en bon état.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'FAIR',
     images: [
       {
         uuid: 'seed_vtech_1',
@@ -415,6 +447,7 @@ export const SeedOffers: {
     subCategoryName: 'furnishing',
     description: 'Meuble de cuisine en bon état.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_meuble_cuisine_1',
@@ -428,6 +461,7 @@ export const SeedOffers: {
     subCategoryName: 'appliances',
     description: 'Grille pain en bon état.',
     createdAt: new Date('2024-03-30T15:12:00'),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_grille_pain_1',
@@ -437,10 +471,12 @@ export const SeedOffers: {
   },
   {
     title: 'Ford Fiesta 1.4 TDCI TREND',
-    price: 6990,
+    price: 4990,
     subCategoryName: 'cars',
     description: 'Ford Fiesta 1.4 TDCI TREND en bon état. Entretien chez Ford.',
     createdAt: new Date(yesterday),
+    condition: 'GOOD',
+    mileage: 142700,
     images: [
       {
         uuid: 'seed_fiesta_1',
@@ -457,11 +493,13 @@ export const SeedOffers: {
     ],
   },
   {
-    title: "Yamaha R1 2018",
+    title: 'Yamaha R1 2018',
     price: 15000,
     subCategoryName: 'motorbikes',
     description: 'Yamaha R1 2018 en bon état.',
     createdAt: new Date(yesterday),
+    condition: 'GOOD',
+    mileage: 3980,
     images: [
       {
         uuid: 'seed_r1_1',
@@ -478,11 +516,12 @@ export const SeedOffers: {
     ],
   },
   {
-    title: "Jeu Mario64 n64",
+    title: 'Jeu Mario64 n64',
     price: 50,
     subCategoryName: 'video-games',
     description: 'Jeu Mario64 n64 en bon état.',
     createdAt: new Date(oneHourAgo),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_mario64_1',
@@ -491,11 +530,12 @@ export const SeedOffers: {
     ],
   },
   {
-    title: "Titeuf guide du zizi sexuel",
+    title: 'Titeuf guide du zizi sexuel',
     price: 10,
     subCategoryName: 'books',
     description: 'Titeuf guide du zizi sexuel en bon état.',
     createdAt: new Date(twoDaysAgo),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_titeuf_1',
@@ -509,6 +549,7 @@ export const SeedOffers: {
     subCategoryName: 'books',
     description: 'Shakespeare. Hamlet, le roi lear en bon état.',
     createdAt: new Date(oneHourAgo),
+    condition: 'FAIR',
     images: [
       {
         uuid: 'seed_shakespeare_1',
@@ -518,11 +559,12 @@ export const SeedOffers: {
     status: 'PENDING',
   },
   {
-    title: 'Lot d\'encyclopedies',
+    title: "Lot d'encyclopedies",
     price: 100,
     subCategoryName: 'books',
-    description: 'Lot d\'encyclopedies en bon état.',
+    description: "Lot d'encyclopedies en bon état.",
     createdAt: new Date('2024-01-22'),
+    condition: 'FAIR',
     images: [
       {
         uuid: 'seed_encyclopedie_1',
@@ -540,6 +582,7 @@ export const SeedOffers: {
     subCategoryName: 'books',
     description: 'Lot BD Kid Paddle en bon état.',
     createdAt: new Date('2023-11-05'),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_kid_paddle_1',
@@ -553,6 +596,7 @@ export const SeedOffers: {
     subCategoryName: 'clothing',
     description: 'Polo homme taille S en bon état.',
     createdAt: new Date('2023-09-21'),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_polo_1',
@@ -561,11 +605,12 @@ export const SeedOffers: {
     ],
   },
   {
-    title: "Parka bleue comme neuve",
+    title: 'Parka bleue comme neuve',
     price: 30,
     subCategoryName: 'clothing',
     description: 'Parka bleue comme neuve en bon état.',
     createdAt: new Date('2023-11-13'),
+    condition: 'NEW',
     images: [
       {
         uuid: 'seed_parka_1',
@@ -583,11 +628,12 @@ export const SeedOffers: {
     subCategoryName: 'clothing',
     description: 'Robe en 38 en bon état. Achetée 50€.',
     createdAt: new Date(fiveMinutesAgo),
+    condition: 'GOOD',
     images: [
       {
         uuid: 'seed_robe_1',
         extension: 'jpg',
       },
     ],
-  }
+  },
 ];

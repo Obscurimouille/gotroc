@@ -27,7 +27,7 @@ import {
 import { CaretSortIcon, CheckIcon, PlusIcon } from '@radix-ui/react-icons';
 import { cn } from '@lib/utils';
 import React, { useEffect, useState } from 'react';
-import { EnumCondition, MainCategory } from '@gotroc/types';
+import { EnumCondition, MainCategory, SubCategory } from '@gotroc/types';
 import {
   Select,
   SelectContent,
@@ -56,7 +56,11 @@ const CreateOfferForm = () => {
   const navigate = useNavigate();
   const [openCategory, setOpenCategory] = React.useState(false);
   const [images, setImages] = useState<File[]>([]);
-  const [categories, setCategories] = useState<(MainCategory & { subCategories: string[] })[]>([]);
+  const [categories, setCategories] = useState<(MainCategory & { subCategories: SubCategory[] })[]>(
+    [],
+  );
+  const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategory | null>(null);
+  const [showCondition, setShowCondition] = useState<boolean>(false);
 
   const formSchema = z.object({
     title: NewOfferTitleSchema(t),
@@ -149,10 +153,6 @@ const CreateOfferForm = () => {
     );
   };
 
-  const getMainCategory = (subCategoryName: string) => {
-    return categories.find((mainCategory) => mainCategory.subCategories.includes(subCategoryName));
-  };
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const result = await OfferService.create({
       title: values.title,
@@ -167,6 +167,15 @@ const CreateOfferForm = () => {
     }
     toast.success('Annonce créée avec succès');
     navigate('/?offer_created=1');
+  };
+
+  const categoryChanged = (subCategory: SubCategory) => {
+    setSelectedSubCategory(subCategory);
+    const showCondition = !!subCategory.requiresCondition;
+    if (showCondition) form.resetField('condition');
+    else form.setValue('condition', EnumCondition.NEW);
+    setShowCondition(showCondition);
+    setOpenCategory(false);
   };
 
   return (
@@ -211,7 +220,7 @@ const CreateOfferForm = () => {
             control={form.control}
             name="category"
             render={({ field }) => (
-              <FormItem className="grow-1 basis-3/5 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
+              <FormItem className="flex-1 basis-3/5 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
                 <FormLabel>{t('input.offer.category.title')}</FormLabel>
                 <Popover open={openCategory} onOpenChange={setOpenCategory}>
                   <PopoverTrigger asChild>
@@ -227,7 +236,7 @@ const CreateOfferForm = () => {
                       >
                         {field.value
                           ? t(
-                              `category.${getMainCategory(field.value)!.name}.subcategories.${field.value}`,
+                              `category.${selectedSubCategory!.mainCategoryName}.subcategories.${field.value}`,
                             )
                           : t('input.offer.category.placeholder')}
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -245,26 +254,28 @@ const CreateOfferForm = () => {
                         {categories.map((mainCategory, index) => (
                           <div key={index}>
                             <CommandGroup heading={t(`category.${mainCategory.name}.title`)}>
-                              {mainCategory.subCategories!.map((subCategoryName, subIndex) => (
+                              {mainCategory.subCategories!.map((subCategory, subIndex) => (
                                 <CommandItem
-                                  value={subCategoryName}
+                                  value={subCategory.name}
                                   key={subIndex}
                                   onSelect={() => {
-                                    form.setValue('category', subCategoryName);
-                                    setOpenCategory(false);
+                                    categoryChanged(subCategory);
+                                    form.setValue('category', subCategory.name);
                                   }}
                                   className={cn(
-                                    subCategoryName === field.name ? 'font-semibold' : '',
+                                    subCategory.name === field.name ? 'font-semibold' : '',
                                   )}
                                   disabled={false}
                                 >
                                   {t(
-                                    `category.${mainCategory.name}.subcategories.${subCategoryName}`,
+                                    `category.${mainCategory.name}.subcategories.${subCategory.name}`,
                                   )}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',
-                                      subCategoryName === field.value ? 'opacity-100' : 'opacity-0',
+                                      subCategory.name === field.value
+                                        ? 'opacity-100'
+                                        : 'opacity-0',
                                     )}
                                   />
                                 </CommandItem>
@@ -285,30 +296,32 @@ const CreateOfferForm = () => {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="condition"
-            render={({ field }) => (
-              <FormItem className="grow-1 basis-2/5 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
-                <FormLabel>{t('input.offer.condition.title')}</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t(`input.offer.condition.placeholder`)} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {Object.values(EnumCondition).map((condition) => (
-                      <SelectItem key={condition} value={condition}>
-                        {t(`enum.condition.${condition.toLowerCase()}`)}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {!!showCondition && (
+            <FormField
+              control={form.control}
+              name="condition"
+              render={({ field }) => (
+                <FormItem className="grow-1 basis-2/5 bg-background p-6 px-8 rounded-xl pb-8 flex flex-col gap-2">
+                  <FormLabel>{t('input.offer.condition.title')}</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t(`input.offer.condition.placeholder`)} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Object.values(EnumCondition).map((condition) => (
+                        <SelectItem key={condition} value={condition}>
+                          {t(`enum.condition.${condition.toLowerCase()}`)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
         </div>
 
         <FormField

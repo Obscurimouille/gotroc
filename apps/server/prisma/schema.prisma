@@ -9,33 +9,38 @@ generator client {
 }
 
 model MainCategory {
-  name          String    @id
+  name          String        @id
   subCategories SubCategory[]
 }
 
 model SubCategory {
-  name              String       @id
-  mainCategory      MainCategory @relation(fields: [mainCategoryName], references: [name])
-  mainCategoryName  String
-  offers            Offer[]
-  illustrationUUID  String?
-  illustration      File?        @relation(fields: [illustrationUUID], references: [uuid])
+  name                String       @id
+  mainCategory        MainCategory @relation(fields: [mainCategoryName], references: [name])
+  mainCategoryName    String
+  offers              Offer[]
+  illustrationUUID    String?
+  illustration        File?        @relation(fields: [illustrationUUID], references: [uuid])
+  requiresCondition   Boolean
+  requiresMileage     Boolean
 }
 
 model Offer {
-  id              Int         @id @default(autoincrement())
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-  title           String      @db.VarChar(255)
-  subCategory     SubCategory @relation(fields: [subCategoryName], references: [name])
-  subCategoryName String
-  price           Float
-  description     String      @db.Text
-  author          User        @relation(fields: [authorId], references: [id])
-  authorId        Int
-  images          OfferImage[]
-  bookmarks       Bookmark[]
-  status          OfferStatus @default(PENDING)
+  id                  Int          @id @default(autoincrement())
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  title               String       @db.VarChar(255)
+  subCategory         SubCategory  @relation(fields: [subCategoryName], references: [name])
+  subCategoryName     String
+  price               Float
+  description         String       @db.Text
+  author              User         @relation(fields: [authorId], references: [id])
+  authorId            Int
+  images              OfferImage[]
+  bookmarks           Bookmark[]
+  status              OfferStatus  @default(PENDING)
+  // OPTIONAL FIELDS
+  condition           Condition?
+  mileage             Int?
 }
 
 enum OfferStatus {
@@ -44,17 +49,25 @@ enum OfferStatus {
   REJECTED
 }
 
+enum Condition {
+  NEW
+  EXCELLENT
+  GOOD
+  FAIR
+  DAMAGED
+}
+
 model OfferImage {
-  id              Int       @id @default(autoincrement())
-  position        Int
-  imageUUID       String
-  image           File     @relation(fields: [imageUUID], references: [uuid])
-  offerId         Int
-  offer           Offer     @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  id        Int    @id @default(autoincrement())
+  position  Int
+  imageUUID String
+  image     File   @relation(fields: [imageUUID], references: [uuid])
+  offerId   Int
+  offer     Offer  @relation(fields: [offerId], references: [id], onDelete: Cascade)
 }
 
 model File {
-  uuid                    String    @id @default(uuid())
+  uuid                    String        @id @default(uuid())
   extension               String
   offerImages             OfferImage[]
   userAvatar              User[]
@@ -62,43 +75,44 @@ model File {
 }
 
 model User {
-  id              Int         @id @default(autoincrement())
-  username        String      @unique
-  firstname       String?
-  lastname        String?
-  email           String      @unique
-  password        String
-  registerDate    DateTime    @default(now())
-  offers          Offer[]
-  avatarUUID      String?
-  avatar          File?       @relation(fields: [avatarUUID], references: [uuid])
-  bookmarks       Bookmark[]
-  isAdmin         Admin?
-  ratings         Rating[]    @relation("target")
-  rated           Rating[]    @relation("author")
+  id           Int        @id @default(autoincrement())
+  username     String     @unique
+  firstname    String?
+  lastname     String?
+  email        String     @unique
+  password     String
+  registerDate DateTime   @default(now())
+  offers       Offer[]
+  avatarUUID   String?
+  avatar       File?      @relation(fields: [avatarUUID], references: [uuid])
+  bookmarks    Bookmark[]
+  isAdmin      Admin?
+  ratings      Rating[]   @relation("target")
+  rated        Rating[]   @relation("author")
 }
 
 model Admin {
-  id              Int         @id
-  user            User        @relation(fields: [id], references: [id])
+  id   Int  @id
+  user User @relation(fields: [id], references: [id])
 }
 
 model Rating {
-  id             Int          @id @default(autoincrement())
-  targetId       Int
-  target         User         @relation(fields: [targetId], references: [id], name: "target")
-  authorId       Int
-  author         User         @relation(fields: [authorId], references: [id], name: "author")
-  value          Int          @db.TinyInt
-  note           String?
-  datetime       DateTime     @default(now())
+  id       Int      @id @default(autoincrement())
+  targetId Int
+  target   User     @relation(fields: [targetId], references: [id], name: "target")
+  authorId Int
+  author   User     @relation(fields: [authorId], references: [id], name: "author")
+  value    Int      @db.TinyInt
+  note     String?
+  datetime DateTime @default(now())
 }
 
 model Bookmark {
-  offerId         Int
-  offer           Offer       @relation(fields: [offerId], references: [id])
-  userId          Int
-  user            User        @relation(fields: [userId], references: [id])
+  offerId Int
+  offer   Offer @relation(fields: [offerId], references: [id])
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id])
+
   @@id([offerId, userId])
 }
 

@@ -165,6 +165,13 @@
       "condition": {
         "title": "Etat"
       },
+      "mileage": {
+        "title": "Kilométrage",
+        "label-min": "Minimum ({{unit}})",
+        "placeholder-min": "Min",
+        "label-max": "Maximum ({{unit}})",
+        "placeholder-max": "Max"
+      },
       "sort-by": {
         "title": "Trier par"
       }
@@ -242,6 +249,8 @@
       "nb-ratings": "{{count}} avis"
     },
     "offer": {
+      "condition": "État :",
+      "mileage": "Kilométrage :",
       "see-images": "Voir les images",
       "description": "Description",
       "seller": "Vendu par",
@@ -387,22 +396,6 @@
         "wine-and-gastronomy": "Vins et Gastronomie"
       }
     },
-    "professional-equipment": {
-      "title": "Matériel professionnel",
-      "subcategories": {
-        "agricultural-equipment": "Matériel agricole",
-        "construction-and-heavy-work": "BTP - Chantier Gros-oeuvre",
-        "heavy-duty": "Poids lourds",
-        "industrial-equipment": "Équipements Industriels",
-        "materials": "Matériaux",
-        "medical-equipment": "Matériel Médical",
-        "office-supplies": "Fournitures de Bureau",
-        "restaurant-and-hotel": "Restauration - Hôtellerie",
-        "tools": "Outillage",
-        "tractors": "Tracteurs",
-        "transport-and-handling": "Transport - Manutention"
-      }
-    },
     "real-estate": {
       "title": "Immobilier",
       "subcategories": {
@@ -437,8 +430,7 @@
         "caravans": "Caravanes",
         "cars": "Voitures",
         "motorbike-equipment": "Equipement Moto",
-        "motorbikes": "Motos",
-        "utilities": "Utilitaires"
+        "motorbikes": "Motos"
       }
     }
   },

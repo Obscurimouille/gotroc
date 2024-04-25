@@ -1,8 +1,12 @@
-import { APIResponse, MainCategory } from '@gotroc/types';
+import { APIResponse, MainCategory, SubCategory } from '@gotroc/types';
 import { APIService } from './api-service';
 
 export class CategoryService {
-  public static getAll(): Promise<APIResponse<(MainCategory & { subCategories: string[] })[]>> {
+  public static getSub(name: string): Promise<APIResponse<SubCategory>> {
+    return APIService.get('/category/sub?name=' + name);
+  }
+
+  public static getAll(): Promise<APIResponse<(MainCategory & { subCategories: SubCategory[] })[]>> {
     return APIService.get('/category');
   }
 

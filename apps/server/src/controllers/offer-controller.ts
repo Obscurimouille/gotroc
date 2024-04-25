@@ -327,7 +327,7 @@ class OfferController {
   ): Promise<ControllerResponse> {
     try {
       const querySchema = vine.object({
-        subCategory: vine.string().optional(),
+        subCategory: SubCategoryNameSchema.optional(),
         category: vine.string().optional(),
         rawText: vine.string().trim().optional(),
       });
@@ -335,6 +335,8 @@ class OfferController {
       const filtersSchema = vine.object({
         priceMin: vine.number().positive().optional(),
         priceMax: vine.number().positive().optional(),
+        mileageMin: vine.number().positive().optional(),
+        mileageMax: vine.number().positive().optional(),
         condition: vine
           .array(vine.enum(EnumCondition))
           .parse((value) => {

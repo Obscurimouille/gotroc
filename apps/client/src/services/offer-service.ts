@@ -91,6 +91,8 @@ export class OfferService {
     let params = '';
     if (filters.priceMin !== undefined) params += `priceMin=${filters.priceMin}&`;
     if (filters.priceMax !== undefined) params += `priceMax=${filters.priceMax}&`;
+    if (filters.mileageMin !== undefined) params += `mileageMin=${filters.mileageMin}&`;
+    if (filters.mileageMax !== undefined) params += `mileageMax=${filters.mileageMax}&`;
     if (filters.sortBy) params += `sortBy=${filters.sortBy}&`;
     if (filters.condition?.length)
       params += `condition=${filters.condition.join(',').toLowerCase()}&`;
@@ -107,6 +109,8 @@ export class OfferService {
     const priceMin = searchParams.get('priceMin');
     const priceMax = searchParams.get('priceMax');
     const condition = searchParams.get('condition');
+    const mileageMin = searchParams.get('mileageMin');
+    const mileageMax = searchParams.get('mileageMax');
     const sortBy = searchParams.get('sortBy');
 
     const query: OfferSearchQueryParams = {
@@ -117,6 +121,8 @@ export class OfferService {
     const filters: OfferFilters = {
       priceMin: priceMin ? parseInt(priceMin) : undefined,
       priceMax: priceMax ? parseInt(priceMax) : undefined,
+      mileageMin: mileageMin ? parseInt(mileageMin) : undefined,
+      mileageMax: mileageMax ? parseInt(mileageMax) : undefined,
       condition: condition ? (condition.toUpperCase().split(',') as EnumCondition[]) : [],
       sortBy: (sortBy as EnumOfferSortBy | undefined) || EnumOfferSortBy.DATE_DESC,
     };

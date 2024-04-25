@@ -165,6 +165,13 @@
       "condition": {
         "title": "Condition"
       },
+      "mileage": {
+        "title": "Mileage",
+        "label-min": "Minimum ({{unit}})",
+        "placeholder-min": "Min",
+        "label-max": "Maximum ({{unit}})",
+        "placeholder-max": "Max"
+      },
       "sort-by": {
         "title": "Sort by"
       }
@@ -242,6 +249,8 @@
       "nb-ratings": "{{count}} ratings"
     },
     "offer": {
+      "condition": "Condition:",
+      "mileage": "Mileage:",
       "see-images": "See images",
       "description": "Description",
       "seller": "Seller",
@@ -387,22 +396,6 @@
         "wine-and-gastronomy": "Wine & Gastronomy"
       }
     },
-    "professional-equipment": {
-      "title": "Professional Equipment",
-      "subcategories": {
-        "agricultural-equipment": "Agricultural Equipment",
-        "construction-and-heavy-work": "Construction & Heavy work",
-        "heavy-duty": "Heavy-duty",
-        "industrial-equipment": "Industrial Equipment",
-        "materials": "Materials",
-        "medical-equipment": "Medical Equipment",
-        "office-supplies": "Office Supplies",
-        "restaurant-and-hotel": "Restaurant & Hotel",
-        "tools": "Tools",
-        "tractors": "Tractors",
-        "transport-and-handling": "Transport & Handling"
-      }
-    },
     "real-estate": {
       "title": "Real Estate",
       "subcategories": {
@@ -437,8 +430,7 @@
         "caravans": "Caravans",
         "cars": "Cars",
         "motorbike-equipment": "Motorbike Equipment",
-        "motorbikes": "Motorbikes",
-        "utilities": "Utilities"
+        "motorbikes": "Motorbikes"
       }
     }
   },
