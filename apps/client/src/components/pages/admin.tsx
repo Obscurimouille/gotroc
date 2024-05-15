@@ -1,5 +1,6 @@
 import AdminDashboardOffers from '@components/common/admin/pending-offers';
 import AdminSidebar from '@components/common/admin/sidebar';
+import AdminDashboardStats from '@components/common/admin/stats';
 import Header from '@components/common/header';
 import { Page, PageContent } from '@components/common/layout';
 import { useContext, useEffect } from 'react';
@@ -8,6 +9,7 @@ import { UserContext } from 'src/providers/user-context';
 
 export enum EnumAdminDashboardSection {
   PENDING_OFFERS = 'pending-offers',
+  STATISTICS = 'stats',
 }
 
 const AdminPage = () => {
@@ -28,6 +30,9 @@ const AdminPage = () => {
         <AdminSidebar activeSection={section} />
         {section === EnumAdminDashboardSection.PENDING_OFFERS && !!userContext.user && (
           <AdminDashboardOffers user={userContext.user} />
+        )}
+        {section === EnumAdminDashboardSection.STATISTICS && !!userContext.user && (
+          <AdminDashboardStats user={userContext.user} />
         )}
       </PageContent>
     </Page>

@@ -280,6 +280,18 @@
       "pending-offers": {
         "title": "Offers to validate",
         "empty": "No offers to validate for now"
+      },
+      "stats": {
+        "offers": {
+          "title": "Offers",
+          "total": "Total"
+        },
+        "users": {
+          "title": "Users",
+          "total": "Total",
+          "averageRating": "Average rating",
+          "avarageActiveOffers": "Average active offers"
+        }
       }
     },
     "dashboard": {
@@ -338,7 +350,8 @@
       "logout": "Logout"
     },
     "admin-dashboard": {
-      "pending-offers": "Pending offers"
+      "pending-offers": "Pending offers",
+      "stats": "Statistics"
     }
   },
   "category": {

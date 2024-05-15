@@ -280,6 +280,18 @@
       "pending-offers": {
         "title": "Annonces en attente",
         "empty": "Aucune annonce à valider pour le moment"
+      },
+      "stats": {
+        "offers": {
+          "title": "Annonces",
+          "total": "Total"
+        },
+        "users": {
+          "title": "Utilisateurs",
+          "total": "Total",
+          "averageRating": "Note moyenne",
+          "avarageActiveOffers": "Annonces actives moyennes"
+        }
       }
     },
     "dashboard": {
@@ -338,7 +350,8 @@
       "logout": "Se déconnecter"
     },
     "admin-dashboard": {
-      "pending-offers": "Annonces en attente"
+      "pending-offers": "Annonces en attente",
+      "stats": "Statistiques"
     }
   },
   "category": {
