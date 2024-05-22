@@ -19,6 +19,11 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cookieParser());
+// Print route and method
+app.use((req, _, next) => {
+  console.log(`[*] ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 app.use((req, _, next) => {
   req.context = new ReqContext();

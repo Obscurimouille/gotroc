@@ -50,7 +50,7 @@ const CategoryCard = ({ subCategory }: { subCategory: SubCategory }) => {
   const { t } = useTranslation();
 
   return (
-    <Link to={'/search?subcategory=' + subCategory.name} >
+    <Link to={'/search?subCategory=' + subCategory.name} >
       <div className="relative rounded-xl overflow-hidden">
         <img
           src={CategoryService.getIllustrationUrl(subCategory.illustrationUUID!)}

@@ -87,7 +87,7 @@ const SearchResultsPage = () => {
                 <OfferResultCard
                   key={index}
                   offer={offer}
-                  hideSubCategory={searchParams.has('subcategory')}
+                  hideSubCategory={searchParams.has('subCategory')}
                 />
               ))}
             </div>
