@@ -1,0 +1,638 @@
+{
+	"info": {
+		"_postman_id": "bfa254c8-01c6-4e7a-9b35-241e357e4a58",
+		"name": "GoTroc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19294492"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password123\",\r\n    \"email\": \"admin@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identifier\": \"admin\",\r\n    \"password\": \"Password123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"lerouxa\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Secure test",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token_here",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/isEmailAvailable?email=bob99@yahoot.com",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"isEmailAvailable"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "bob99@yahoot.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ratings",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rating",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rating"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unique",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstname",
+									"value": "alice",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "dupont-aignant",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "a.licia@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/obscu/Pictures/1200px-Traefik.logo.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/user/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/avatar/:uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"avatar",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Offers",
+			"item": [
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/image/:uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								"image",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "6b049b83-deeb-4536-9d4d-20d007ce6597"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recommendations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/recommendations?limit=12",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								"recommendations"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bookmared",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/bookmarked",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								"bookmarked"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pending",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/pending",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/search?subCategoryName=cars&rawText=911&sortBy=date-desc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								"search"
+							],
+							"query": [
+								{
+									"key": "subCategoryName",
+									"value": "cars"
+								},
+								{
+									"key": "rawText",
+									"value": "911"
+								},
+								{
+									"key": "mainCategoryName",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "priceMin",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "priceMax",
+									"value": "100000",
+									"disabled": true
+								},
+								{
+									"key": "condition",
+									"value": "new,good",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "date-desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/C:/Users/obscu/Pictures/Calmarcolossal.jpg",
+										"/C:/Users/obscu/Pictures/Android-Logo.png"
+									]
+								},
+								{
+									"key": "title",
+									"value": "Mon offrexx",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Uezedezcz",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "subCategoryName",
+									"value": "computers",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/offer/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Bookmark",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/offer/:id/bookmark",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"offer",
+								":id",
+								"bookmark"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/category",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get sub",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/category/sub?name=cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"sub"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "cars"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/category/image/:uuid",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"category",
+								"image",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "seed_cars"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5600",
+			"type": "string"
+		}
+	]
+}
