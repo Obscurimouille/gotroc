@@ -221,6 +221,11 @@
     }
   },
   "page": {
+    "contact": {
+      "title": "Nous contacter",
+      "phone": "Au téléphone :",
+      "email": "Ou par email :"
+    },
     "not-found": {
       "title": "Désolé, cette page n'existe pas",
       "description": "Vérifiez l'URL ou retournez à la ",

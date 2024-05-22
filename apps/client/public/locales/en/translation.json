@@ -221,6 +221,11 @@
     }
   },
   "page": {
+    "contact": {
+      "title": "Contact us",
+      "phone": "Phone number:",
+      "email": "Email address:"
+    },
     "not-found": {
       "title": "Sorry, this page does not exist",
       "description": "Check the URL or go back to the ",

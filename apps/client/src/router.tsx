@@ -8,6 +8,7 @@ import NotFoundPage from '@components/pages/not-found';
 import DashboardPage from '@components/pages/dashboard';
 import AdminPage from '@components/pages/admin';
 import ProfilePage from '@components/pages/profile';
+import ContactPage from '@components/pages/contact';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: '/admin/:section',
     element: <AdminPage />,
+  },
+  {
+    path: 'contact',
+    element: <ContactPage />,
   },
   {
     path: '*',

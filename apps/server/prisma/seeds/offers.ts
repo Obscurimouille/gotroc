@@ -508,11 +508,7 @@ export const SeedOffers: {
       {
         uuid: 'seed_r1_2',
         extension: 'jpg',
-      },
-      {
-        uuid: 'seed_r1_3',
-        extension: 'jpg',
-      },
+      }
     ],
   },
   {
