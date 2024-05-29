@@ -6,8 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
+    "start:prod": "node dist/index.js",
     "dev": "tsx --watch src/index.ts",
     "build": "tsc",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
     "db:init": "npx prisma migrate dev --name init",
     "db:seed": "tsx ./prisma/seeds/seed.ts",
     "db:seed-f": "pnpm run db:reset &&tsx ./prisma/seeds/seed.ts",

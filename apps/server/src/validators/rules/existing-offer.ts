@@ -10,7 +10,7 @@ type Options = undefined;
 /**
  * Implementation
  */
-async function existingOffer(value: unknown, options: Options, field: FieldContext) {
+async function existingOffer(value: unknown, _: Options, field: FieldContext) {
   /**
    * We do not want to deal with non-number
    * values. The "number" rule will handle the

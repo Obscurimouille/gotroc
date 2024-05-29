@@ -17,4 +17,4 @@ tmp
 
 # Database
 /database
-compose.dev.yml
+docker-compose.dev.yml

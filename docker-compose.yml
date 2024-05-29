@@ -1,0 +1,41 @@
+version: "3.1"
+services:
+  client:
+    image: "harryonbreadboard/gotroc-client:1.0.0"
+    ports:
+      - "3000:3000"
+    networks:
+      - gotroc
+    command: >
+      bash -c "pnpm run dev"
+
+  server:
+    image: "harryonbreadboard/gotroc-server:1.0.0"
+    restart: always
+    depends_on:
+      - database
+    networks:
+      - gotroc
+    ports:
+      - "5600:5600"
+    command: >
+      bash -c "pnpm run db:deploy
+      && pnpm run db:seed
+      && pnpm run start:prod"
+
+  database:
+    image: "mariadb"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Password123!"
+      MYSQL_DATABASE: "gotroc"
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - gotroc
+
+volumes:
+  db:
+
+networks:
+  gotroc:
