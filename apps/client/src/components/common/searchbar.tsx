@@ -11,7 +11,7 @@ const SearchBar = ({ className, ...props }: { className?: string }) => {
 
   const rawSearch = (text: string = searchText) => {
     if (!text ||!text.trim()) return;
-    navigate('/search?text=' + text);
+    navigate('/search?rawText=' + text);
   };
 
   return (
