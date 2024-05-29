@@ -10,7 +10,7 @@ type Options = undefined;
 /**
  * Implementation
  */
-async function existingOfferImage(value: unknown, options: Options, field: FieldContext) {
+async function existingOfferImage(value: unknown, _: Options, field: FieldContext) {
   /**
    * We do not want to deal with non-string
    * values. The "string" rule will handle the

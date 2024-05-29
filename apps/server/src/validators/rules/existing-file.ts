@@ -10,7 +10,7 @@ type Options = undefined;
 /**
  * Implementation
  */
-async function existingFile(value: unknown, options: Options, field: FieldContext) {
+async function existingFile(value: unknown, _: Options, field: FieldContext) {
   /**
    * We do not want to deal with non-string
    * values. The "string" rule will handle the

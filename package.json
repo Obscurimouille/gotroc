@@ -5,7 +5,19 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm run -r --parallel dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pnpm run -r --parallel build",
+    "format": "pnpm run -r format",
+    "lint": "pnpm run -r lint",
+    "test": "pnpm run -r test",
+    "validate": "pnpm run format && pnpm run lint && pnpm run test",
+    "db:up": "docker-compose -f docker-compose.dev.yml up -d",
+    "db:down": "docker-compose -f docker-compose.dev.yml down",
+    "deploy:build": "pnpm run validate && pnpm run image:build:all",
+    "deploy:up": "docker-compose -f docker-compose.yml up",
+    "deploy:down": "docker-compose -f docker-compose.yml down",
+    "image:build:all": "pnpm run image:build:client && pnpm run image:build:server",
+    "image:build:client": "docker build . --target client --tag harryonbreadboard/gotroc-client:latest",
+    "image:build:server": "docker build . --target server --tag harryonbreadboard/gotroc-server:latest"
   },
   "keywords": [],
   "author": "",
