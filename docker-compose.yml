@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   client:
-    image: "harryonbreadboard/gotroc-client:1.0.0"
+    image: "harryonbreadboard/gotroc-client:1.0.1"
     ports:
       - "3000:3000"
     networks:
@@ -10,7 +10,7 @@ services:
       bash -c "pnpm run dev"
 
   server:
-    image: "harryonbreadboard/gotroc-server:1.0.0"
+    image: "harryonbreadboard/gotroc-server:1.0.1"
     restart: always
     depends_on:
       - database
