@@ -34,8 +34,8 @@ const DashboardProfile = ({ user }: { user: User }) => {
 
   const FormSchema = z.object({
     username: NewUsernameSchema(t),
-    firstname: NewFirstnameSchema(t),
-    lastname: NewLastnameSchema(t),
+    firstname: NewFirstnameSchema(t).optional(),
+    lastname: NewLastnameSchema(t).optional(),
     email: NewEmailSchema(t),
     avatar: z.any(),
   });
@@ -75,6 +75,21 @@ const DashboardProfile = ({ user }: { user: User }) => {
     const result = await UserService.updateProfile(rest);
     setSubmitting(false);
     if (!result.success) {
+      if (
+        result.errors &&
+        Array.isArray(result.errors) &&
+        result.errors[0].rule === 'uniqueEmail'
+      ) {
+        toast.error('Cet email est déjà utilisé.');
+        form.reset({
+          username: user.username,
+          firstname: user.firstname || '',
+          lastname: user.lastname || '',
+          email: user.email,
+          avatar: null,
+        });
+        return;
+      }
       toast.error('Erreur lors de la mise à jour du profil. Veuillez réessayer plus tard.');
       form.reset({
         username: user.username,
